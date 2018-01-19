@@ -1,5 +1,17 @@
 import { Component } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+
+
+import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/add/operator/map'
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+
+
 
 @Component({
   selector: 'app-root',
@@ -28,6 +40,28 @@ export class AppComponent {
       label: "After School Tutoring"
     }
   ]
+
+  user: Observable<firebase.User>;
+  items: AngularFireList<any[]>;
+  msgVal: string = '';
+  constructor(public afAuth: AngularFireAuth, public afDb: AngularFireDatabase) {
+  this.user = afAuth.authState;
+  this.items = afDb.list('items');
+}
+
+login() {
+  this.afAuth.auth.signInAnonymously();
+}
+logout() {
+  this.afAuth.auth.signOut();
+}
+
+Send(desc: any[]) {
+  this.items.push({message});
+  this.msgVal = '';
+
+}
+
 }
 
 interface marker {
@@ -35,3 +69,4 @@ interface marker {
   lng: number;
   label?: string; // '?' makes this parameter optional
 }
+
