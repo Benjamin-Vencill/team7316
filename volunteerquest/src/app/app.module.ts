@@ -4,13 +4,10 @@ import { AgmCoreModule } from '@agm/core';
 
 
 import { AppComponent } from './app.component';
-
 import { HttpModule }    from '@angular/http';
-
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { CoursesListComponent } from './courses-list/courses-list.component';
+import { AngularFirestoreModule } from 'angularfire2/firestore'
+
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyCLKfShq3yED7Z6xW2AEp_5aFhhlQy6jLI",
@@ -23,15 +20,13 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CoursesListComponent
+    AppComponent
   ],
   imports: [
     HttpModule,
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
+    AngularFirestoreModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBUNUN-r7YDLYvW_tk2ISGfSTZGA0B2XXc'
     })
