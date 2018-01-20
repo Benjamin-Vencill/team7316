@@ -7,16 +7,9 @@ import { AppComponent } from './app.component';
 import { HttpModule }    from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { FirebaseConfig } from '../environments/firebase.config';
 
-// Must export the config
-export const firebaseConfig = {
-  apiKey: "AIzaSyCLKfShq3yED7Z6xW2AEp_5aFhhlQy6jLI",
-  authDomain: "team7316-95c69.firebaseapp.com",
-  databaseURL: "https://team7316-95c69.firebaseio.com",
-  projectId: "team7316-95c69",
-  storageBucket: "team7316-95c69.appspot.com",
-  messagingSenderId: "449624858267"
-};
+
 
 @NgModule({
   declarations: [
@@ -25,7 +18,7 @@ export const firebaseConfig = {
   imports: [
     HttpModule,
     BrowserModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(FirebaseConfig.team7316_firebase),
     AngularFirestoreModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBUNUN-r7YDLYvW_tk2ISGfSTZGA0B2XXc'
