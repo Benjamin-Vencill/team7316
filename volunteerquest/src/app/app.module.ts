@@ -7,8 +7,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { NgModule } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../routing/app-routing.module';
+import { AuthModule } from '../auth/auth.module';
 
 //Configs
 import { FirebaseConfig } from '../environments/firebase.config';
@@ -21,6 +22,9 @@ import { AuthService } from '../auth/auth.service';
 import { AuthComponent } from '../auth/auth.component';
 import { AppComponent } from './app.component';
 import { MapComponent } from '../map/map.component';
+import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
+
+
 
 
 @NgModule({
@@ -33,12 +37,15 @@ import { MapComponent } from '../map/map.component';
     }),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule,
+    AuthModule
   ],
   declarations: [
     AppComponent,
     AuthComponent,
-    MapComponent
+    MapComponent, 
+    CannotFindPageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

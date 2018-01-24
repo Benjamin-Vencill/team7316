@@ -7,33 +7,33 @@ import { RouterModule, Routes } from '@angular/router';
 //Import Components
 import { AppComponent } from '../app/app.component';
 import { AuthComponent } from '../auth/auth.component';
-const appRoutes: Routes = [
-  { path: 'auth-component', component: AuthComponent },
-  { path: 'map', component: AppComponent },
-];
+import { MapComponent } from '../map/map.component';
+import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
+import { EditPostComponent } from '../edit-post/edit-post.component';
 
-@Component({ 
-    selector: 'router-outlet' 
-})
+//Import Guards
+import { AdminGuard } from '../auth/admin.guard';
+import { CanReadGuard } from '../auth/can-read.guard';
+
+const appRoutes: Routes = [
+  { path: 'mapview', component: MapComponent, canActivate: [CanReadGuard]},
+  { path: 'authview', component: AuthComponent},
+  { path: '', redirectTo: '/authview', pathMatch: 'full'},
+  { path: '**', component: CannotFindPageComponent}
+] 
+
 
 @NgModule({
     imports: [
-        BrowserModule,
-        FormsModule,
         RouterModule.forRoot(
-        appRoutes,
-        {
-          enableTracing: true, // <-- debugging purposes only
-  
-        }
-      )
+          appRoutes, 
+          { enableTracing: true})
     ],
-    declarations: [
-        AuthComponent
-    ],
+    declarations: [],
     exports: [
       RouterModule
     ],
     providers: []
   })
+
   export class AppRoutingModule { }

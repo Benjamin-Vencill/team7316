@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { AngularFireModule} from 'angularfire2/';
 
 @Component({ 
-    selector: 'auth-component',
+    selector: 'auth-view',
     providers: [AngularFireModule, AuthService],
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.css'] 
@@ -14,7 +14,7 @@ export class AuthComponent {
   email: string;
   password: string;
 
-  constructor(public authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   signup() {
     this.authService.signup(this.email, this.password);
