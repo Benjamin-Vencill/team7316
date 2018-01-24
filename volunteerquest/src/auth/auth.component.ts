@@ -4,7 +4,7 @@ import { AngularFireModule} from 'angularfire2/';
 
 @Component({ 
     selector: 'auth-component',
-    providers: [AngularFireModule]
+    providers: [AngularFireModule, AuthService],
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.css'] 
 })

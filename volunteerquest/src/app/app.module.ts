@@ -1,35 +1,46 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+//Modules
 import { AgmCoreModule } from '@agm/core';
-import { FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
-import { HttpModule }    from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
-import { FirebaseConfig } from '../environments/firebase.config';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
+import { NgModule } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AppRoutingModule } from '../routing/app-routing.module';
+
+//Configs
+import { FirebaseConfig } from '../environments/firebase.config';
+import { GoogleMapsConfig } from '../environments/googlemaps.config';
+
+//Services
 import { AuthService } from '../auth/auth.service';
 
+//Components
 import { AuthComponent } from '../auth/auth.component';
+import { AppComponent } from './app.component';
+import { MapComponent } from '../map/map.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthComponent
-  ],
   imports: [
-    HttpModule,
-    BrowserModule,
-    FormsModule,
     AngularFireModule.initializeApp(FirebaseConfig.team7316_firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBUNUN-r7YDLYvW_tk2ISGfSTZGA0B2XXc'
-    })
+      apiKey: GoogleMapsConfig.googleMapsAPI.apiKey.valueOf()
+    }),
+    BrowserModule,
+    FormsModule,
+    HttpModule
   ],
-  providers: [AuthService],
+  declarations: [
+    AppComponent,
+    AuthComponent,
+    MapComponent
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
