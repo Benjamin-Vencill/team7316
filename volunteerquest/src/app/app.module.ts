@@ -21,11 +21,13 @@ import { AuthService } from '../auth/auth.service';
 import { AuthComponent } from '../auth/auth.component';
 import { AppComponent } from './app.component';
 import { MapComponent } from '../map/map.component';
+import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 
 
 const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent},
-  { path: 'authview', component: AuthComponent}
+  { path: 'authview', component: AuthComponent},
+  { path: '**', component: CannotFindPageComponent}
 ] 
 
 @NgModule({
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     AuthComponent,
-    MapComponent
+    MapComponent, 
+    CannotFindPageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
