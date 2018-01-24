@@ -27,6 +27,7 @@ import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.co
 const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent},
   { path: 'authview', component: AuthComponent},
+  { path: '', redirectTo: '/authview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
 ] 
 
