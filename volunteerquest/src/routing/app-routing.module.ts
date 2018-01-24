@@ -7,33 +7,28 @@ import { RouterModule, Routes } from '@angular/router';
 //Import Components
 import { AppComponent } from '../app/app.component';
 import { AuthComponent } from '../auth/auth.component';
-const appRoutes: Routes = [
-  { path: 'auth-view', component: AuthComponent },
-  { path: 'map-view', component: AppComponent },
-];
+import { MapComponent } from '../map/map.component';
+import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 
-@Component({ 
-    selector: 'router-outlet' 
-})
+const appRoutes: Routes = [
+  { path: 'mapview', component: MapComponent},
+  { path: 'authview', component: AuthComponent},
+  { path: '', redirectTo: '/authview', pathMatch: 'full'},
+  { path: '**', component: CannotFindPageComponent}
+] 
+
 
 @NgModule({
     imports: [
-        BrowserModule,
-        FormsModule,
         RouterModule.forRoot(
-        appRoutes,
-        {
-          enableTracing: true, // <-- debugging purposes only
-  
-        }
-      )
+          appRoutes, 
+          { enableTracing: true})
     ],
-    declarations: [
-        AuthComponent
-    ],
+    declarations: [],
     exports: [
       RouterModule
     ],
     providers: []
   })
+
   export class AppRoutingModule { }

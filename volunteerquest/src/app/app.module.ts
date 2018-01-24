@@ -24,12 +24,7 @@ import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 
 
-const appRoutes: Routes = [
-  { path: 'mapview', component: MapComponent},
-  { path: 'authview', component: AuthComponent},
-  { path: '', redirectTo: '/authview', pathMatch: 'full'},
-  { path: '**', component: CannotFindPageComponent}
-] 
+
 
 @NgModule({
   imports: [
@@ -42,9 +37,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(
-      appRoutes, 
-      { enableTracing: true})
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
