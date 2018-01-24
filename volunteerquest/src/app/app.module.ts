@@ -9,6 +9,7 @@ import { HttpModule }    from '@angular/http';
 import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../routing/app-routing.module';
+import { AuthModule } from '../auth/auth.module';
 
 //Configs
 import { FirebaseConfig } from '../environments/firebase.config';
@@ -37,7 +38,8 @@ import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.co
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   declarations: [
     AppComponent,
