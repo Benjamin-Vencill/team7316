@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { NgModule } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../routing/app-routing.module';
 
 //Configs
@@ -23,6 +23,11 @@ import { AppComponent } from './app.component';
 import { MapComponent } from '../map/map.component';
 
 
+const appRoutes: Routes = [
+  { path: 'mapview', component: MapComponent},
+  { path: 'authview', component: AuthComponent}
+] 
+
 @NgModule({
   imports: [
     AngularFireModule.initializeApp(FirebaseConfig.team7316_firebase),
@@ -33,7 +38,10 @@ import { MapComponent } from '../map/map.component';
     }),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(
+      appRoutes, 
+      { enableTracing: true})
   ],
   declarations: [
     AppComponent,

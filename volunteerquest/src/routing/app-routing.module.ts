@@ -8,8 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from '../app/app.component';
 import { AuthComponent } from '../auth/auth.component';
 const appRoutes: Routes = [
-  { path: 'auth-component', component: AuthComponent },
-  { path: 'map', component: AppComponent },
+  { path: 'auth-view', component: AuthComponent },
+  { path: 'map-view', component: AppComponent },
 ];
 
 @Component({ 
