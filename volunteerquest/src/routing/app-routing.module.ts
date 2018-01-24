@@ -9,9 +9,14 @@ import { AppComponent } from '../app/app.component';
 import { AuthComponent } from '../auth/auth.component';
 import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
+import { EditPostComponent } from '../edit-post/edit-post.component';
+
+//Import Guards
+import { AdminGuard } from '../auth/admin.guard';
+import { CanReadGuard } from '../auth/can-read.guard';
 
 const appRoutes: Routes = [
-  { path: 'mapview', component: MapComponent},
+  { path: 'mapview', component: MapComponent, canActivate: [CanReadGuard]},
   { path: 'authview', component: AuthComponent},
   { path: '', redirectTo: '/authview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
