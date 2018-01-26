@@ -23,6 +23,7 @@ import { AuthComponent } from '../auth/auth.component';
 import { AppComponent } from './app.component';
 import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
+import { EditPostComponent } from '../edit-post/edit-post.component';
 
 
 
@@ -45,7 +46,8 @@ import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.co
     AppComponent,
     AuthComponent,
     MapComponent, 
-    CannotFindPageComponent
+    CannotFindPageComponent,
+    EditPostComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
