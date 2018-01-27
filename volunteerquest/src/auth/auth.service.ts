@@ -8,7 +8,11 @@ import { switchMap } from 'rxjs/operators';
 import { User } from './user';
 import { merge } from 'rxjs/observable/merge';
 
-
+/**
+ * This auth service facilitates the sign-in process, watches the user 
+ * session, and enables saving custom user data to the Firestore DB (see
+ * the user.ts, an interface for a User object)
+ */
 @Injectable()
 export class AuthService {
 
@@ -102,6 +106,11 @@ export class AuthService {
     return this.checkAuthorization(user, allowed)
   }
   canDelete(user: User): boolean {
+    const allowed = ['admin']
+    return this.checkAuthorization(user, allowed)
+  }
+
+  canCreateEvent(user: User): boolean {
     const allowed = ['admin']
     return this.checkAuthorization(user, allowed)
   }
