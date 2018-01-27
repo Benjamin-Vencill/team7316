@@ -1,3 +1,41 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<mat-toolbar>
+  <div id="menuContainer">
+    <button id="menuButton" mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div id="titleContainer">
+    <span id="title_text">Volunteer Quest</span>
+  </div>
+  <div id="filterContainer">
+    <a routerLink="/filter">
+      <button id="filterButton" mat-icon-button>
+        <mat-icon>tune</mat-icon>
+      </button>
+    </a>
+  </div>
+</mat-toolbar>
+
+<mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
+  <button mat-menu-item>
+    <mat-icon>event</mat-icon>Post an event
+  </button>
+  <button mat-menu-item>
+    <mat-icon>star</mat-icon>Favorites
+  </button>
+  <button mat-menu-item>
+      <mat-icon>settings</mat-icon>Account
+    </button>
+  <!-- <button (click)="signin()" *ngIf="!(authService.user | async)" mat-menu-item> -->
+  <button (click)="signin()" *ngIf="!authService" mat-menu-item>
+    <mat-icon>person</mat-icon>Sign In or Register
+  </button>
+  <button (click)="signout()" *ngIf="authService && (authService.user | async)" mat-menu-item>
+    <mat-icon>person</mat-icon>Sign Out
+  </button>
+</mat-menu>
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">

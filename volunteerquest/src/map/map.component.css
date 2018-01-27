@@ -1,3 +1,33 @@
+.mat-toolbar {
+    /* background-color: rgba(242, 237, 92, 1); */
+}
+
+a {
+    color: black;
+}
+
+#titleContainer {
+    text-align: center;
+    width: 100%;
+}
+
+#title_text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+}
+
+#menuContainer {
+    width: 10%;
+}
+
+#filterContainer {
+    width: 10%
+}
+
+#menuButton, #filterButton {
+    /* background-color: rgba(242, 237, 92, 1); */
+}
+
 agm-map {
     height: 18.75em;
 }
