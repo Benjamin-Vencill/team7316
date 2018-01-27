@@ -18,10 +18,11 @@ export class AuthService {
               private afs: AngularFirestore,
               private router: Router) { 
 
+      // Get auth data, then get Firestore DB user document || null
       this.user = this.firebaseAuth.authState
         .switchMap(user => {
           if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+            return this.afs.doc<User>(`users/${user.uid}`).valueChanges(); // Call valueChanges to get data as Observable
           } else {
             return Observable.of(null);
           }
@@ -44,8 +45,9 @@ export class AuthService {
     this.firebaseAuth
       .auth
       .signInWithEmailAndPassword(email, password)
-      .then(value => {
-        this.updateUserData(value);
+      .then(userAuthInfo => {
+        // console.log("in login, value:", JSON.stringify(userAuthInfo));
+        this.updateUserData(userAuthInfo);
         console.log('Nice, it worked!');
       })
       .catch(err => {
@@ -59,12 +61,16 @@ export class AuthService {
       .signOut();
   }
 
-  private updateUserData(user) {
+  /**
+   * Creates a reference to the actual user document in Firestore DB.
+   * @param userAuthInfo Authentication information associated with signed-in user
+   */
+  private updateUserData(userAuthInfo) {
     //Set user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userAuthInfo.uid}`);
     const data: User = {
-      uid: user.uid,
-      email: user.email,
+      uid: userAuthInfo.uid,
+      email: userAuthInfo.email,
       roles: {
         //Default accounts are subscriber only. 
         subscriber: true,
@@ -77,11 +83,20 @@ export class AuthService {
   }
 
   //Consider moving this logic to a separate class if it becomes overly complex
-  //Role-based Authorization
+  // Role-based Authorization, only on client side. There are separate rules stated
+  // in the firestore DB that are more secure
+  /**
+   * Determine if user has access to reading some document
+   * @param user 
+   */
   canRead(user: User): boolean {
     const allowed = ['admin', 'editor', 'subscriber']
     return this.checkAuthorization(user, allowed)
   }
+  /**
+   * Determine if user has acces to edit some document.
+   * @param user 
+   */
   canEdit(user: User): boolean {
     const allowed = ['admin', 'editor']
     return this.checkAuthorization(user, allowed)
@@ -91,11 +106,15 @@ export class AuthService {
     return this.checkAuthorization(user, allowed)
   }
 
-  // determines if user has matching role
+  /**
+   * Helper method to determine if a given user has the necessary role 
+   * for a given ability/functionality within the app
+   */
   private checkAuthorization(user: User, allowedRoles: string[]): boolean {
     if (!user) {
       return false;
-    } 
+    }
+    // Check roles of provided user, if user has role, enable functionality
     for (const role of allowedRoles) {
       if ( user.roles[role] ) {
         return true;

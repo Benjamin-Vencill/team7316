@@ -25,7 +25,8 @@ export class EditPostComponent implements OnInit {
   ngOnInit() {
     this.postRef = this.afs.doc('posts/myTestPost');
     this.post = this.postRef.valueChanges();
-
+    // Get a reference to the user in Firestore to see if later on they have 
+    // ability to execute one of the methods in this class
     this.auth.user.subscribe(user => this.user = user);
   }
 
@@ -40,7 +41,9 @@ export class EditPostComponent implements OnInit {
   }
 
   editPost() {
-    if (this.auth.canEdit(this.user)) {
+    // Can also simply hide the corresponding UI element from the DOM in the 
+    // HTML template using *ngIf='auth.canEdit(user)' as one of the element's attributes
+    if (this.auth.canEdit(this.user)) { // Used to lock down a method based on a certain ability
       this.postRef.update({
         title: 'Edited Title!'
       })
