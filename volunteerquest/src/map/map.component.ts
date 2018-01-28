@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
+import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
@@ -9,6 +10,7 @@ import * as firebase from 'firebase/app';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Marker {
   lat: number;
@@ -31,7 +33,14 @@ export class MapComponent {
   markerCollection: AngularFirestoreCollection<Marker>;
   markers: Observable<Marker[]>;
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private authService: AuthService,
+              public snackBar: MatSnackBar) {
+    if (this.authService.user) {
+      console.log("auth user:", this.authService);
+    } else {
+      console.log("auth:", this.authService);
+    }
+   }
 
   ngOnInit() {
     this.markerCollection = this.afs.collection('markers') //reference
@@ -41,6 +50,13 @@ export class MapComponent {
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
+  }
+
+  signOut() {
+    this.authService.logout();
+    this.snackBar.open("Signed Out", "Okay", {
+      duration: 2500
+    });
   }
 
   test_markers: Marker[] = [
@@ -55,6 +71,4 @@ export class MapComponent {
       label: "After School Tutoring"
     }
   ]
-
-
 }

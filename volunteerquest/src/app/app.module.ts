@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../routing/app-routing.module';
@@ -59,6 +60,7 @@ import { EditPostComponent } from '../edit-post/edit-post.component';
     MatInputModule,
     MatMenuModule,
     MatSliderModule,
+    MatSnackBarModule,
     MatToolbarModule,
     MatIconModule,
     HttpModule,

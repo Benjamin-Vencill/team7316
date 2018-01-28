@@ -29,10 +29,10 @@
       <mat-icon>settings</mat-icon>Account
     </button>
   <!-- <button (click)="signin()" *ngIf="!(authService.user | async)" mat-menu-item> -->
-  <button (click)="signin()" *ngIf="!authService" mat-menu-item>
+  <button *ngIf="!(authService.user | async)" routerLink="/authview" routerLinkActive="active" mat-menu-item>
     <mat-icon>person</mat-icon>Sign In or Register
   </button>
-  <button (click)="signout()" *ngIf="authService && (authService.user | async)" mat-menu-item>
+  <button (click)="signOut()" *ngIf="authService && (authService.user | async)" mat-menu-item>
     <mat-icon>person</mat-icon>Sign Out
   </button>
 </mat-menu>
