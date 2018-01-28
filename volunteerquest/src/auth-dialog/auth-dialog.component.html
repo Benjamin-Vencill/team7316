@@ -1,0 +1,27 @@
+<mat-tab-group>
+  <mat-tab label="Sign In">
+    <mat-form-field >
+      <input matInput [(ngModel)]="email" placeholder="Email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="password" placeholder="Password">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="signin()" [disabled]="!email || !password">
+        Sign In
+    </button>
+  </mat-tab>
+  <mat-tab label="Sign Up">
+    <mat-form-field >
+      <input matInput [(ngModel)]="email" placeholder="Email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="password" placeholder="Password">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="phoneNumber" placeholder="Phone Number">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="signup()" [disabled]="!email || (password.length < 6)">
+        Sign Up
+    </button>
+  </mat-tab>
+</mat-tab-group>

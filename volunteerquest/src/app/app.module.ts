@@ -11,10 +11,12 @@ import { MatButtonModule, MatMenuModule, MatToolbarModule } from '@angular/mater
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
@@ -36,9 +38,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
-
-
-
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 
 @NgModule({
   imports: [
@@ -54,6 +54,7 @@ import { EditPostComponent } from '../edit-post/edit-post.component';
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatNativeDateModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -61,6 +62,7 @@ import { EditPostComponent } from '../edit-post/edit-post.component';
     MatMenuModule,
     MatSliderModule,
     MatSnackBarModule,
+    MatTabsModule,
     MatToolbarModule,
     MatIconModule,
     HttpModule,
@@ -72,8 +74,10 @@ import { EditPostComponent } from '../edit-post/edit-post.component';
     AuthComponent,
     MapComponent, 
     CannotFindPageComponent,
-    EditPostComponent
+    EditPostComponent,
+    AuthDialogComponent
   ],
+  entryComponents: [AuthDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

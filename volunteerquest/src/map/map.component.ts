@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 import { AuthService } from '../auth/auth.service';
+import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
@@ -34,7 +36,7 @@ export class MapComponent {
   markers: Observable<Marker[]>;
 
   constructor(private afs: AngularFirestore, private authService: AuthService,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar, public dialog: MatDialog) {
     if (this.authService.user) {
       console.log("auth user:", this.authService);
     } else {
@@ -50,6 +52,16 @@ export class MapComponent {
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
+  }
+
+  openSignInDialog(): void {
+    let dialogRef = this.dialog.open(AuthDialogComponent, {
+      width: '30em'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed, result is:', JSON.stringify(result));
+    });
   }
 
   signOut() {
