@@ -15,8 +15,6 @@ import { merge } from 'rxjs/observable/merge';
  */
 @Injectable()
 export class AuthService {
-  signedIn: boolean;
-
   user: Observable<User>;
 
   constructor(private firebaseAuth: AngularFireAuth,
@@ -54,11 +52,9 @@ export class AuthService {
         // console.log("in login, value:", JSON.stringify(userAuthInfo));
         this.updateUserData(userAuthInfo);
         console.log('Nice, it worked!');
-        this.signedIn = true;
       })
       .catch(err => {
         console.log('Something went wrong:',err.message);
-        this.signedIn = false;
       });
   }
 

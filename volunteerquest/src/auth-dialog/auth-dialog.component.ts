@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AuthService } from '../auth/auth.service';
 import { MatDialogRef } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { switchMap } from 'rxjs/operators';
+import { User } from '../auth/user';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -11,32 +16,76 @@ export class AuthDialogComponent {
   email: string;
   password: string;
   phoneNumber: string;
+  user: Observable<User>;
 
   constructor(public dialogRef: MatDialogRef<AuthDialogComponent>,
-              private authService: AuthService) {}
+              private firebaseAuth: AngularFireAuth,
+              private afs: AngularFirestore) {
+    // Get auth data, then get Firestore DB user document || null
+    this.user = this.firebaseAuth.authState
+      .switchMap(user => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges(); // Call valueChanges to get data as Observable
+        } else {
+          return Observable.of(null);
+        }
+      })  
+  }
 
   signup() {
-    this.authService.signup(this.email, this.password);
-    this.email = this.password = '';
+    this.firebaseAuth
+      .auth
+      .createUserWithEmailAndPassword(this.email, this.password)
+      .then(value => {
+        this.email = this.password = '';
+        console.log('Success!', value);
+      })
+      .catch(err => {
+        console.log('Something went wrong:',err.message);
+      });   
   }
 
   signin() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = '';
-    // It seems this class variable is not being updated before
-    // this code hits. Seems the best way to handle this would 
-    // be to pass a promise or callback once this.authService.login() finishes
-    if(this.authService.signedIn) {
-      console.log("signed in");
-      this.dialogRef.close();
-    } else {
-      console.log("not signed in");
+    this.firebaseAuth
+      .auth
+      .signInWithEmailAndPassword(this.email, this.password)
+      .then(userAuthInfo => {
+        // console.log("in login, value:", JSON.stringify(userAuthInfo));
+        this.updateUserData(userAuthInfo);
+        console.log('Nice, it worked!');
+        this.email = this.password = '';
+        this.dialogRef.close();
+      })
+      .catch(err => {
+        console.log('Something went wrong:',err.message);
+      });
+  }
+
+  /**
+   * Creates a reference to the actual user document in Firestore DB.
+   * @param userAuthInfo Authentication information associated with signed-in user
+   */
+  private updateUserData(userAuthInfo) {
+    //Set user data to firestore on login
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userAuthInfo.uid}`);
+    const data: User = {
+      uid: userAuthInfo.uid,
+      email: userAuthInfo.email,
+      roles: {
+        //Default accounts are subscriber only. 
+        subscriber: true,
+        //TODO: enable sign-up with token for editor privalage?
+        editor: false,
+        admin: false
+      }
     }
-    // console.log("authService:", this.authService.user);
+    return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
   }
 
   logout() {
-    this.authService.logout();
+    this.firebaseAuth
+      .auth
+      .signOut();
   }
 
   onNoClick(): void {

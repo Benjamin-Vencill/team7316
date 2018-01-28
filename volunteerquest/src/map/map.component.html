@@ -19,13 +19,13 @@
 </mat-toolbar>
 
 <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
-  <button mat-menu-item>
+  <button *ngIf="(authService.user | async)" mat-menu-item>
     <mat-icon>event</mat-icon>Post an event
   </button>
-  <button mat-menu-item>
+  <button *ngIf="(authService.user | async)" mat-menu-item>
     <mat-icon>star</mat-icon>Favorites
   </button>
-  <button mat-menu-item>
+  <button *ngIf="(authService.user | async)" mat-menu-item>
       <mat-icon>settings</mat-icon>Account
     </button>
   <!-- <button (click)="signin()" *ngIf="!(authService.user | async)" routerLink="/authview" routerLinkActive="active" mat-menu-item> -->
