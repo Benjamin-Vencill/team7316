@@ -25,34 +25,47 @@ export class AuthDialogComponent {
   constructor(public dialogRef: MatDialogRef<AuthDialogComponent>,
               private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore) {
-    // Get auth data, then get Firestore DB user document || null
-    this.user = this.firebaseAuth.authState
-      .switchMap(user => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges(); // Call valueChanges to get data as Observable
-        } else {
-          return Observable.of(null);
-        }
-      })  
+    // // Get auth data, then get Firestore DB user document || null
+    // this.user = this.firebaseAuth.authState
+    //   .switchMap(user => {
+    //     if (user) {
+    //       console.log("Hello user!!!!");
+    //       console.log("user:", console.log(JSON.stringify(user)));
+    //       return this.afs.doc<User>(`users/${user.uid}`).valueChanges(); // Call valueChanges to get data as Observable
+    //     } else {
+    //       console.log("Hello null user!!!!");
+    //       return Observable.of(null);
+    //     }
+    //   })  
   }
 
-  // Invoked if volunteer is signing up
+  /**
+   * Invoked if volunteer is registering
+   */
   volunteerRegistration() {
-    console.log("volunteer registration, firstname value:", JSON.stringify(this.firstName));
-    // this.firebaseAuth
-    //   .auth
-    //   .createUserWithEmailAndPassword(this.email.value, this.password)
-    //   .then(value => {
-    //     this.password = '';
-    //     console.log('Success!', value);
-    //   })
-    //   .catch(err => {
-    //     console.log('Something went wrong:', err.message);
-    //   });   
+    // console.log("volunteer registration, firstName:", this.firstName,
+    // "lastName:", this.lastName, "phoneNumber:", this.phoneNumber,
+    // "email:", this.email.value, "password:", this.password);
+    if (this.phoneNumber == null) {
+      this.phoneNumber = '';
+    }
+    this.firebaseAuth
+      .auth
+      .createUserWithEmailAndPassword(this.email.value, this.password)
+      .then(userAuthInfo => {
+        // console.log("in volunteerRegistration, userAuthInfo:", JSON.stringify(userAuthInfo));
+        // Make call to insert new volunteer document in firestore
+        this.updateUserData(userAuthInfo);
+        console.log('Success!', JSON.stringify(userAuthInfo));
+      })
+      .catch(err => {
+        console.log('Something went wrong:', err.message);
+      });   
   }
 
-  // Invoked if nonprofit is signing up
-  nonProfitRegistration() {
+  /**
+   * Invoked if nonprofit is registering
+   */  nonProfitRegistration() {
     console.log("nonprofit registration, firstname value:", JSON.stringify(this.firstName));
     // this.firebaseAuth
     //   .auth
@@ -71,10 +84,8 @@ export class AuthDialogComponent {
       .auth
       .signInWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
-        // console.log("in login, value:", JSON.stringify(userAuthInfo));
-        this.updateUserData(userAuthInfo);
+        console.log("in sign in, userAuthInfo:", JSON.stringify(userAuthInfo));
         console.log('Nice, it worked!');
-        this.password = '';
         this.dialogRef.close();
       })
       .catch(err => {

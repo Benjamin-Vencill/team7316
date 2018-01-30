@@ -1,5 +1,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<h1 *ngIf="user | async; let user; else loading">Welcome {{ user.roles.admin }}!</h1>
+<ng-template #loading>Loading User Data...</ng-template>
 <mat-toolbar>
   <div id="menuContainer">
     <button id="menuButton" mat-icon-button [matMenuTriggerFor]="appMenu">

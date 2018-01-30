@@ -44,19 +44,19 @@ export class AuthService {
       });    
   }
 
-  login(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(email, password)
-      .then(userAuthInfo => {
-        // console.log("in login, value:", JSON.stringify(userAuthInfo));
-        this.updateUserData(userAuthInfo);
-        console.log('Nice, it worked!');
-      })
-      .catch(err => {
-        console.log('Something went wrong:',err.message);
-      });
-  }
+  // login(email: string, password: string) {
+  //   this.firebaseAuth
+  //     .auth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then(userAuthInfo => {
+  //       // console.log("in login, value:", JSON.stringify(userAuthInfo));
+  //       this.updateUserData(userAuthInfo);
+  //       console.log('Nice, it worked!');
+  //     })
+  //     .catch(err => {
+  //       console.log('Something went wrong:',err.message);
+  //     });
+  // }
 
   logout() {
     this.firebaseAuth
@@ -68,22 +68,22 @@ export class AuthService {
    * Creates a reference to the actual user document in Firestore DB.
    * @param userAuthInfo Authentication information associated with signed-in user
    */
-  private updateUserData(userAuthInfo) {
-    //Set user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userAuthInfo.uid}`);
-    const data: User = {
-      uid: userAuthInfo.uid,
-      email: userAuthInfo.email,
-      roles: {
-        //Default accounts are subscriber only. 
-        subscriber: true,
-        //TODO: enable sign-up with token for editor privalage?
-        editor: false,
-        admin: false
-      }
-    }
-    return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
-  }
+  // private updateUserData(userAuthInfo) {
+  //   //Set user data to firestore on login
+  //   const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userAuthInfo.uid}`);
+  //   const data: User = {
+  //     uid: userAuthInfo.uid,
+  //     email: userAuthInfo.email,
+  //     roles: {
+  //       //Default accounts are subscriber only. 
+  //       subscriber: true,
+  //       //TODO: enable sign-up with token for editor privalage?
+  //       editor: false,
+  //       admin: false
+  //     }
+  //   }
+  //   return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
+  // }
 
   //Consider moving this logic to a separate class if it becomes overly complex
   // Role-based Authorization, only on client side. There are separate rules stated

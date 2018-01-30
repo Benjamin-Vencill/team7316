@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
@@ -7,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
-
+import { User } from '../auth/user';
 
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
@@ -32,16 +33,33 @@ export class MapComponent {
   lng: number = -84.3880;
   zoom: number = 10;
 
+  authState: any = null;
+  private uid: string;
+  private linkRef: AngularFirestoreDocument<User>;
+  private link: Observable<any>;
+  user: Observable<User>;
+  userData: User;
+
   markerCollection: AngularFirestoreCollection<Marker>;
   markers: Observable<Marker[]>;
 
-  constructor(private afs: AngularFirestore, private authService: AuthService,
-              public snackBar: MatSnackBar, public dialog: MatDialog) {
-    if (this.authService.user) {
-      console.log("auth user:", this.authService);
-    } else {
-      console.log("auth:", this.authService);
-    }
+  constructor(private firebaseAuth: AngularFireAuth,
+              private afs: AngularFirestore, 
+              private authService: AuthService,
+              public snackBar: MatSnackBar, 
+              public dialog: MatDialog) {
+    this.firebaseAuth.authState.subscribe((auth) => {
+      this.authState = auth;
+      this.uid = this.authState.uid;
+      // console.log("authState:", this.authState);
+      console.log("uid:", this.uid);
+      this.linkRef = this.afs.doc(`users/${this.uid}`);
+      this.user = this.linkRef.valueChanges();
+      this.user.subscribe(value => {
+        console.log("value:", value);
+        this.userData = value;
+      });
+    });
    }
 
   ngOnInit() {
