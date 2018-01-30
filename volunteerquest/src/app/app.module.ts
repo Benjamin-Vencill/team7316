@@ -22,6 +22,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../routing/app-routing.module';
 import { AuthModule } from '../auth/auth.module';
 
@@ -65,6 +66,7 @@ import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
     MatTabsModule,
     MatToolbarModule,
     MatIconModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     AuthModule

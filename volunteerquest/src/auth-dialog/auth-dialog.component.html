@@ -1,27 +1,79 @@
+<mat-dialog-content>
 <mat-tab-group>
   <mat-tab label="Sign In">
     <mat-form-field >
-      <input matInput [(ngModel)]="email" placeholder="Email">
+      <input matInput placeholder="Email" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput [(ngModel)]="password" placeholder="Password">
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="signin()" [disabled]="!email || !password">
+    <button mat-raised-button color="primary" (click)="signin()" >
         Sign In
     </button>
   </mat-tab>
-  <mat-tab label="Sign Up">
+  <mat-tab label="Volunteer Register">
+    <mat-form-field>
+      <input matInput placeholder="First Name" [(ngModel)]="firstName" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" [(ngModel)]="lastName" required>
+    </mat-form-field>
     <mat-form-field >
-      <input matInput [(ngModel)]="email" placeholder="Email">
+      <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Email" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Must be at least 6 characters">
+      <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="signup()" >
+        Register
+    </button>
+  </mat-tab>
+  <mat-tab label="Nonprofit Register">
+    <mat-form-field>
+      <input matInput placeholder="Nonprofit Name" [(ngModel)]="nonProfitName" required>
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Nonprofit Description" [(ngModel)]="nonProfitDescription">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="password" placeholder="Password">
+      <input matInput placeholder="Address" [(ngModel)]="nonProfitAddress" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="phoneNumber" placeholder="Phone Number">
+      <input matInput placeholder="City" [(ngModel)]="nonProfitCity" required>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="signup()" [disabled]="!email || (password.length < 6)">
-        Sign Up
+    <mat-form-field>
+      <input matInput placeholder="State" [(ngModel)]="nonProfitState" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Zip Code" [(ngModel)]="nonProfitZipCode" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Web URL" [(ngModel)]="nonProfitWebURL">
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Person of Contact First Name" [(ngModel)]="nonProfitContactFirstName" required>
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Person of Contact Last Name" [(ngModel)]="nonProfitContactLastName" required>
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Email" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Must be at least 6 characters">
+      <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="signup()" >
+        Register
     </button>
   </mat-tab>
 </mat-tab-group>
+</mat-dialog-content>

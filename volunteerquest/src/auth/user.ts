@@ -8,6 +8,9 @@ export interface Roles {    // Privileges associated with each role
   
 export interface User {
     uid: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
     email: string;
     roles: Roles;
 }

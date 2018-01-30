@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AuthService } from '../auth/auth.service';
+import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../auth/user';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -13,7 +15,9 @@ import { User } from '../auth/user';
   styleUrls: ['./auth-dialog.component.css']
 })
 export class AuthDialogComponent {
-  email: string;
+  email = new FormControl('', [Validators.required, Validators.email]);
+  firstName: string;
+  lastName: string;
   password: string;
   phoneNumber: string;
   user: Observable<User>;
@@ -35,29 +39,29 @@ export class AuthDialogComponent {
   signup() {
     this.firebaseAuth
       .auth
-      .createUserWithEmailAndPassword(this.email, this.password)
+      .createUserWithEmailAndPassword(this.email.value, this.password)
       .then(value => {
-        this.email = this.password = '';
+        this.password = '';
         console.log('Success!', value);
       })
       .catch(err => {
-        console.log('Something went wrong:',err.message);
+        console.log('Something went wrong:', err.message);
       });   
   }
 
   signin() {
     this.firebaseAuth
       .auth
-      .signInWithEmailAndPassword(this.email, this.password)
+      .signInWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
         // console.log("in login, value:", JSON.stringify(userAuthInfo));
         this.updateUserData(userAuthInfo);
         console.log('Nice, it worked!');
-        this.email = this.password = '';
+        this.password = '';
         this.dialogRef.close();
       })
       .catch(err => {
-        console.log('Something went wrong:',err.message);
+        console.log('Something went wrong:', err.message);
       });
   }
 
@@ -71,6 +75,9 @@ export class AuthDialogComponent {
     const data: User = {
       uid: userAuthInfo.uid,
       email: userAuthInfo.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      phoneNumber: this.phoneNumber,
       roles: {
         //Default accounts are subscriber only. 
         subscriber: true,
@@ -80,6 +87,12 @@ export class AuthDialogComponent {
       }
     }
     return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
+  }
+
+  getErrorMessage() {
+    return this.email.hasError('required') ? '' : 
+      this.email.hasError('email') ? 'Not a valid email' : 
+      '';
   }
 
   logout() {
