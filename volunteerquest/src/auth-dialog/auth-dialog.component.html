@@ -12,66 +12,77 @@
         Sign In
     </button>
   </mat-tab>
-  <mat-tab label="Volunteer Register">
-    <mat-form-field>
+  <mat-tab label="Register">
+    <!-- volunteer register -->
+    <mat-checkbox 
+      [(ngModel)]="checked"
+      [align]=end>
+      Please select if registering as a nonprofit.
+    </mat-checkbox>
+    <section>
+      <h3 class="register-header" *ngIf="!checked">Volunteer Registration</h3>
+    </section>
+    <mat-form-field *ngIf="!checked">
       <input matInput placeholder="First Name" [(ngModel)]="firstName" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="!checked">
       <input matInput placeholder="Last Name" [(ngModel)]="lastName" required>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="!checked">
       <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="!checked">
       <input matInput placeholder="Email" [formControl]="email" required>
       <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
-    <mat-form-field hintLabel="Must be at least 6 characters">
+    <mat-form-field *ngIf="!checked" hintLabel="Must be at least 6 characters">
       <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" required>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="signup()" >
+    <button mat-raised-button *ngIf="!checked" color="primary" (click)="volunteerRegistration()">
         Register
     </button>
-  </mat-tab>
-  <mat-tab label="Nonprofit Register">
-    <mat-form-field>
+    <!-- nonprofit register -->
+    <section>
+      <h3 class="register-header" *ngIf="checked">Nonprofit Registration</h3>
+    </section>
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Nonprofit Name" [(ngModel)]="nonProfitName" required>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="checked" hintLabel="A brief introduction to your organization.">
       <input matInput placeholder="Nonprofit Description" [(ngModel)]="nonProfitDescription">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Address" [(ngModel)]="nonProfitAddress" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="City" [(ngModel)]="nonProfitCity" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="State" [(ngModel)]="nonProfitState" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Zip Code" [(ngModel)]="nonProfitZipCode" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Web URL" [(ngModel)]="nonProfitWebURL">
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Person of Contact First Name" [(ngModel)]="nonProfitContactFirstName" required>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Person of Contact Last Name" [(ngModel)]="nonProfitContactLastName" required>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field *ngIf="checked">
       <input matInput placeholder="Email" [formControl]="email" required>
       <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
-    <mat-form-field hintLabel="Must be at least 6 characters">
+    <mat-form-field *ngIf="checked" hintLabel="Must be at least 6 characters">
       <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" required>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="signup()" >
+    <button mat-raised-button *ngIf="checked" color="primary" (click)="nonProfitRegistration()">
         Register
     </button>
   </mat-tab>

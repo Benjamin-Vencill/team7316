@@ -36,17 +36,34 @@ export class AuthDialogComponent {
       })  
   }
 
-  signup() {
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(this.email.value, this.password)
-      .then(value => {
-        this.password = '';
-        console.log('Success!', value);
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-      });   
+  // Invoked if volunteer is signing up
+  volunteerRegistration() {
+    console.log("volunteer registration, firstname value:", JSON.stringify(this.firstName));
+    // this.firebaseAuth
+    //   .auth
+    //   .createUserWithEmailAndPassword(this.email.value, this.password)
+    //   .then(value => {
+    //     this.password = '';
+    //     console.log('Success!', value);
+    //   })
+    //   .catch(err => {
+    //     console.log('Something went wrong:', err.message);
+    //   });   
+  }
+
+  // Invoked if nonprofit is signing up
+  nonProfitRegistration() {
+    console.log("nonprofit registration, firstname value:", JSON.stringify(this.firstName));
+    // this.firebaseAuth
+    //   .auth
+    //   .createUserWithEmailAndPassword(this.email.value, this.password)
+    //   .then(value => {
+    //     this.password = '';
+    //     console.log('Success!', value);
+    //   })
+    //   .catch(err => {
+    //     console.log('Something went wrong:', err.message);
+    //   });   
   }
 
   signin() {
