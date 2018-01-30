@@ -33,32 +33,27 @@ export class MapComponent {
   lng: number = -84.3880;
   zoom: number = 10;
 
-  authState: any = null;
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
   private link: Observable<any>;
-  user: Observable<User>;
-  userData: User;
+  user$: Observable<User>;
 
   markerCollection: AngularFirestoreCollection<Marker>;
   markers: Observable<Marker[]>;
 
   constructor(private firebaseAuth: AngularFireAuth,
-              private afs: AngularFirestore, 
+              private afs: AngularFirestore,
               private authService: AuthService,
-              public snackBar: MatSnackBar, 
+              public snackBar: MatSnackBar,
               public dialog: MatDialog) {
     this.firebaseAuth.authState.subscribe((auth) => {
-      this.authState = auth;
-      this.uid = this.authState.uid;
-      // console.log("authState:", this.authState);
-      console.log("uid:", this.uid);
-      this.linkRef = this.afs.doc(`users/${this.uid}`);
-      this.user = this.linkRef.valueChanges();
-      this.user.subscribe(value => {
-        console.log("value:", value);
-        this.userData = value;
-      });
+      console.log("auth:", auth);
+      if (auth) {
+        this.uid = auth.uid;
+        console.log("uid:", this.uid);
+        this.linkRef = this.afs.doc(`users/${this.uid}`);
+        this.user$ = this.linkRef.valueChanges();
+      }
     });
    }
 
@@ -83,7 +78,11 @@ export class MapComponent {
   }
 
   signOut() {
-    this.authService.logout();
+    console.log("in signOut method, map component");
+    this.firebaseAuth
+      .auth
+      .signOut();
+    this.user$ = null; // Need to assign null to the user observable
     this.snackBar.open("Signed Out", "Okay", {
       duration: 2500
     });

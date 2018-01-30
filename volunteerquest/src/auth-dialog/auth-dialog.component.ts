@@ -5,6 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../auth/user';
 import { Validators } from '@angular/forms';
@@ -16,6 +17,7 @@ import { Validators } from '@angular/forms';
 })
 export class AuthDialogComponent {
   email = new FormControl('', [Validators.required, Validators.email]);
+  checked: boolean = false;
   firstName: string;
   lastName: string;
   password: string;
@@ -24,19 +26,9 @@ export class AuthDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<AuthDialogComponent>,
               private firebaseAuth: AngularFireAuth,
-              private afs: AngularFirestore) {
-    // // Get auth data, then get Firestore DB user document || null
-    // this.user = this.firebaseAuth.authState
-    //   .switchMap(user => {
-    //     if (user) {
-    //       console.log("Hello user!!!!");
-    //       console.log("user:", console.log(JSON.stringify(user)));
-    //       return this.afs.doc<User>(`users/${user.uid}`).valueChanges(); // Call valueChanges to get data as Observable
-    //     } else {
-    //       console.log("Hello null user!!!!");
-    //       return Observable.of(null);
-    //     }
-    //   })  
+              private afs: AngularFirestore,
+              public snackBar: MatSnackBar) {
+    
   }
 
   /**
@@ -57,9 +49,13 @@ export class AuthDialogComponent {
         // Make call to insert new volunteer document in firestore
         this.updateUserData(userAuthInfo);
         console.log('Success!', JSON.stringify(userAuthInfo));
+        this.dialogRef.close();
       })
       .catch(err => {
         console.log('Something went wrong:', err.message);
+        this.snackBar.open("Unable to register: " + err.message, "Okay", {
+          duration: 2500
+        });
       });   
   }
 
@@ -84,12 +80,17 @@ export class AuthDialogComponent {
       .auth
       .signInWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
-        console.log("in sign in, userAuthInfo:", JSON.stringify(userAuthInfo));
         console.log('Nice, it worked!');
         this.dialogRef.close();
+        this.snackBar.open("Welcome", '', {
+          duration: 2500
+        });
       })
       .catch(err => {
         console.log('Something went wrong:', err.message);
+        this.snackBar.open("Incorrect email or password", "Okay", {
+          duration: 2500
+        });
       });
   }
 
@@ -111,7 +112,9 @@ export class AuthDialogComponent {
         subscriber: true,
         //TODO: enable sign-up with token for editor privalage?
         editor: false,
-        admin: false
+        admin: false,
+        volunteer: !this.checked,
+        nonprofit: this.checked
       }
     }
     return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way

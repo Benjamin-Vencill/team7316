@@ -4,6 +4,8 @@ export interface Roles {    // Privileges associated with each role
     subscriber?: boolean;   // Read 
     editor?: boolean;       // Read and Update
     admin?: boolean;        // Read, Update, Create, and Delete
+    volunteer?: boolean;
+    nonprofit?: boolean;
  }
   
 export interface User {
