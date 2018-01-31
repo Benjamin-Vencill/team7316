@@ -12,7 +12,14 @@ export interface User {
     uid: string;
     firstName: string;
     lastName: string;
-    phoneNumber: string;
     email: string;
     roles: Roles;
+    phoneNumber?: string;
+    nonProfitName?: string;
+    nonProfitDescription?: string;
+    nonProfitAddress?: string;
+    nonProfitCity?: string;
+    nonProfitState?: string;
+    nonProfitZip?: string;
+    nonProfitWebURL?: string;
 }

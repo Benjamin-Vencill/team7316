@@ -35,7 +35,6 @@ export class MapComponent {
 
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
-  private link: Observable<any>;
   user$: Observable<User>;
 
   markerCollection: AngularFirestoreCollection<Marker>;

@@ -41,7 +41,8 @@
     <mat-form-field *ngIf="!checked" hintLabel="Must be at least 6 characters">
       <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" required>
     </mat-form-field>
-    <button mat-raised-button *ngIf="!checked" color="primary" (click)="volunteerRegistration()">
+    <button mat-raised-button *ngIf="!checked" color="primary" (click)="volunteerRegistration()"
+            [disabled]="!firstName || !lastName || !email || !password || password.length < 6">
         Register
     </button>
     <!-- nonprofit register -->
@@ -63,17 +64,17 @@
     <mat-form-field *ngIf="checked">
       <input matInput placeholder="State" [(ngModel)]="nonProfitState" required>
     </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Zip Code" [(ngModel)]="nonProfitZipCode" required>
+    <mat-form-field *ngIf="checked" hintLabel="Must be 5 digits">
+      <input matInput #input length="5" placeholder="Zip Code" [(ngModel)]="nonProfitZipCode" required>
     </mat-form-field>
     <mat-form-field *ngIf="checked">
       <input matInput placeholder="Web URL" [(ngModel)]="nonProfitWebURL">
     </mat-form-field>
     <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Person of Contact First Name" [(ngModel)]="nonProfitContactFirstName" required>
+      <input matInput placeholder="Person of Contact First Name" [(ngModel)]="firstName" required>
     </mat-form-field>
     <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Person of Contact Last Name" [(ngModel)]="nonProfitContactLastName" required>
+      <input matInput placeholder="Person of Contact Last Name" [(ngModel)]="lastName" required>
     </mat-form-field>
     <mat-form-field *ngIf="checked">
       <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
@@ -85,7 +86,10 @@
     <mat-form-field *ngIf="checked" hintLabel="Must be at least 6 characters">
       <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" required>
     </mat-form-field>
-    <button mat-raised-button *ngIf="checked" color="primary" (click)="nonProfitRegistration()">
+    <button mat-raised-button *ngIf="checked" color="primary" (click)="nonProfitRegistration()"
+            [disabled]="!nonProfitName || !nonProfitAddress || !nonProfitCity || !nonProfitState ||
+            !nonProfitZipCode || !firstName || !lastName || !email || !password || password.length < 6 ||
+            nonProfitZipCode.length !== 5">
         Register
     </button>
   </mat-tab>

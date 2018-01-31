@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AuthService } from '../auth/auth.service';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../auth/user';
 import { Validators } from '@angular/forms';
@@ -21,74 +21,96 @@ export class AuthDialogComponent {
   firstName: string;
   lastName: string;
   password: string;
-  phoneNumber: string;
-  user: Observable<User>;
+  phoneNumber: string = "";
+  nonProfitName?: string = "";
+  nonProfitDescription?: string = "";
+  nonProfitAddress?: string = "";
+  nonProfitCity?: string = "";
+  nonProfitState?: string = "";
+  nonProfitZip?: string = "";
+  nonProfitWebURL?: string = "";
+  
+  private linkRef: AngularFirestoreDocument<User>;
 
   constructor(public dialogRef: MatDialogRef<AuthDialogComponent>,
               private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
               public snackBar: MatSnackBar) {
-    
+  }
+
+  /**
+   * Invoked if already registered user signs in
+   */
+  signin() {
+    this.firebaseAuth
+      .auth
+      .signInWithEmailAndPassword(this.email.value, this.password)
+      .then(userAuthInfo => {
+        this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
+        this.linkRef.valueChanges().subscribe(userData => {
+          this.dialogRef.close();
+          if (userData.roles.volunteer) {
+            this.snackBar.open("Welcome, " + userData.firstName, '', {
+              duration: 2500
+            });
+          } else {
+            this.snackBar.open("Welcome", '', {
+              duration: 2500
+            });
+          }
+        });
+      })
+      .catch(err => {
+        this.snackBar.open(err.message, "Okay", {
+          duration: 2500
+        });
+      });
   }
 
   /**
    * Invoked if volunteer is registering
    */
   volunteerRegistration() {
-    // console.log("volunteer registration, firstName:", this.firstName,
-    // "lastName:", this.lastName, "phoneNumber:", this.phoneNumber,
-    // "email:", this.email.value, "password:", this.password);
-    if (this.phoneNumber == null) {
-      this.phoneNumber = '';
-    }
     this.firebaseAuth
       .auth
       .createUserWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
-        // console.log("in volunteerRegistration, userAuthInfo:", JSON.stringify(userAuthInfo));
-        // Make call to insert new volunteer document in firestore
+        // Make call to insert new volunteer in firestore users collection
         this.updateUserData(userAuthInfo);
-        console.log('Success!', JSON.stringify(userAuthInfo));
-        this.dialogRef.close();
+        this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
+        this.linkRef.valueChanges().subscribe(userData => {
+          this.dialogRef.close();
+          this.snackBar.open("Welcome and thank you for registering, " + userData.firstName, "", {
+            duration: 2500
+          });
+        });
       })
       .catch(err => {
-        console.log('Something went wrong:', err.message);
-        this.snackBar.open("Unable to register: " + err.message, "Okay", {
+        this.snackBar.open(err.message, "Okay", {
           duration: 2500
         });
-      });   
+      });
   }
 
   /**
    * Invoked if nonprofit is registering
    */  nonProfitRegistration() {
-    console.log("nonprofit registration, firstname value:", JSON.stringify(this.firstName));
-    // this.firebaseAuth
-    //   .auth
-    //   .createUserWithEmailAndPassword(this.email.value, this.password)
-    //   .then(value => {
-    //     this.password = '';
-    //     console.log('Success!', value);
-    //   })
-    //   .catch(err => {
-    //     console.log('Something went wrong:', err.message);
-    //   });   
-  }
-
-  signin() {
     this.firebaseAuth
       .auth
-      .signInWithEmailAndPassword(this.email.value, this.password)
+      .createUserWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
-        console.log('Nice, it worked!');
-        this.dialogRef.close();
-        this.snackBar.open("Welcome", '', {
-          duration: 2500
+        // Make call to insert new nonprofit user in firestore users collection
+        this.updateUserData(userAuthInfo);
+        this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
+        this.linkRef.valueChanges().subscribe(userData => {
+          this.dialogRef.close();
+          this.snackBar.open("Welcome and thank you for registering, " + userData.nonProfitName, "", {
+            duration: 2500
+          });
         });
       })
       .catch(err => {
-        console.log('Something went wrong:', err.message);
-        this.snackBar.open("Incorrect email or password", "Okay", {
+        this.snackBar.open(err.message, "Okay", {
           duration: 2500
         });
       });
@@ -107,6 +129,13 @@ export class AuthDialogComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       phoneNumber: this.phoneNumber,
+      nonProfitName: this.nonProfitName,
+      nonProfitDescription: this.nonProfitDescription,
+      nonProfitAddress: this.nonProfitAddress,
+      nonProfitCity: this.nonProfitCity,
+      nonProfitState: this.nonProfitState,
+      nonProfitZip: this.nonProfitZip,
+      nonProfitWebURL: this.nonProfitWebURL,
       roles: {
         //Default accounts are subscriber only. 
         subscriber: true,
