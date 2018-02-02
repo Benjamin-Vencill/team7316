@@ -29,6 +29,7 @@ export class AuthDialogComponent {
   nonProfitState?: string = "";
   nonProfitZip?: string = "";
   nonProfitWebURL?: string = "";
+  hide: boolean = true;
   
   private linkRef: AngularFirestoreDocument<User>;
 
