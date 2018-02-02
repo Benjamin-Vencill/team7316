@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent}, // Want users not logged in to be able to see volunteer opportunities
   { path: 'authview', component: AuthComponent},
   { path: 'editpostview', component: EditPostComponent, canActivate: [CanEditGuard]},
-  { path: '', redirectTo: '/authview', pathMatch: 'full'},
+  { path: '', redirectTo: '/mapview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
 ] 
 
