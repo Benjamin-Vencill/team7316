@@ -27,7 +27,7 @@ export class AuthDialogComponent {
   nonProfitAddress?: string = "";
   nonProfitCity?: string = "";
   nonProfitState?: string = "";
-  nonProfitZip?: string = "";
+  nonProfitZipCode?: string = "";
   nonProfitWebURL?: string = "";
   hide: boolean = true;
   
@@ -55,7 +55,7 @@ export class AuthDialogComponent {
               duration: 2500
             });
           } else {
-            this.snackBar.open("Welcome", '', {
+            this.snackBar.open("Welcome " + userData.nonProfitName, '', {
               duration: 2500
             });
           }
@@ -135,7 +135,7 @@ export class AuthDialogComponent {
       nonProfitAddress: this.nonProfitAddress,
       nonProfitCity: this.nonProfitCity,
       nonProfitState: this.nonProfitState,
-      nonProfitZip: this.nonProfitZip,
+      nonProfitZipCode: this.nonProfitZipCode,
       nonProfitWebURL: this.nonProfitWebURL,
       roles: {
         //Default accounts are subscriber only. 
