@@ -57,8 +57,8 @@ export class MapComponent {
    }
 
   ngOnInit() {
-    this.markerCollection = this.afs.collection('markers') //reference
-    this.markers = this.markerCollection.valueChanges() //observable of notes reference
+    this.markerCollection = this.afs.collection('markers'); //reference
+    this.markers = this.markerCollection.valueChanges();//observable of notes reference
 
   }
 
