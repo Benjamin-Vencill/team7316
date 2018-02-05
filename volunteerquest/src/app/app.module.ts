@@ -82,7 +82,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     CannotFindPageComponent,
     EditPostComponent,
     AuthDialogComponent,
-    ManageEventsComponent
+    ManageEventsComponent,
     AuthDialogComponent,
     EventEditComponent
   ],
