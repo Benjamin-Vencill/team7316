@@ -10,6 +10,7 @@ import { AuthComponent } from '../auth/auth.component';
 import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
+import { ManageEventsComponent } from '../manage-events/manage-events.component';
 
 //Import Guards
 import { AdminGuard } from '../auth/admin.guard';
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent}, // Want users not logged in to be able to see volunteer opportunities
   { path: 'authview', component: AuthComponent},
   { path: 'editpostview', component: EditPostComponent, canActivate: [CanEditGuard]},
+  { path: 'eventview', component: ManageEventsComponent},
   { path: '', redirectTo: '/mapview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
 ] 

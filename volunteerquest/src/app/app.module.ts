@@ -40,6 +40,9 @@ import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+//import { ViewEventsComponent } from '../view-events/view-events.component';
+import { ManageEventsComponent } from '../manage-events/manage-events.component';
+//import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
 
 @NgModule({
   imports: [
@@ -77,7 +80,8 @@ import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
     MapComponent, 
     CannotFindPageComponent,
     EditPostComponent,
-    AuthDialogComponent
+    AuthDialogComponent,
+    ManageEventsComponent
   ],
   entryComponents: [AuthDialogComponent],
   providers: [],
