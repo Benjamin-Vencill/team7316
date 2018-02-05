@@ -43,6 +43,7 @@ import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
 import { ManageEventsComponent } from '../manage-events/manage-events.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
 
 @NgModule({
   imports: [
@@ -82,6 +83,8 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
     EditPostComponent,
     AuthDialogComponent,
     ManageEventsComponent
+    AuthDialogComponent,
+    EventEditComponent
   ],
   entryComponents: [AuthDialogComponent],
   providers: [],

@@ -20,6 +20,6 @@ export interface User {
     nonProfitAddress?: string;
     nonProfitCity?: string;
     nonProfitState?: string;
-    nonProfitZip?: string;
+    nonProfitZipCode?: string;
     nonProfitWebURL?: string;
 }
