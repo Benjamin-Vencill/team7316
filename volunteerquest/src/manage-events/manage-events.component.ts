@@ -47,6 +47,15 @@ export class ManageEventsComponent implements OnInit {
     this.events$ = this.EventManagerService.getCollection$(ref => ref.where("title", '==', this.title_query))
   }
 
+  filterEventsByCategory(ref?: QueryFn) {
+    console.log('title == ' + this.title_query);
+    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("category", '==', this.title_query))
+  }
+
+  clearFilter() {
+    this.events$ = this.EventManagerService.getCollection$();
+  }
+
   like(post: Event) {
     this.EventManagerService.update(post.id, {likes: post.likes + 1});
   }

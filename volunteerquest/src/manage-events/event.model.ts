@@ -4,4 +4,5 @@ export interface Event {
     likes: number;
     created?: Date;
     id?: string;
+    category?: string;
   }
