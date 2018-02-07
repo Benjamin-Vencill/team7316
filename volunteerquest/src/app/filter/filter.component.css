@@ -1,0 +1,32 @@
+mat-checkbox {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+#backButtonContainer {
+    margin-top: 5em;
+    width: 100%;
+}
+
+#leftBuffer {
+    width: 24%;
+    display: inline-block;
+}
+
+#rightBuffer {
+    width: 24%;
+    display: inline-block
+}
+
+#backButton {
+    width: 48%;
+    display: inline-block;
+}
+
+#button {
+    color: black;
+    background-color: #f5f5f5;
+    font-weight: 400;
+    font-size: medium;
+    width: 100%;
+}

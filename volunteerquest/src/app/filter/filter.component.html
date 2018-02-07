@@ -1,0 +1,67 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Categories
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-checkbox>
+      Animals
+    </mat-checkbox>
+    <mat-checkbox>
+      Education
+    </mat-checkbox>
+    <mat-checkbox>
+      Environment
+    </mat-checkbox>
+    <mat-checkbox>
+      Seniors
+    </mat-checkbox>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Date Range
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput [matDatepicker]="startPicker" placeholder="Select a start date">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker  #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="endPicker" placeholder="Select an end date">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker  #endPicker></mat-datepicker>
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Distance (mi)
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-slider
+        [max]=50
+        [min]=0
+        [step]=1
+        [thumb-label]=true
+      >
+      </mat-slider>
+    </mat-expansion-panel>
+  </mat-accordion>
+<div id="backButtonContainer">
+  <div id="leftBuffer">
+  </div>
+  <div id="backButton">
+    <a routerLink="/">
+      <button id="button" mat-button>View Results</button>
+    </a>
+  </div>
+  <div id="rightBuffer">
+  </div>
+</div>

@@ -16,12 +16,14 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
 import { AdminGuard } from '../auth/admin.guard';
 import { CanReadGuard } from '../auth/can-read.guard';
 import { CanEditGuard } from '../auth/can-edit.gaurd';
+import { FilterComponent } from '../app/filter/filter.component';
 
 const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent}, // Want users not logged in to be able to see volunteer opportunities
   { path: 'authview', component: AuthComponent},
   { path: 'editpostview', component: EditPostComponent, canActivate: [CanEditGuard]},
   { path: 'eventview', component: ManageEventsComponent},
+  { path: 'filter', component: FilterComponent },
   { path: '', redirectTo: '/mapview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
 ] 
