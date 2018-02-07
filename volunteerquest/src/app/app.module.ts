@@ -35,13 +35,14 @@ import { AuthService } from '../auth/auth.service';
 
 //Components
 import { AuthComponent } from '../auth/auth.component';
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 import { AppComponent } from './app.component';
-import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { FilterComponent } from './filter/filter.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
 import { ManageEventsComponent } from '../manage-events/manage-events.component';
+import { MapComponent } from '../map/map.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
 
 @NgModule({
@@ -77,11 +78,12 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
   declarations: [
     AppComponent,
     AuthComponent,
-    MapComponent, 
+    AuthDialogComponent,
     CannotFindPageComponent,
     EditPostComponent,
-    AuthDialogComponent,
-    ManageEventsComponent
+    FilterComponent,
+    ManageEventsComponent,
+    MapComponent
   ],
   entryComponents: [AuthDialogComponent],
   providers: [],
