@@ -11,20 +11,30 @@ export class GooglemapService extends GoogleMapsAPIWrapper {
       super(__loader, __zone);
     }
 
-  getLatLan(address: string) {
+  getGeocoding(address: string) {
       console.log('Getting Address:', address);
-      let geocoder = new google.maps.Geocoder();
       return Observable.create(observer => {
-          geocoder.geocode( { 'address': address}, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                  observer.next(results[0].geometry.location);
-                  observer.complete();
-              } else {
-                  console.log('Error:', results, ' & Status:', status);
-                  observer.next({});
-                  observer.complete();
-              }
-          });
-      })
+          try {
+              // The variable google may still be undefined (google maps scripts
+              // still loading), so allow time to load the scripts
+              this.__loader.load().then(() => {
+                  let geocoder = new google.maps.Geocoder();
+                  geocoder.geocode( { 'address': address}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log("results from google maps is:", results);
+                        observer.next(results[0].geometry.location);
+                        observer.complete();
+                    } else {
+                        console.log('Error:', results, ' & Status:', status);
+                        observer.next({});
+                        observer.complete();
+                    }
+                });
+              })
+          } catch(error) {
+              observer.error('error in getGeocoding:', error);
+              observer.complete();
+          }
+      });
   }
 }

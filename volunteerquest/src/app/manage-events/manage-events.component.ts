@@ -10,7 +10,7 @@ import { Form } from '@angular/forms/src/directives/form_interface';
 
 @Component({
   selector: 'app-manage-events',
-  providers: [EventManagerService],
+  providers: [EventManagerService, GooglemapService],
   templateUrl: './manage-events.component.html',
   styleUrls: ['./manage-events.component.css']
 })
@@ -22,7 +22,9 @@ export class ManageEventsComponent implements OnInit {
   title_query: string;
   address: string;
 
-  constructor(private EventManagerService: EventManagerService) { }
+  constructor(private EventManagerService: EventManagerService,
+              private GoogleMapService: GooglemapService,
+              private __zone: NgZone) { }
 
   ngOnInit() {
     this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
@@ -42,9 +44,20 @@ export class ManageEventsComponent implements OnInit {
     const content = this.eventForm.get('content').value;
     const address = this.address;
     console.log("in save method, address:", JSON.stringify(address));
-
-    //Save data to firestore
-    this.EventManagerService.add({title, content, likes:0});
+    this.GoogleMapService.getGeocoding(address).subscribe(result => {
+        this.__zone.run(() => {
+          console.log("in save method, result from google maps:", result);
+          if (result.hasOwnProperty('lat')) {
+            //Save data to firestore
+            this.EventManagerService.add({title, content, likes:0});
+          } else {
+            console.log("unable to get coordinates from inputted address");
+          }
+        })
+      },
+      error => console.log("in save method, received following error:", error),
+      () => console.log("done")
+    );
   }
 
   filterEventsByTitle(ref?: QueryFn) {

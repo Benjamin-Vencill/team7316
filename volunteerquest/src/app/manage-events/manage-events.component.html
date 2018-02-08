@@ -6,10 +6,9 @@
   <input class="form-input" placeholder="your event title" id="title" type="text" formControlName="title">
   <label class="form-label" for="content">content</label>
   <textarea class="form-input" placeholder="your event content" id="content" formControlName="content"></textarea>
-  <input class="form-input" placeholder="your event address" [(ngModel)]="address">
   <button class="btn btn-primary" type="submit" [disabled]="eventForm.invalid">save</button>
-  
 </form>
+<input class="form-input" placeholder="your event address" [(ngModel)]="address">
 <h2>Filter Events</h2>
 <form [formGroup]="filterForm" (ngSubmit)="filterEventsByTitle(title_query)" class="form-group">
     <input class="input" placeholder="your query" id="title_query" type="text" formControlName="title_query" [(ngModel)]="title_query">
