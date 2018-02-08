@@ -5,6 +5,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 import { AuthService } from '../auth/auth.service';
+import { EventEditComponent } from '../app/event-edit/event-edit.component';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
@@ -73,6 +74,12 @@ export class MapComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed, result is:', JSON.stringify(result));
+    });
+  }
+
+  openPostEventDialog(): void {
+    let dialogRef = this.dialog.open(EventEditComponent, {
+      width: '30em'
     });
   }
 
