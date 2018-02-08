@@ -10,7 +10,7 @@ import { AuthComponent } from '../auth/auth.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { FilterComponent } from '../app/filter/filter.component';
-import { ManageEventsComponent } from '../manage-events/manage-events.component';
+import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { MapComponent } from '../map/map.component';
 
 //Import Guards

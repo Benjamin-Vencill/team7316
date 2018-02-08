@@ -23,7 +23,7 @@ import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from '../routing/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from '../auth/auth.module';
 
 //Configs
@@ -41,7 +41,7 @@ import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.co
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { FilterComponent } from './filter/filter.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
-import { ManageEventsComponent } from '../manage-events/manage-events.component';
+import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { MapComponent } from '../map/map.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
 
