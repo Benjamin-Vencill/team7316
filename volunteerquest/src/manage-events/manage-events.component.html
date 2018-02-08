@@ -14,6 +14,7 @@
     <input class="input" placeholder="your query" id="title_query" type="text" formControlName="title_query" [(ngModel)]="title_query">
     <button class="btn btn-primary" type="submit" [disabled]="filterForm.invalid">filter</button>
 </form>
+<button class="btn btn-primary" (click)="clearFilter()">Clear Filter</button>
 
 
 
@@ -29,6 +30,6 @@
     <div class="card-footer">
       <button class="btn btn-primary" (click)="like(event)">Like</button>
       <span>{{event.likes}} Likes</span>
-      <button class="btn btn-prinary" (click)="remove(event.id)">Delete</button>
+      <button class="btn btn-primary" (click)="remove(event.id)">Delete</button>
     </div>
   </div>
