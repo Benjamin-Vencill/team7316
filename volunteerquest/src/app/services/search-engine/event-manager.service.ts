@@ -8,7 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import {QueryFn} from 'angularfire2/firestore/interfaces';
 
-import { Event } from '../manage-events/event.model';
+import { Event } from '../../manage-events/event.model';
 import { DocumentReference } from '@firebase/firestore-types';
 
 @Injectable()
@@ -45,6 +45,4 @@ export class EventManagerService {
   remove(id: string): Promise<void> {
     return this.afs.doc<Event>(`${this.path}/${id}`).delete();
   }
-
-
 }

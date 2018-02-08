@@ -6,6 +6,7 @@
   <input class="form-input" placeholder="your event title" id="title" type="text" formControlName="title">
   <label class="form-label" for="content">content</label>
   <textarea class="form-input" placeholder="your event content" id="content" formControlName="content"></textarea>
+  <input class="form-input" placeholder="your event address" [(ngModel)]="address">
   <button class="btn btn-primary" type="submit" [disabled]="eventForm.invalid">save</button>
   
 </form>

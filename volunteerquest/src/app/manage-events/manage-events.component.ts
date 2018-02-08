@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { EventManagerService } from '../search-engine/event-manager.service';
+import { AgmCoreModule } from '@agm/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { EventManagerService } from '../services/search-engine/event-manager.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
+import { GooglemapService } from '../services/googlemap.service';
+import { Observable } from 'rxjs/Observable';
 import { Event } from './event.model';
 import { QueryFn } from 'angularfire2/firestore';
 import { Form } from '@angular/forms/src/directives/form_interface';
@@ -18,6 +20,7 @@ export class ManageEventsComponent implements OnInit {
   filterForm: FormGroup;
   events$: Observable<Event[]>;
   title_query: string;
+  address: string;
 
   constructor(private EventManagerService: EventManagerService) { }
 
@@ -37,7 +40,9 @@ export class ManageEventsComponent implements OnInit {
   save() {
     const title = this.eventForm.get('title').value;
     const content = this.eventForm.get('content').value;
-    
+    const address = this.address;
+    console.log("in save method, address:", JSON.stringify(address));
+
     //Save data to firestore
     this.EventManagerService.add({title, content, likes:0});
   }
