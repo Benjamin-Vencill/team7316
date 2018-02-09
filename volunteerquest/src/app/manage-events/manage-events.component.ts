@@ -21,6 +21,8 @@ export class ManageEventsComponent implements OnInit {
   events$: Observable<Event[]>;
   title_query: string;
   address: string;
+  lat: number;
+  lng: number;
 
   constructor(private EventManagerService: EventManagerService,
               private GoogleMapService: GooglemapService,
@@ -46,10 +48,12 @@ export class ManageEventsComponent implements OnInit {
     console.log("in save method, address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
         this.__zone.run(() => {
-          console.log("in save method, result from google maps:", result);
+          console.log("in save method, result from google maps:", JSON.stringify(result));
           if (result.hasOwnProperty('lat')) {
             //Save data to firestore
-            this.EventManagerService.add({title, content, likes:0});
+            this.lat = result.lat();
+            this.lng = result.lng();
+            this.EventManagerService.add({title, content, likes:0, lat: this.lat, lng: this.lng});
           } else {
             console.log("unable to get coordinates from inputted address");
           }

@@ -21,7 +21,7 @@ export class GooglemapService extends GoogleMapsAPIWrapper {
                   let geocoder = new google.maps.Geocoder();
                   geocoder.geocode( { 'address': address}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
-                        console.log("results from google maps is:", results);
+                        console.log("results from google maps is:", JSON.stringify(results));
                         observer.next(results[0].geometry.location);
                         observer.complete();
                     } else {
