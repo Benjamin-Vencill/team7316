@@ -1,4 +1,3 @@
-//Modules
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
@@ -40,7 +39,7 @@ import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
-//import { ViewEventsComponent } from '../view-events/view-events.component';
+import { ViewEventComponent } from '../view-event/view-event.component';
 import { ManageEventsComponent } from '../manage-events/manage-events.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
@@ -83,10 +82,12 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     EditPostComponent,
     AuthDialogComponent,
     ManageEventsComponent,
-    AuthDialogComponent,
-    EventEditComponent
+    EventEditComponent,
+    ViewEventComponent,
   ],
-  entryComponents: [AuthDialogComponent],
+  entryComponents: [
+    AuthDialogComponent,
+    ViewEventComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -22,6 +22,9 @@
     <button *ngIf="user.roles.nonprofit" (click)="openPostEventDialog()" mat-menu-item>
       <mat-icon>event</mat-icon>Post an event
     </button>
+    <button *ngIf="user.roles.nonprofit" (click)="openViewAllEventsDialog()" mat-menu-item>
+        <mat-icon>event</mat-icon>View Events
+      </button>
     <button *ngIf="user.roles.volunteer" mat-menu-item>
       <mat-icon>star</mat-icon>Favorites
     </button>
