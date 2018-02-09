@@ -6,17 +6,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Import Components
 import { AppComponent } from '../app/app.component';
-import { AuthComponent } from '../auth/auth.component';
-import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
-import { EditPostComponent } from '../edit-post/edit-post.component';
+import { AuthComponent } from './auth/auth.component';
+import { CannotFindPageComponent } from './cannot-find-page/cannot-find-page.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 import { FilterComponent } from '../app/filter/filter.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from './map/map.component';
 
 //Import Guards
-import { AdminGuard } from '../auth/admin.guard';
-import { CanReadGuard } from '../auth/can-read.guard';
-import { CanEditGuard } from '../auth/can-edit.gaurd';
+import { AdminGuard } from './auth/admin.guard';
+import { CanReadGuard } from './auth/can-read.guard';
+import { CanEditGuard } from './auth/can-edit.gaurd';
 
 const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent}, // Want users not logged in to be able to see volunteer opportunities

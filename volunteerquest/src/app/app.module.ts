@@ -24,25 +24,25 @@ import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 
 //Configs
 import { FirebaseConfig } from '../environments/firebase.config';
 import { GoogleMapsConfig } from '../environments/googlemaps.config';
 
 //Services
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth/auth.service';
 
 //Components
-import { AuthComponent } from '../auth/auth.component';
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { AppComponent } from './app.component';
-import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
-import { EditPostComponent } from '../edit-post/edit-post.component';
+import { CannotFindPageComponent } from './cannot-find-page/cannot-find-page.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 import { FilterComponent } from './filter/filter.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from './map/map.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
 
 @NgModule({
