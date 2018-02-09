@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../auth/user';
 import { Validators } from '@angular/forms';
+import { isEmpty } from '@firebase/util';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -17,7 +18,8 @@ import { Validators } from '@angular/forms';
 })
 export class AuthDialogComponent {
   email = new FormControl('', [Validators.required, Validators.email]);
-  checked: boolean = false;
+  isNonprofit: boolean = false;
+  isVolunteer: boolean = false;
   firstName: string;
   lastName: string;
   password: string;
@@ -77,6 +79,7 @@ export class AuthDialogComponent {
       .createUserWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
         // Make call to insert new volunteer in firestore users collection
+        this.isVolunteer = true
         this.updateUserData(userAuthInfo);
         this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
         this.linkRef.valueChanges().subscribe(userData => {
@@ -95,12 +98,13 @@ export class AuthDialogComponent {
 
   /**
    * Invoked if nonprofit is registering
-   */  nonProfitRegistration() {
+   */  nonProfitRegistration() {   
     this.firebaseAuth
       .auth
       .createUserWithEmailAndPassword(this.email.value, this.password)
       .then(userAuthInfo => {
         // Make call to insert new nonprofit user in firestore users collection
+        this.isNonprofit = true
         this.updateUserData(userAuthInfo);
         this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
         this.linkRef.valueChanges().subscribe(userData => {
@@ -143,8 +147,8 @@ export class AuthDialogComponent {
         //TODO: enable sign-up with token for editor privalage?
         editor: false,
         admin: false,
-        volunteer: !this.checked,
-        nonprofit: this.checked
+        volunteer: this.isVolunteer,
+        nonprofit: this.isNonprofit
       }
     }
     return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way

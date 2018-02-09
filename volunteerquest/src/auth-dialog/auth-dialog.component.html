@@ -23,25 +23,25 @@
         <section>
           <h3 class="register-header">Volunteer Registration</h3>
         </section>
-        <mat-form-field *ngIf="!checked">
+        <mat-form-field>
           <input matInput placeholder="First Name" [(ngModel)]="firstName" required>
         </mat-form-field>
-        <mat-form-field *ngIf="!checked">
+        <mat-form-field>
           <input matInput placeholder="Last Name" [(ngModel)]="lastName" required>
         </mat-form-field>
-        <mat-form-field *ngIf="!checked">
+        <mat-form-field>
           <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
         </mat-form-field>
-        <mat-form-field *ngIf="!checked">
+        <mat-form-field>
           <input matInput placeholder="Email" [formControl]="email" required>
           <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
-        <mat-form-field *ngIf="!checked" hintLabel="Must be at least 6 characters">
+        <mat-form-field hintLabel="Must be at least 6 characters">
           <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password"
                 [type]="hide ? 'password' : 'text'" required>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         </mat-form-field>
-        <button mat-raised-button *ngIf="!checked" color="primary" (click)="volunteerRegistration()"
+        <button mat-raised-button color="primary" (click)="volunteerRegistration()"
                 [disabled]="!firstName || !lastName || !email || !password || password.length < 6">
             Register
         </button>
@@ -94,7 +94,7 @@
                 [disabled]="!nonProfitName || !nonProfitAddress || !nonProfitCity || !nonProfitState ||
                 !nonProfitZipCode || !firstName || !lastName || !email || !password || password.length < 6 ||
                 nonProfitZipCode.length !== 5">
-            Register
+            Register 
         </button>
       </mat-tab>
     </mat-tab-group>
