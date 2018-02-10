@@ -9,12 +9,12 @@ export interface Roles {    // Privileges associated with each role
  }
   
 export interface User {
-    uid: string;
+    email: string;
     firstName: string;
     lastName: string;
-    email: string;
     roles: Roles;
-    phoneNumber?: string;
+    uid: string;
+    filterOptions?: Object;
     nonProfitName?: string;
     nonProfitDescription?: string;
     nonProfitAddress?: string;
@@ -22,4 +22,5 @@ export interface User {
     nonProfitState?: string;
     nonProfitZipCode?: string;
     nonProfitWebURL?: string;
+    phoneNumber?: string;
 }

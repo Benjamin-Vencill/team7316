@@ -58,6 +58,9 @@ export class MapComponent {
         this.user$ = this.linkRef.valueChanges();
         this.user$.subscribe(user => {
           console.log("user retrieved:", JSON.stringify(user));
+          // Todo: get the filterOptions off of the found user 
+          // document, and use these to get filtered events 
+          // from firebase
         })
       }
     });
@@ -70,6 +73,9 @@ export class MapComponent {
     //   console.log("in subscribe markers:", markers);
     // })
 
+    // Seems as though need to be able to use values in the user.filterOptions
+    // object to filter on the events in the events collection to then 
+    // show as markers on the map
     this.eventsCollection = this.afs.collection('events');
     this.events = this.eventsCollection.valueChanges();
     // this.events.subscribe(events => {
@@ -99,6 +105,11 @@ export class MapComponent {
 
     filterDialogRef.afterClosed().subscribe(filterOptions => {
       console.log('The filter dialog was closed, result is:', JSON.stringify(filterOptions));
+      if (filterOptions.saveThisFilter) {
+        // TODO: update the returned filterobject to the user document
+      }
+      // Now, retrieve the events from the events collection and update the 
+      // markers displayed in the map view
     });
   }
 
