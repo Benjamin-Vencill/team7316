@@ -50,7 +50,7 @@
     </agm-marker>
   </agm-map> -->
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <agm-marker *ngFor="let event of events | async, let i = index"
+    <agm-marker *ngFor="let event of events$ | async, let i = index"
     (markerClick)="clickedMarker(event.content, i)"
       [latitude]="event.lat"
       [longitude]="event.lng">

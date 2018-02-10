@@ -38,17 +38,17 @@ export class MapComponent {
   private linkRef: AngularFirestoreDocument<User>;
   user$: Observable<User>;
 
-  markerCollection: AngularFirestoreCollection<Marker>;
-  markers: Observable<Marker[]>;
-
   eventsCollection: AngularFirestoreCollection<Event>;
-  events: Observable<Event[]>;
+  events$: Observable<Event[]>;
 
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private authService: AuthService,
               public snackBar: MatSnackBar,
-              public dialog: MatDialog) {
+              public dialog: MatDialog) {}
+
+  ngOnInit() {
+    console.log("In ngoninit");
     this.firebaseAuth.authState.subscribe((auth) => {
       console.log("auth:", auth);
       if (auth) {
@@ -61,26 +61,16 @@ export class MapComponent {
           // Todo: get the filterOptions off of the found user 
           // document, and use these to get filtered events 
           // from firebase
+          this.eventsCollection = this.afs.collection('events');  // reference
+          this.events$ = this.eventsCollection.valueChanges();     // observable
         })
       }
     });
-   }
-
-  ngOnInit() {
-    this.markerCollection = this.afs.collection('markers'); //reference
-    this.markers = this.markerCollection.valueChanges();//observable of notes reference
-    // this.markers.subscribe(markers => {
-    //   console.log("in subscribe markers:", markers);
-    // })
 
     // Seems as though need to be able to use values in the user.filterOptions
     // object to filter on the events in the events collection to then 
     // show as markers on the map
-    this.eventsCollection = this.afs.collection('events');
-    this.events = this.eventsCollection.valueChanges();
-    // this.events.subscribe(events => {
-    //   console.log("in subscribe events:", events);
-    // })
+
   }
 
   clickedMarker(content: string, index: number) {

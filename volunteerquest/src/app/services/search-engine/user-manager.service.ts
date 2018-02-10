@@ -8,28 +8,28 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { QueryFn } from 'angularfire2/firestore/interfaces';
 
-import { Event } from '../../manage-events/event.model';
+import { User } from '../../auth/user';
 import { DocumentReference } from '@firebase/firestore-types';
 
 @Injectable()
-export class EventManagerService {
+export class UserManagerService {
   //Service for CRUD (Create, Read, Update, Delete) opeerations in firestore
 
-  readonly path = 'events';
+  readonly path = 'users';
 
   constructor(private afs: AngularFirestore) { }
 
   //Create
-  add(data: Event): Promise<DocumentReference> {
-    return this.afs.collection<Event>(this.path).add({...data, created: new Date()});
+  add(data: User): Promise<DocumentReference> {
+    return this.afs.collection<User>(this.path).add({...data});
   }
 
   //Read
-  getCollection$(ref?: QueryFn): Observable<Event[]> {
-    return this.afs.collection<Event>(this.path, ref)
+  getCollection$(ref?: QueryFn): Observable<User[]> {
+    return this.afs.collection<User>(this.path, ref)
       .snapshotChanges().map(actions => {
         return actions.map(a => {
-          const data = a.payload.doc.data() as Event;
+          const data = a.payload.doc.data() as User;
           const id = a.payload.doc.id;
           return { id, ...data };
         });
@@ -37,12 +37,12 @@ export class EventManagerService {
   }
 
   //Update
-  update(id: string, data: Partial<Event>): Promise<void> {
-    return this.afs.doc<Event>(`${this.path}/${id}`).update(data);
+  update(id: string, data: Partial<User>): Promise<void> {
+    return this.afs.doc<User>(`${this.path}/${id}`).update(data);
   }
 
   //Delete
   remove(id: string): Promise<void> {
-    return this.afs.doc<Event>(`${this.path}/${id}`).delete();
+    return this.afs.doc<User>(`${this.path}/${id}`).delete();
   }
 }
