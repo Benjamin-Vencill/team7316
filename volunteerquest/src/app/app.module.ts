@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
@@ -65,6 +66,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    MatSelectModule,
     MatSliderModule,
     MatSnackBarModule,
     MatTabsModule,
@@ -86,7 +88,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     AuthDialogComponent,
     EventEditComponent
   ],
-  entryComponents: [AuthDialogComponent],
+  entryComponents: [AuthDialogComponent, EventEditComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,33 @@
 <mat-dialog-content>
-  <p>
-    event-edit works!
-  </p>
-  <mat-form-field >
+  <mat-form-field>
     <input matInput placeholder="Event Name" [(ngModel)]="eventName" required>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
+           placeholder="Event Date" [(ngModel)]="eventDate" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput placeholder="Event Street Address" [(ngModel)]="eventStreet" required>
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput placeholder="Event City" [(ngModel)]="eventCity" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Event State">
+      <mat-option *ngFor="let state of states" [value]="state.value" [(ngModel)]="eventState" required>
+        {{ state.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> 
+  <mat-form-field>
+      <input matInput placeholder="Event Zip" [(ngModel)]="eventZip" required>
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput placeholder="Event Website URL" [(ngModel)]="eventURL" required>
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput placeholder="Event Time" [(ngModel)]="eventTime" required>
   </mat-form-field>
 </mat-dialog-content>

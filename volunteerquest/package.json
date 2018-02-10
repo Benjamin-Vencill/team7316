@@ -30,6 +30,7 @@
     "core-js": "^2.4.1",
     "firebase": "^4.9.0",
     "material": "^0.2.6",
+    "material-time-control": "github:SteveDunlap13/MaterialTimeControl",
     "rxjs": "^5.5.2",
     "spectre.css": "^0.5.0",
     "zone.js": "^0.8.14"
