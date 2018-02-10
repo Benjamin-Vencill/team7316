@@ -1,0 +1,58 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Categories
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-checkbox [(ngModel)]="categoryAnimals">
+      Animals
+    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="categoryEducation">
+      Education
+    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="categoryEnvironment">
+      Environment
+    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="categorySeniors">
+      Seniors
+    </mat-checkbox>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Date Range
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" placeholder="Select a start date">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker  #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" placeholder="Select an end date">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker  #endPicker></mat-datepicker>
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Distance (mi)
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-slider
+      [max]=30
+      [min]=0
+      [step]=1
+      [thumb-label]=true
+    >
+    </mat-slider>
+  </mat-expansion-panel>
+</mat-accordion>
+<button mat-raised-button (click)="onSave()" id="saveButton" color="primary">Save</button>
+<button mat-raised-button  (click)="onApply()" id="applyButton" color="primary">Apply</button>

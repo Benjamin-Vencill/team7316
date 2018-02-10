@@ -1,0 +1,13 @@
+mat-checkbox {
+    display: block;
+    padding-top: 0.1em;
+}
+
+#saveButton {
+    margin-top: 0.5em;
+}
+
+#applyButton {
+    float: right;
+    margin-top: 0.5em;
+}

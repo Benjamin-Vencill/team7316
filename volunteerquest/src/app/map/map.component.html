@@ -17,6 +17,11 @@
         </button>
       </a>
     </div>
+    <div id="filterContainer">
+      <button (click)="openFilterDialog()" id="filterButton" mat-icon-button>
+        <mat-icon>tune</mat-icon>
+      </button>
+    </div>
   </mat-toolbar>
   <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
     <button *ngIf="user.roles.nonprofit" mat-menu-item>
@@ -34,13 +39,23 @@
   </mat-menu>
   <!-- this creates a google map on the page with the given lat/lng from -->
   <!-- the component as the initial center of the map: -->
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+  <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
     <agm-marker *ngFor="let marker of markers | async, let i = index"
     (markerClick)="clickedMarker(marker.label, i)"
       [latitude]="marker.lat"
       [longitude]="marker.lng">
       <agm-info-window>
           <strong>{{marker.label}}</strong>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map> -->
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <agm-marker *ngFor="let event of events | async, let i = index"
+    (markerClick)="clickedMarker(event.content, i)"
+      [latitude]="event.lat"
+      [longitude]="event.lng">
+      <agm-info-window>
+          <strong>{{event.content}}</strong>
       </agm-info-window>
     </agm-marker>
   </agm-map>
@@ -62,6 +77,11 @@
           <mat-icon>tune</mat-icon>
         </button>
       </a>
+    </div>
+    <div id="filterContainer">
+      <button (click)="openFilterDialog()" id="filterButton" mat-icon-button>
+        <mat-icon>tune</mat-icon>
+      </button>
     </div>
   </mat-toolbar>
   <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">

@@ -40,6 +40,7 @@ import { AppComponent } from './app.component';
 import { CannotFindPageComponent } from './cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FilterComponent } from './filter/filter.component';
+import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { MapComponent } from './map/map.component';
@@ -82,10 +83,11 @@ import { MapComponent } from './map/map.component';
     CannotFindPageComponent,
     EditPostComponent,
     FilterComponent,
+    FilterDialogComponent,
     ManageEventsComponent,
     MapComponent
   ],
-  entryComponents: [AuthDialogComponent],
+  entryComponents: [AuthDialogComponent, FilterDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -5,7 +5,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 import { AuthService } from '../auth/auth.service';
-import { MatDialog } from '@angular/material';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { User } from '../auth/user';
@@ -40,6 +41,9 @@ export class MapComponent {
   markerCollection: AngularFirestoreCollection<Marker>;
   markers: Observable<Marker[]>;
 
+  eventsCollection: AngularFirestoreCollection<Event>;
+  events: Observable<Event[]>;
+
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private authService: AuthService,
@@ -52,6 +56,9 @@ export class MapComponent {
         console.log("uid:", this.uid);
         this.linkRef = this.afs.doc(`users/${this.uid}`);
         this.user$ = this.linkRef.valueChanges();
+        this.user$.subscribe(user => {
+          console.log("user retrieved:", JSON.stringify(user));
+        })
       }
     });
    }
@@ -59,11 +66,19 @@ export class MapComponent {
   ngOnInit() {
     this.markerCollection = this.afs.collection('markers'); //reference
     this.markers = this.markerCollection.valueChanges();//observable of notes reference
+    // this.markers.subscribe(markers => {
+    //   console.log("in subscribe markers:", markers);
+    // })
 
+    this.eventsCollection = this.afs.collection('events');
+    this.events = this.eventsCollection.valueChanges();
+    // this.events.subscribe(events => {
+    //   console.log("in subscribe events:", events);
+    // })
   }
 
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+  clickedMarker(content: string, index: number) {
+    console.log(`clicked the marker: ${content || index}`)
   }
 
   openSignInDialog(): void {
@@ -73,6 +88,17 @@ export class MapComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed, result is:', JSON.stringify(result));
+    });
+  }
+
+  openFilterDialog(): void {
+    let filterDialogRef = this.dialog.open(FilterDialogComponent, {
+      width: '30em',
+      disableClose: true
+    });
+
+    filterDialogRef.afterClosed().subscribe(filterOptions => {
+      console.log('The filter dialog was closed, result is:', JSON.stringify(filterOptions));
     });
   }
 
@@ -86,17 +112,4 @@ export class MapComponent {
       duration: 2500
     });
   }
-
-  test_markers: Marker[] = [
-    {
-      lat: 33.7490,
-      lng: -84.2990,
-      label: "Animal Shelter Event"
-    },
-    {
-      lat: 33.8130,
-      lng: -84.3920,
-      label: "After School Tutoring"
-    }
-  ]
 }

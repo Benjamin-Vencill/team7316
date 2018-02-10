@@ -1,9 +1,10 @@
 export interface Event {
-    title: string;
-    content: string;
+    eventTitle: string;
+    eventDescription: string;
     likes: number;
-    lat: number;
-    lng: number;
+    eventLat: number;
+    eventLng: number;
+    // nonProfitName: string;
     created?: Date;
     id?: string;
   }
