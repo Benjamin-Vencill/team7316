@@ -50,7 +50,7 @@ export class MapComponent {
               public dialog: MatDialog) {}
 
   ngOnInit() {
-    console.log("In ngoninit");
+    console.log("In ngOnInit");
     this.firebaseAuth.authState.subscribe((auth) => {
       console.log("auth:", auth);
       if (auth) {
