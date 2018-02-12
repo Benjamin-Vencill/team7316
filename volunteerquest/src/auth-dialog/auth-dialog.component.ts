@@ -98,7 +98,8 @@ export class AuthDialogComponent {
 
   /**
    * Invoked if nonprofit is registering
-   */  nonProfitRegistration() {   
+   */  
+  nonProfitRegistration() {   
     this.firebaseAuth
       .auth
       .createUserWithEmailAndPassword(this.email.value, this.password)

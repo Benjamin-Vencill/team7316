@@ -87,6 +87,7 @@ export class MapComponent {
 
   openViewAllEventsDialog(): void {
     let dialogRef = this.dialog.open(ViewEventComponent, {
+      height: '400px',
       width: '30em'
     });
     
