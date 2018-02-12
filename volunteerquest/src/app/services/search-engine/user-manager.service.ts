@@ -38,6 +38,7 @@ export class UserManagerService {
 
   //Update
   update(id: string, data: Partial<User>): Promise<void> {
+    // console.log("in user manager service update");
     return this.afs.doc<User>(`${this.path}/${id}`).update(data);
   }
 

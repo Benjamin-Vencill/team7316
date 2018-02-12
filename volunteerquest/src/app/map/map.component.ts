@@ -3,18 +3,19 @@ import { AgmCoreModule } from '@agm/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
-import { AuthService } from '../auth/auth.service';
-import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase/app';
-import { User } from '../auth/user';
-
 import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map'
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
+import * as firebase from 'firebase/app';
+
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { User } from '../auth/user';
+import { UserManagerService } from '../services/search-engine/user-manager.service';
+
 
 interface Marker {
   lat: number;
@@ -24,6 +25,7 @@ interface Marker {
 
 @Component({
   selector: 'map-view',
+  providers: [UserManagerService],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -43,7 +45,7 @@ export class MapComponent {
 
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private authService: AuthService,
+              private userManagerService: UserManagerService,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {}
 
@@ -96,7 +98,9 @@ export class MapComponent {
     filterDialogRef.afterClosed().subscribe(filterOptions => {
       console.log('The filter dialog was closed, result is:', JSON.stringify(filterOptions));
       if (filterOptions.saveThisFilter) {
+        delete filterOptions.saveThisFilter
         // TODO: update the returned filterobject to the user document
+        this.userManagerService.update(this.uid, {filterOptions: filterOptions});
       }
       // Now, retrieve the events from the events collection and update the 
       // markers displayed in the map view
