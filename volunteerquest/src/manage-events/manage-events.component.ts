@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/Observable';
 import { Event } from './event.model';
 import { QueryFn } from 'angularfire2/firestore';
 import { Form } from '@angular/forms/src/directives/form_interface';
+import { User } from '../auth/user';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-manage-events',
@@ -19,7 +21,18 @@ export class ManageEventsComponent implements OnInit {
   events$: Observable<Event[]>;
   title_query: string;
 
-  constructor(private EventManagerService: EventManagerService) { }
+  private uid: string;
+
+  constructor(private EventManagerService: EventManagerService,
+              private firebaseAuth: AngularFireAuth) {
+    this.firebaseAuth.authState.subscribe((auth) => {
+      console.log("auth:", auth);
+      if (auth) {
+        this.uid = auth.uid;
+        console.log("uid:", this.uid);
+      }
+    })
+               }
 
   ngOnInit() {
     this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
@@ -39,7 +52,7 @@ export class ManageEventsComponent implements OnInit {
     const content = this.eventForm.get('content').value;
     
     //Save data to firestore
-    this.EventManagerService.add({title, content, likes:0});
+    this.EventManagerService.add({title, content, likes:0, uid: this.uid});
   }
 
   filterEventsByTitle(ref?: QueryFn) {
