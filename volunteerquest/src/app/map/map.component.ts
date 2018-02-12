@@ -12,6 +12,8 @@ import 'rxjs/add/operator/map'
 import * as firebase from 'firebase/app';
 
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { AuthService } from '../auth/auth.service';
+import { EventEditComponent } from '../event-edit/event-edit.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { User } from '../auth/user';
 import { UserManagerService } from '../services/search-engine/user-manager.service';
@@ -104,6 +106,12 @@ export class MapComponent {
       }
       // Now, retrieve the events from the events collection and update the 
       // markers displayed in the map view
+    });
+  }
+
+  openPostEventDialog(): void {
+    let dialogRef = this.dialog.open(EventEditComponent, {
+      width: '30em'
     });
   }
 

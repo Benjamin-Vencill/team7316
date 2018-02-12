@@ -1,6 +1,6 @@
 export interface Event {
-    eventTitle: string;
-    eventDescription: string;
+    title: string;
+    content: string;
     likes: number;
     eventLat: number;
     eventLng: number;

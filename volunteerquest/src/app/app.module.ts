@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
@@ -45,6 +46,7 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { MapComponent } from './map/map.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
 
 @NgModule({
   imports: [
@@ -66,6 +68,7 @@ import { MapComponent } from './map/map.component';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    MatSelectModule,
     MatSliderModule,
     MatSnackBarModule,
     MatTabsModule,
@@ -81,13 +84,14 @@ import { MapComponent } from './map/map.component';
     AuthComponent,
     AuthDialogComponent,
     CannotFindPageComponent,
+    EventEditComponent,
     EditPostComponent,
     FilterComponent,
     FilterDialogComponent,
     ManageEventsComponent,
     MapComponent
   ],
-  entryComponents: [AuthDialogComponent, FilterDialogComponent],
+  entryComponents: [AuthDialogComponent, FilterDialogComponent, EventEditComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

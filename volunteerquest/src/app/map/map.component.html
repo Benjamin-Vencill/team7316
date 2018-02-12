@@ -24,7 +24,7 @@
     </div>
   </mat-toolbar>
   <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
-    <button *ngIf="user.roles.nonprofit" mat-menu-item>
+    <button *ngIf="user.roles.nonprofit" (click)="openPostEventDialog()" mat-menu-item>
       <mat-icon>event</mat-icon>Post an event
     </button>
     <button *ngIf="user.roles.volunteer" mat-menu-item>
