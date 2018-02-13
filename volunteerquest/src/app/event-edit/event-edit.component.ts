@@ -1,9 +1,12 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { EventManagerService } from '../services/search-engine/event-manager.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup } from '@angular/forms';
 import { GooglemapService } from '../services/googlemap.service';
 import { MatDialogRef, MatSelect } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { MaterialTimeControlModule } from '../../../node_modules/material-time-control/src/material-time-control.module';
+import { Validators } from '@angular/forms/src/validators';
 
 @Component({
   selector: 'event-edit',
@@ -32,7 +35,10 @@ export class EventEditComponent implements OnInit {
   zipcode: string;
   URL: string;
   date: Date;
-  time: string;
+  contactPerson: string;
+  contactNumber: string;
+  contactEmail: string;
+  time = {hour: 12, minute: 0, meriden: 'PM', format: 12};
   eventForm: FormGroup;
 
   dateFilter = (date: Date): boolean => {
@@ -74,5 +80,4 @@ export class EventEditComponent implements OnInit {
   editEvent() {
     // this.EventManagerService.getCollection$
   }
-
 }

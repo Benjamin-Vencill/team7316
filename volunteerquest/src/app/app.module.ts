@@ -5,6 +5,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { MatButtonModule, MatMenuModule, MatToolbarModule } from '@angular/material';
@@ -17,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MaterialTimeControlModule } from '../../node_modules/material-time-control/src/material-time-control.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
@@ -58,6 +60,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     }),
     BrowserModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -72,6 +75,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     MatSliderModule,
     MatSnackBarModule,
     MatTabsModule,
+    MaterialTimeControlModule,
     MatToolbarModule,
     MatIconModule,
     ReactiveFormsModule,
