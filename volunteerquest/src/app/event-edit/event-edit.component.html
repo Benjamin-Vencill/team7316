@@ -27,27 +27,17 @@
   <!-- Event State and Zip -->
   <div>
     <mat-input-container>
-        <mat-select placeholder="Event State">
-          <mat-option *ngFor="let state of states" [value]="state.value" [(ngModel)]="eventState" required>
+        <mat-select placeholder="Event State" [(value)]="state" required>
+          <mat-option *ngFor="let state of states" value="state.value">
             {{ state.viewValue }}
           </mat-option>
         </mat-select>
       </mat-input-container>
       <mat-input-container>
-        <input matInput placeholder="Event Zip" [(ngModel)]="eventZipCode" required>
+        <input matInput placeholder="Event Zip" [(ngModel)]="zipcode" required>
       </mat-input-container>
   </div>
   <!-- Event Website URL -->
-  <mat-form-field>
-    <mat-select placeholder="Event State" [(value)]="state">
-      <mat-option *ngFor="let state of states" value="state.value">
-        {{ state.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> 
-  <mat-form-field>
-    <input matInput placeholder="Event Zip" [(ngModel)]="zipzode" required>
-  </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Event Website URL" [(ngModel)]="URL" required>
   </mat-form-field>

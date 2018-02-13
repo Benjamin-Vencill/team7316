@@ -58,7 +58,7 @@ export class ManageEventsComponent implements OnInit {
             this.eventLat = result.lat();
             this.eventLng = result.lng();
             this.EventManagerService.add({title, content, likes:0, street, city, zipcode, 
-                                          eventLat: this.eventLat, eventLng: this.eventLng});
+                                          lat: this.eventLat, lng: this.eventLng});
           } else {
             console.log("unable to get coordinates from inputted address");
           }
