@@ -93,19 +93,20 @@ export class MapComponent {
 
   openFilterDialog(): void {
     let filterDialogRef = this.dialog.open(FilterDialogComponent, {
-      width: '30em',
-      disableClose: true
+      width: '30em'
     });
 
     filterDialogRef.afterClosed().subscribe(filterOptions => {
       console.log('The filter dialog was closed, result is:', JSON.stringify(filterOptions));
-      if (filterOptions.saveThisFilter) {
-        delete filterOptions.saveThisFilter
-        // TODO: update the returned filterobject to the user document
-        this.userManagerService.update(this.uid, {filterOptions: filterOptions});
+      if (filterOptions) {
+        if (filterOptions.saveThisFilter) {
+          delete filterOptions.saveThisFilter
+          // TODO: update the returned filterobject to the user document
+          this.userManagerService.update(this.uid, {filterOptions: filterOptions});
+        }
+        // Now, retrieve the events from the events collection and update the 
+        // markers displayed in the map view
       }
-      // Now, retrieve the events from the events collection and update the 
-      // markers displayed in the map view
     });
   }
 
