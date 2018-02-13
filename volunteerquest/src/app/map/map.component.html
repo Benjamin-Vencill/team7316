@@ -85,7 +85,7 @@
     </div>
   </mat-toolbar>
   <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
-    <button (click)="openSignInDialog()" *ngIf="!(authService.user | async)" mat-menu-item>
+    <button (click)="openSignInDialog()" *ngIf="!(user$ | async)" mat-menu-item>
       <mat-icon>person</mat-icon>Sign In or Register
     </button>
   </mat-menu>

@@ -42,9 +42,13 @@ export class ManageEventsComponent implements OnInit {
   }
 
   save() {
-    const eventTitle = this.eventForm.get('title').value;
-    const eventDescription = this.eventForm.get('content').value;
+    const title = this.eventForm.get('title').value;
+    const content = this.eventForm.get('content').value;
     const address = this.address;
+    const street = '';
+    const city = '';
+    const zipcode = '';
+
     console.log("in save method, address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
         this.__zone.run(() => {
@@ -53,7 +57,7 @@ export class ManageEventsComponent implements OnInit {
             //Save data to firestore
             this.eventLat = result.lat();
             this.eventLng = result.lng();
-            this.EventManagerService.add({eventTitle, eventDescription, likes:0,
+            this.EventManagerService.add({title, content, likes:0, street, city, zipcode, 
                                           eventLat: this.eventLat, eventLng: this.eventLng});
           } else {
             console.log("unable to get coordinates from inputted address");

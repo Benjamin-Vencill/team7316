@@ -1,32 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { EventManagerService } from '../../search-engine/event-manager.service';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { EventManagerService } from '../services/search-engine/event-manager.service';
 import { FormGroup } from '@angular/forms';
+import { GooglemapService } from '../services/googlemap.service';
 import { MatDialogRef, MatSelect } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'event-edit',
-  providers: [EventManagerService],
+  providers: [EventManagerService, GooglemapService],
   templateUrl: './event-edit.component.html',
   styleUrls: ['./event-edit.component.css']
 })
 export class EventEditComponent implements OnInit {
 
-  constructor(private EventManagerService: EventManagerService) { }
+  constructor(private EventManagerService: EventManagerService,
+              private GoogleMapService: GooglemapService,
+              private __zone: NgZone) { }
 
   states = [
     {value: 'GA', viewValue: 'Georgia'},
   ];
 
-  eventName: string;
-  // Appararently Angular Material does not have a time picker
-  eventDate: Date;
-  eventTime: string;
-  eventStreet: string;
-  eventCity: string;
-  eventState: string;
-  eventZip: string;
-  eventURL: string;
+  title: string;
+  content: string;
+  likes: number = 0;
+  lat: number;
+  lng: number;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  URL: string;
+  date: Date;
+  time: string;
   eventForm: FormGroup;
 
   dateFilter = (date: Date): boolean => {
@@ -42,6 +48,27 @@ export class EventEditComponent implements OnInit {
 
   createEvent() {
     // this.EventManagerService.add
+    console.log("In createEvent");
+    let address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.zipcode;
+    this.GoogleMapService.getGeocoding(address).subscribe(result => {
+      this.__zone.run(() => {
+        console.log("Result from Google Maps:", JSON.stringify(result));
+        if (result.hasOwnProperty('lat')) {
+          //Save data to firestore
+          this.lat = result.lat();
+          this.lng = result.lng();
+          this.EventManagerService.add({title: this.title, content: this.content,
+                                        likes: this.likes, lat: this.lat, lng: this.lng,
+                                        street: this.street, city: this.city,
+                                        zipcode: this.zipcode, date: this.date});
+        } else {
+          console.log("Unable to get coordinates from inputted address");
+        }
+      })
+    },
+      error => console.log("In save method, received following error:", error),
+      () => console.log("Done")
+    );
   }
 
   editEvent() {

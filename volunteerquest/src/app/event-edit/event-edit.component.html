@@ -1,33 +1,33 @@
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput placeholder="Event Name" [(ngModel)]="eventName" required>
+    <input matInput placeholder="Event Name" [(ngModel)]="title" required>
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
-           placeholder="Event Date" [(ngModel)]="eventDate" required>
+           placeholder="Event Date" [(ngModel)]="date" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-      <input matInput placeholder="Event Street Address" [(ngModel)]="eventStreet" required>
+      <input matInput placeholder="Event Street Address" [(ngModel)]="street" required>
   </mat-form-field>
   <mat-form-field>
-      <input matInput placeholder="Event City" [(ngModel)]="eventCity" required>
+      <input matInput placeholder="Event City" [(ngModel)]="city" required>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Event State">
-      <mat-option *ngFor="let state of states" [value]="state.value" [(ngModel)]="eventState" required>
+    <mat-select placeholder="Event State" [(value)]="state">
+      <mat-option *ngFor="let state of states" value="state.value">
         {{ state.viewValue }}
       </mat-option>
     </mat-select>
   </mat-form-field> 
   <mat-form-field>
-      <input matInput placeholder="Event Zip" [(ngModel)]="eventZip" required>
+      <input matInput placeholder="Event Zip" [(ngModel)]="zipzode" required>
   </mat-form-field>
   <mat-form-field>
-      <input matInput placeholder="Event Website URL" [(ngModel)]="eventURL" required>
+      <input matInput placeholder="Event Website URL" [(ngModel)]="URL" required>
   </mat-form-field>
   <mat-form-field>
-      <input matInput placeholder="Event Time" [(ngModel)]="eventTime" required>
+      <input matInput placeholder="Event Time" [(ngModel)]="time" required>
   </mat-form-field>
 </mat-dialog-content>
