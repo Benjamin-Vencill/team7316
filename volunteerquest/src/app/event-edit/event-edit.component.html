@@ -1,33 +1,67 @@
 <mat-dialog-content>
+  <!-- Event Name -->
   <mat-form-field>
     <input matInput placeholder="Event Name" [(ngModel)]="eventName" required>
   </mat-form-field>
+  <!-- Event Date Picker -->
   <mat-form-field class="example-full-width">
-    <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
+    <input matInput color="primary" [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
            placeholder="Event Date" [(ngModel)]="eventDate" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <!-- Event Time Picker -->
+  <div class="container">
+      <form class="demo-form">
+        <w-mat-timepicker color="primary" [(userTime)]="eventTime"></w-mat-timepicker>
+      </form>
+  </div>
+  <!-- Event Street Address -->
   <mat-form-field>
       <input matInput placeholder="Event Street Address" [(ngModel)]="eventStreet" required>
   </mat-form-field>
+  <!-- Event City -->
   <mat-form-field>
-      <input matInput placeholder="Event City" [(ngModel)]="eventCity" required>
+    <input matInput placeholder="Event City" [(ngModel)]="eventCity" required>
   </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="Event State">
-      <mat-option *ngFor="let state of states" [value]="state.value" [(ngModel)]="eventState" required>
-        {{ state.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> 
-  <mat-form-field>
-      <input matInput placeholder="Event Zip" [(ngModel)]="eventZip" required>
-  </mat-form-field>
+  <!-- Event State and Zip -->
+  <div>
+    <mat-input-container>
+        <mat-select placeholder="Event State">
+          <mat-option *ngFor="let state of states" [value]="state.value" [(ngModel)]="eventState" required>
+            {{ state.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput placeholder="Event Zip" [(ngModel)]="eventZipCode" required>
+      </mat-input-container>
+  </div>
+  <!-- Event Website URL -->
   <mat-form-field>
       <input matInput placeholder="Event Website URL" [(ngModel)]="eventURL" required>
   </mat-form-field>
+  <!-- Person of Contact -->
   <mat-form-field>
-      <input matInput placeholder="Event Time" [(ngModel)]="eventTime" required>
+      <input matInput placeholder="Person of Contact" [(ngModel)]="eventContactPerson" required>
   </mat-form-field>
+  <!-- Event number, NOTE: QoL would be to auto fill the nonprofits number and email -->
+  <mat-form-field>
+      <input matInput placeholder="Phone Number" [(ngModel)]="eventContactNumber" required>
+  </mat-form-field>
+  <!-- Event Email TODO: Add validation-->
+  <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="eventContactEmail" required>
+  </mat-form-field>
+  <!-- Description -->
+  <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="eventDescription" required></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="createEvent()"
+            [disabled]="!eventName"> 
+            <!-- || !eventDate || !eventTime || !eventStreet || !eventCity || !eventState
+                  || !eventZipCode || !eventURL || !eventContactPerson || !eventContactNumber || !eventContactEmail
+                  || !eventDescription"> -->
+        Submit
+  </button>
 </mat-dialog-content>
