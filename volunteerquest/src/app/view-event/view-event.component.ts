@@ -32,6 +32,14 @@ export class ViewEventComponent implements OnInit {
 
   ngOnInit() {
     this.events$ = this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.uid));
+    if (!this.events$) {
+      console.log("no events");
+    }
+  }
+
+  deleteEvent(eventID: string) {
+    console.log("eventID:", eventID);
+    this.EventManagerService.remove(eventID);
   }
   
   onNoClick(): void {
