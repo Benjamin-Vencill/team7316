@@ -17,6 +17,7 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { User } from '../auth/user';
 import { UserManagerService } from '../services/search-engine/user-manager.service';
+import { ViewEventComponent } from '../view-event/view-event.component'
 
 
 interface Marker {
@@ -113,6 +114,18 @@ export class MapComponent {
   openPostEventDialog(): void {
     let dialogRef = this.dialog.open(EventEditComponent, {
       width: '30em'
+    });
+    
+  }
+
+  openViewAllEventsDialog(): void {
+    let dialogRef = this.dialog.open(ViewEventComponent, {
+      height: '400px',
+      width: '30em'
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed, result is:', JSON.stringify(result));
     });
   }
 
