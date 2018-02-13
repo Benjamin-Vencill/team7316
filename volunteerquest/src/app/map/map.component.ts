@@ -113,7 +113,8 @@ export class MapComponent {
 
   openPostEventDialog(): void {
     let dialogRef = this.dialog.open(EventEditComponent, {
-      width: '30em'
+      width: '30em',
+      data: {uid: this.uid}
     });
     
     dialogRef.afterClosed().subscribe(result => {

@@ -1,9 +1,10 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { EventManagerService } from '../services/search-engine/event-manager.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup } from '@angular/forms';
 import { GooglemapService } from '../services/googlemap.service';
 import { MatDialogRef, MatSelect } from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialTimeControlModule } from '../../../node_modules/material-time-control/src/material-time-control.module';
@@ -17,7 +18,8 @@ import { Validators } from '@angular/forms/src/validators';
 })
 export class EventEditComponent implements OnInit {
 
-  constructor(private EventManagerService: EventManagerService,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private EventManagerService: EventManagerService,
               public dialogRef: MatDialogRef<EventEditComponent>,
               private GoogleMapService: GooglemapService,
               public snackBar: MatSnackBar,
@@ -52,17 +54,16 @@ export class EventEditComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    // console.log("In createEvent, uid:", this.data.uid);
   }
 
   createEvent() {
     // this.EventManagerService.add
-    console.log("In createEvent");
     let address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.zipcode;
-    console.log("address:", JSON.stringify(address));
+    // console.log("address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
       this.__zone.run(() => {
-        console.log("Result from Google Maps:", JSON.stringify(result));
+        // console.log("Result from Google Maps:", JSON.stringify(result));
         if (result.hasOwnProperty('lat')) {
           //Save data to firestore
           this.lat = result.lat();
@@ -70,9 +71,10 @@ export class EventEditComponent implements OnInit {
           this.EventManagerService.add({title: this.title, content: this.content,
                                         likes: this.likes, lat: this.lat, lng: this.lng,
                                         street: this.street, city: this.city,
-                                        zipcode: this.zipcode, date: this.date})
+                                        zipcode: this.zipcode, date: this.date,
+                                        uid: this.data.uid})
           .catch(onrejected => {
-            console.log("unable to add event, onrejected:", onrejected);
+            console.log("Unable to add event, onrejected:", onrejected);
           })
           .then(value => {
             console.log("Successfully added event, value:", value);
