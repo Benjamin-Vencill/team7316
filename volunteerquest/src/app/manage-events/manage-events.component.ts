@@ -75,7 +75,7 @@ export class ManageEventsComponent implements OnInit {
   }
 
   like(post: Event) {
-    this.EventManagerService.update(post.id, {likes: post.likes + 1});
+    // this.EventManagerService.update(post.id, {likes: post.likes + 1});
   }
 
   remove(id: string) {
