@@ -33,7 +33,7 @@ export class EventEditComponent implements OnInit {
   city: string;
   state: string;
   zipcode: string;
-  URL: string;
+  url: string;
   date: Date;
   contactPerson: string;
   contactNumber: string;

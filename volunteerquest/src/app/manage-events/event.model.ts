@@ -7,9 +7,10 @@ export interface Event {
     street: string;
     city: string;
     zipcode: string;
-    URL?: string;
+    url?: string;
+    contact?: string;
+    phone?: string;
+    email?: string;
     date?: Date;
-    // nonProfitName: string;
-    created?: Date;
-    id?: string;
+    time?: object;
   }
