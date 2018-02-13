@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject, NgZone } from '@angular/core';
+import { Component, Inject, OnInit, NgZone } from '@angular/core';
 import { EventManagerService } from '../services/search-engine/event-manager.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup } from '@angular/forms';
 import { GooglemapService } from '../services/googlemap.service';
-import { MatDialogRef, MatSelect } from '@angular/material';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSelect } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MaterialTimeControlModule } from '../../../node_modules/material-time-control/src/material-time-control.module';

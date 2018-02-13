@@ -18,4 +18,13 @@
   <mat-card-header>
     <mat-card-title>No Events Found</mat-card-title>
   </mat-card-header>
+  <mat-card-content>
+    <p>
+      Select "Create" to add a new event!
+    </p>
+  </mat-card-content>
+  <mat-card-actions id="create-container">
+    <span id="span-button"></span>
+    <button mat-raised-button color="primary" id="create-button" (click)="openNewEventDialog()">Create</button>
+  </mat-card-actions>
 </mat-card>
