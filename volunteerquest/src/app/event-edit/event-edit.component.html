@@ -32,8 +32,8 @@
   <!-- Event State and Zip -->
   <div>
     <mat-input-container>
-        <mat-select placeholder="State" [(value)]="state" required>
-          <mat-option *ngFor="let state of states" value="state.value">
+        <mat-select placeholder="State" [(ngModel)]="state" required>
+          <mat-option *ngFor="let state of states" [value]="state.value">
             {{ state.viewValue }}
           </mat-option>
         </mat-select>
@@ -59,9 +59,8 @@
     <input matInput placeholder="Contact Email" [(ngModel)]="contactEmail" required>
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="createEvent()"
-            [disabled]="!title"> 
-            <!--!title || !content || !date || !street || !city || !state
-                  || !zipcode || !contactPerson || !contactNumber || !contactEmail">-->
+            [disabled]= "!title || !content || !date || !street || !city || !state
+                  || !zipcode || !contactPerson || !contactNumber || !contactEmail">
         Submit
   </button>
 </mat-dialog-content>

@@ -116,6 +116,9 @@ export class MapComponent {
       width: '30em'
     });
     
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The post event dialog was closed");
+    })
   }
 
   openViewAllEventsDialog(): void {
