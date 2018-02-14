@@ -32,6 +32,7 @@ import { GoogleMapsConfig } from '../environments/googlemaps.config';
 
 //Services
 import { AuthService } from '../auth/auth.service';
+import { MessagingService } from './app-chat/messaging.service';
 
 //Components
 import { AuthComponent } from '../auth/auth.component';
@@ -42,7 +43,12 @@ import { EditPostComponent } from '../edit-post/edit-post.component';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
 import { ManageEventsComponent } from '../manage-events/manage-events.component';
-//import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+import { ReceiverComponent } from './app-chat/receiver/receiver.component';
+import { SenderComponent } from './app-chat/sender/sender.component';
+import { SearchTitlePipe } from './pipes/search-title.pipe';
+import { SearchCategoryPipe } from './pipes/search-category.pipe';
+import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
+
 
 @NgModule({
   imports: [
@@ -81,10 +87,15 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
     CannotFindPageComponent,
     EditPostComponent,
     AuthDialogComponent,
-    ManageEventsComponent
+    ManageEventsComponent,
+    ReceiverComponent,
+    SenderComponent,
+    SearchTitlePipe,
+    SearchCategoryPipe,
+    SearchGeospatialPipe
   ],
   entryComponents: [AuthDialogComponent],
-  providers: [],
+  providers: [MessagingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { Event } from './event.model';
 import { QueryFn } from 'angularfire2/firestore';
 import { Form } from '@angular/forms/src/directives/form_interface';
+import  { SearchTitlePipe } from '../app/pipes/search-title.pipe';
+import { SearchCategoryPipe } from '../app/pipes/search-category.pipe';
+import { SearchGeospatialPipe } from '../app/pipes/search-geospatial.pipe';
 
 @Component({
   selector: 'app-manage-events',
@@ -12,18 +15,18 @@ import { Form } from '@angular/forms/src/directives/form_interface';
   templateUrl: './manage-events.component.html',
   styleUrls: ['./manage-events.component.css']
 })
+
 export class ManageEventsComponent implements OnInit {
 
   eventForm: FormGroup;
   filterForm: FormGroup;
-  events$: Observable<Event[]>;
+  events: Observable<Event[]>;
   title_query: string;
 
   constructor(private EventManagerService: EventManagerService) { }
 
   ngOnInit() {
-    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
-    
+    this.events = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
     this.eventForm = new FormGroup ({
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required)
@@ -44,16 +47,16 @@ export class ManageEventsComponent implements OnInit {
 
   filterEventsByTitle(ref?: QueryFn) {
     console.log('title == ' + this.title_query);
-    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("title", '==', this.title_query))
+    this.events = this.EventManagerService.getCollection$(ref => ref.where("title", '==', this.title_query))
   }
 
   filterEventsByCategory(ref?: QueryFn) {
     console.log('title == ' + this.title_query);
-    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("category", '==', this.title_query))
+    this.events = this.EventManagerService.getCollection$(ref => ref.where("category", '==', this.title_query))
   }
 
   clearFilter() {
-    this.events$ = this.EventManagerService.getCollection$();
+    this.events = this.EventManagerService.getCollection$();
   }
 
   like(post: Event) {

@@ -14,6 +14,8 @@ import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventManagerService } from '../search-engine/event-manager.service';
+import { Event } from '../manage-events/event.model';
 
 interface Marker {
   lat: number;
@@ -23,6 +25,7 @@ interface Marker {
 
 @Component({
   selector: 'map-view',
+  providers: [EventManagerService],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -38,11 +41,14 @@ export class MapComponent {
   user$: Observable<User>;
 
   markerCollection: AngularFirestoreCollection<Marker>;
-  markers: Observable<Marker[]>;
+  markers$: Observable<Event[]>;
+
+  //events$: Observable<Event[]>;
 
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private authService: AuthService,
+              private eventManagerService: EventManagerService,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {
     this.firebaseAuth.authState.subscribe((auth) => {
@@ -58,8 +64,14 @@ export class MapComponent {
 
   ngOnInit() {
     this.markerCollection = this.afs.collection('markers'); //reference
-    this.markers = this.markerCollection.valueChanges();//observable of notes reference
+    this.getEventMarkers()
 
+  }
+
+  getEventMarkers() {
+    this.markers$ = this.eventManagerService.getCollection$();
+    console.log('Events for map:');
+    console.log(this.markers$);
   }
 
   clickedMarker(label: string, index: number) {
