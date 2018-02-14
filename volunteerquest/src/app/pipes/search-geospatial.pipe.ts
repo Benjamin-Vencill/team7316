@@ -25,31 +25,32 @@ export class SearchGeospatialPipe implements PipeTransform {
 
     return events.map(event_arr => 
       event_arr.filter(event => 
-        this.boxTestPrintout(bbox, {lat:event.lat, lng:event.lng})));
-        //this.isWithinBox({lat: event.lat, lng:event.lng} , bbox)));
+        //this.boxTestPrintout(bbox, {lat:event.lat, lng:event.lng})));
+        this.isWithinBox({lat: event.lat, lng:event.lng} , bbox)));
 
     
   }
 
   boxTestPrintout(bbox: BBox, coordinate: Coordinate) {
-    console.log(bbox.bottomright.lat, "should be less than", coordinate.lat);
-    console.log(bbox.bottomright.lat < coordinate.lat);
+    console.log("Check EAST:", bbox.east, "should be less than", coordinate.lat);
+    console.log(bbox.east < coordinate.lat);
 
-    console.log(bbox.topleft.lat, "should be greater than", coordinate.lat);
-    console.log(bbox.topleft.lat > coordinate.lat);
+    console.log("Check WEST:", bbox.west, "should be greater than", coordinate.lat);
+    console.log(bbox.west > coordinate.lat);
 
-    console.log(bbox.bottomright.lng, "should be less than", coordinate.lng);
-    console.log(Math.abs(bbox.bottomright.lng) < Math.abs(coordinate.lng));
+    console.log("Check SOUTH:", bbox.south, "should be less than", coordinate.lng);
+    console.log(bbox.south > coordinate.lng);
 
-    console.log(bbox.topleft.lng, "should be greater than", coordinate.lng);
-    console.log(Math.abs(bbox.topleft.lng) > Math.abs(coordinate.lng));
+    console.log("Check NORTH:", bbox.north, "should be greater than", coordinate.lng);
+    console.log(bbox.north < coordinate.lng);
   }
 
   isWithinBox(coordinate: Coordinate, box: BBox) {
-      if (Math.abs(box.bottomright.lat) < Math.abs(coordinate.lat) 
-            && Math.abs(box.topleft.lat) > Math.abs(coordinate.lat)
-            && Math.abs(box.bottomright.lng) < Math.abs(coordinate.lng)
-            && Math.abs(box.topleft.lng) > Math.abs(coordinate.lng)) {
+      if (     (box.east < coordinate.lat)
+            && (box.west > coordinate.lat)
+            && (box.south > coordinate.lng)
+            && (box.north < coordinate.lng) ){
+                console.log("IN BOX TRUE");
             return true;
         } else {
             return false;
@@ -81,7 +82,7 @@ export class SearchGeospatialPipe implements PipeTransform {
       var topleft: Coordinate = {lat: latMax, lng: lngMax};
       var botright: Coordinate = {lat:latMin, lng: lngMin};
 
-      var box: BBox = {topleft: topleft, bottomright: botright}
+      var box: BBox = {north: lngMax, south: lngMin, east:latMin, west:latMax}
       console.log("BBOX:", box);
       
       return box
