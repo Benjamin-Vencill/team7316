@@ -36,7 +36,7 @@
 
 
 <h2> View Events </h2>
-<div class="card" *ngFor="let event of events | searchCategoryPipe : cat_term | searchTitlePipe : title_term | searchGeospatialPipe : lat_term : lng_term : radius_term |  async">
+<div class="card" *ngFor="let event of events$ | searchCategoryPipe : cat_term | searchTitlePipe : title_term | searchGeospatialPipe : lat_term : lng_term : radius_term |  async">
     <div class="card-header">
       <div class="card-title h5">{{event.title}}</div>
     </div>

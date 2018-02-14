@@ -8,6 +8,10 @@ import { Form } from '@angular/forms/src/directives/form_interface';
 import { User } from '../auth/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { SearchTitlePipe } from '../app/pipes/search-title.pipe';
+import { SearchCategoryPipe } from '../app/pipes/search-category.pipe';
+import { SearchGeospatialPipe } from '../app/pipes/search-geospatial.pipe';
+
 @Component({
   selector: 'app-manage-events',
   providers: [EventManagerService],
@@ -35,7 +39,7 @@ export class ManageEventsComponent implements OnInit {
                }
 
   ngOnInit() {
-    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
+    this.events$ = this.EventManagerService.getCollection$();
     
     this.eventForm = new FormGroup ({
       title: new FormControl('', Validators.required),
