@@ -45,6 +45,11 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 
+//Pipes
+import { SearchTitlePipe } from './pipes/search-title.pipe';
+import { SearchCategoryPipe } from './pipes/search-category.pipe';
+import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
+
 @NgModule({
   imports: [
     AngularFireModule.initializeApp(FirebaseConfig.team7316_firebase),
@@ -86,6 +91,10 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     ManageEventsComponent,
     EventEditComponent,
     ViewEventComponent,
+    SearchTitlePipe,
+    SearchCategoryPipe,
+    SearchGeospatialPipe
+
   ],
   entryComponents: [
     AuthDialogComponent,
