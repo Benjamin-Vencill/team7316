@@ -4,6 +4,8 @@ export interface Coordinate {
 }
 
 export interface BBox {
-    topleft: Coordinate,
-    bottomright: Coordinate
+    north: number,
+    south: number,
+    east: number,
+    west: number
 }
