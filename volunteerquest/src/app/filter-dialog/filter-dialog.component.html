@@ -33,17 +33,22 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Distance (mi)
+        Location
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-slider
-      [max]=30
-      [min]=0
-      [step]=1
-      [thumb-label]=true
-      [(ngModel)]="radius"
-    >
-    </mat-slider>
+    <mat-form-field>
+      <input matInput placeholder="Street Address" [(ngModel)]="street" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="City" [(ngModel)]="city" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput maxlength="5" placeholder="Zip Code" [(ngModel)]="zipcode">
+      <mat-hint align="end">{{zipcode.length}} / 5</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Distance (mi)" [(ngModel)]="radius">
+    </mat-form-field>
   </mat-expansion-panel>
 </mat-accordion>
 <button mat-raised-button (click)="onSave()" id="saveButton" color="primary">Save</button>

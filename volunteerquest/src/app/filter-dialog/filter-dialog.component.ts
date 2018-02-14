@@ -16,7 +16,11 @@ export class FilterDialogComponent {
   ];
   startDate: Date = null;
   endDate: Date = null;
-  radius: number = 0;
+  street: string = "";
+  city: string = "";
+  state: string = "Georgia";
+  zipcode: string = "";
+  radius: number;
 
   categories = [
     "Humanitarian",
