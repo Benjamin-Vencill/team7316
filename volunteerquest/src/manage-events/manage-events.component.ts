@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventManagerService } from '../search-engine/event-manager.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Event } from './event.model';
 import { QueryFn } from 'angularfire2/firestore';
 import { Form } from '@angular/forms/src/directives/form_interface';
