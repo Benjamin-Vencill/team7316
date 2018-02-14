@@ -54,6 +54,7 @@ export class ManageEventsComponent implements OnInit {
     const street = '';
     const city = '';
     const zipcode = '';
+    const category = 'uncategorized';
 
     console.log("in save method, address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
@@ -64,7 +65,7 @@ export class ManageEventsComponent implements OnInit {
             this.eventLat = result.lat();
             this.eventLng = result.lng();
             this.EventManagerService.add({title, content, likes:0, street, city, zipcode, 
-                                          lat: this.eventLat, lng: this.eventLng});
+                                          lat: this.eventLat, lng: this.eventLng, category});
           } else {
             console.log("unable to get coordinates from inputted address");
           }

@@ -37,6 +37,7 @@ export class EventEditComponent implements OnInit {
   city: string;
   state: string;
   zipcode: string;
+  category: string;
   url: string;
   date: Date;
   contactPerson: string;
@@ -71,7 +72,7 @@ export class EventEditComponent implements OnInit {
                                         likes: this.likes, lat: this.lat, lng: this.lng,
                                         street: this.street, city: this.city,
                                         zipcode: this.zipcode, date: this.date,
-                                        uid: this.data.uid})
+                                        uid: this.data.uid, category: this.category})
           .catch(onrejected => {
             console.log("Unable to add event, onrejected:", onrejected);
           })

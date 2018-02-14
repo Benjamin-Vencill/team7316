@@ -13,14 +13,16 @@ import * as firebase from 'firebase/app';
 
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
 import { AuthService } from '../auth/auth.service';
+import { EventManagerService } from '../services/search-engine/event-manager.service';
+import { Event } from '../manage-events/event.model';
 import { EventEditComponent } from '../event-edit/event-edit.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { SearchTitlePipe } from '../pipes/search-title.pipe';
+import { SearchCategoryPipe } from '../pipes/search-category.pipe';
+import { SearchGeospatialPipe } from '../pipes/search-geospatial.pipe';
 import { User } from '../auth/user';
 import { UserManagerService } from '../services/search-engine/user-manager.service';
 import { ViewEventComponent } from '../view-event/view-event.component'
-
-import { EventManagerService } from '../services/search-engine/event-manager.service';
-import { Event } from '../manage-events/event.model';
 
 interface Marker {
   lat: number;
@@ -40,6 +42,9 @@ export class MapComponent {
   lat: number = 33.7490;
   lng: number = -84.3880;
   zoom: number = 10;
+  categories: string[];
+  startDate: Date;
+  endDate: Date;
 
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
@@ -109,13 +114,18 @@ export class MapComponent {
     filterDialogRef.afterClosed().subscribe(filterOptions => {
       console.log('The filter dialog was closed, result is:', JSON.stringify(filterOptions));
       if (filterOptions) {
+        // If user wants to save user options
         if (filterOptions.saveThisFilter) {
           delete filterOptions.saveThisFilter
           // TODO: update the returned filterobject to the user document
           this.userManagerService.update(this.uid, {filterOptions: filterOptions});
+        } else {
+          // If user just wants to apply changes without saving to database
+          console.log(JSON.stringify(filterOptions));
+          this.categories = filterOptions.categoriesSelected;
+          this.startDate = filterOptions.startDate;
+          this.endDate = filterOptions.endDate;
         }
-        // Now, retrieve the events from the events collection and update the 
-        // markers displayed in the map view
       }
     });
   }

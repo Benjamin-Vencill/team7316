@@ -5,17 +5,8 @@
         Categories
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-checkbox [(ngModel)]="categoryAnimals">
-      Animals
-    </mat-checkbox>
-    <mat-checkbox [(ngModel)]="categoryEducation">
-      Education
-    </mat-checkbox>
-    <mat-checkbox [(ngModel)]="categoryEnvironment">
-      Environment
-    </mat-checkbox>
-    <mat-checkbox [(ngModel)]="categorySeniors">
-      Seniors
+    <mat-checkbox *ngFor="let category of categories" [checked]="categoriesSelected.indexOf(category)" (change)="selectCategory(category)">
+      {{category}}
     </mat-checkbox>
   </mat-expansion-panel>
 </mat-accordion>
