@@ -35,7 +35,7 @@ export class ManageEventsComponent implements OnInit {
               private __zone: NgZone) { }
 
   ngOnInit() {
-    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
+    this.events$ = this.EventManagerService.getCollection$();
     
     this.eventForm = new FormGroup ({
       title: new FormControl('', Validators.required),
