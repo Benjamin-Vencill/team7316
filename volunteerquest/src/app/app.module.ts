@@ -1,4 +1,3 @@
-//Modules
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
@@ -14,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,7 +32,6 @@ import { GoogleMapsConfig } from '../environments/googlemaps.config';
 
 //Services
 import { AuthService } from '../auth/auth.service';
-import { MessagingService } from './app-chat/messaging.service';
 
 //Components
 import { AuthComponent } from '../auth/auth.component';
@@ -41,14 +40,10 @@ import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
-//import { ViewEventsComponent } from '../view-events/view-events.component';
+import { ViewEventComponent } from '../view-event/view-event.component';
 import { ManageEventsComponent } from '../manage-events/manage-events.component';
-import { ReceiverComponent } from './app-chat/receiver/receiver.component';
-import { SenderComponent } from './app-chat/sender/sender.component';
-import { SearchTitlePipe } from './pipes/search-title.pipe';
-import { SearchCategoryPipe } from './pipes/search-category.pipe';
-import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
-
+//import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
 
 @NgModule({
   imports: [
@@ -65,6 +60,7 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     MatCheckboxModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatCardModule,
     MatNativeDateModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -88,14 +84,13 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     EditPostComponent,
     AuthDialogComponent,
     ManageEventsComponent,
-    ReceiverComponent,
-    SenderComponent,
-    SearchTitlePipe,
-    SearchCategoryPipe,
-    SearchGeospatialPipe
+    EventEditComponent,
+    ViewEventComponent,
   ],
-  entryComponents: [AuthDialogComponent],
-  providers: [MessagingService],
+  entryComponents: [
+    AuthDialogComponent,
+    ViewEventComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

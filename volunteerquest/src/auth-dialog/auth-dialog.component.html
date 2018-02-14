@@ -17,86 +17,88 @@
     </button> -->
   </mat-tab>
   <mat-tab label="Register">
-    <!-- volunteer register -->
-    <mat-checkbox 
-      [(ngModel)]="checked"
-      [align]=end>
-      Please select if registering as a nonprofit.
-    </mat-checkbox>
-    <section>
-      <h3 class="register-header" *ngIf="!checked">Volunteer Registration</h3>
-    </section>
-    <mat-form-field *ngIf="!checked">
-      <input matInput placeholder="First Name" [(ngModel)]="firstName" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="!checked">
-      <input matInput placeholder="Last Name" [(ngModel)]="lastName" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="!checked">
-      <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
-    </mat-form-field>
-    <mat-form-field *ngIf="!checked">
-      <input matInput placeholder="Email" [formControl]="email" required>
-      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="!checked" hintLabel="Must be at least 6 characters">
-      <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password"
-            [type]="hide ? 'password' : 'text'" required>
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field>
-    <button mat-raised-button *ngIf="!checked" color="primary" (click)="volunteerRegistration()"
-            [disabled]="!firstName || !lastName || !email || !password || password.length < 6">
-        Register
-    </button>
-    <!-- nonprofit register -->
-    <section>
-      <h3 class="register-header" *ngIf="checked">Nonprofit Registration</h3>
-    </section>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Nonprofit Name" [(ngModel)]="nonProfitName" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked" hintLabel="A brief introduction to your organization.">
-      <input matInput placeholder="Nonprofit Description" [(ngModel)]="nonProfitDescription">
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Address" [(ngModel)]="nonProfitAddress" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="City" [(ngModel)]="nonProfitCity" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="State" [(ngModel)]="nonProfitState" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked" hintLabel="Must be 5 digits">
-      <input matInput #input length="5" placeholder="Zip Code" [(ngModel)]="nonProfitZipCode" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Web URL" [(ngModel)]="nonProfitWebURL">
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Person of Contact First Name" [(ngModel)]="firstName" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Person of Contact Last Name" [(ngModel)]="lastName" required>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
-    </mat-form-field>
-    <mat-form-field *ngIf="checked">
-      <input matInput placeholder="Email" [formControl]="email" required>
-      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="checked" hintLabel="Must be at least 6 characters">
-      <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" 
-              [type]="hide ? 'password' : 'text'" required>
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-    </mat-form-field>
-    <button mat-raised-button *ngIf="checked" color="primary" (click)="nonProfitRegistration()"
-            [disabled]="!nonProfitName || !nonProfitAddress || !nonProfitCity || !nonProfitState ||
-            !nonProfitZipCode || !firstName || !lastName || !email || !password || password.length < 6 ||
-            nonProfitZipCode.length !== 5">
-        Register
-    </button>
+    <mat-tab-group>
+      <!-- volunteer register -->
+      <mat-tab label="Volunteer">
+        <section>
+          <h3 class="register-header">Volunteer Registration</h3>
+        </section>
+        <mat-form-field>
+          <input matInput placeholder="First Name" [(ngModel)]="firstName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" [(ngModel)]="lastName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Email" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Must be at least 6 characters">
+          <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password"
+                [type]="hide ? 'password' : 'text'" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="volunteerRegistration()"
+                [disabled]="!firstName || !lastName || !email || !password || password.length < 6">
+            Register
+        </button>
+      </mat-tab>
+      <!-- nonprofit register -->
+      <mat-tab label="Nonprofit">
+        <section>
+          <h3 class="register-header">Nonprofit Registration</h3>
+        </section>
+        <mat-form-field>
+          <input matInput placeholder="Nonprofit Name" [(ngModel)]="nonProfitName" required>
+        </mat-form-field>
+        <mat-form-field hintLabel="A brief introduction to your organization.">
+          <input matInput placeholder="Nonprofit Description" [(ngModel)]="nonProfitDescription">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Address" [(ngModel)]="nonProfitAddress" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="City" [(ngModel)]="nonProfitCity" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="State" [(ngModel)]="nonProfitState" required>
+        </mat-form-field>
+        <mat-form-field hintLabel="Must be 5 digits">
+          <input matInput #input length="5" placeholder="Zip Code" [(ngModel)]="nonProfitZipCode" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Web URL" [(ngModel)]="nonProfitWebURL">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Person of Contact First Name" [(ngModel)]="firstName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Person of Contact Last Name" [(ngModel)]="lastName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Email" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Must be at least 6 characters">
+          <input matInput #input minlength="6" [(ngModel)]="password" placeholder="Password" 
+                  [type]="hide ? 'password' : 'text'" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="nonProfitRegistration()"
+                [disabled]="!nonProfitName || !nonProfitAddress || !nonProfitCity || !nonProfitState ||
+                !nonProfitZipCode || !firstName || !lastName || !email || !password || password.length < 6 ||
+                nonProfitZipCode.length !== 5">
+            Register 
+        </button>
+      </mat-tab>
+    </mat-tab-group>
   </mat-tab>
+  
 </mat-tab-group>
 </mat-dialog-content>

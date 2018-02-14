@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { EventManagerService } from '../search-engine/event-manager.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import { Event } from './event.model';
 import { QueryFn } from 'angularfire2/firestore';
 import { Form } from '@angular/forms/src/directives/form_interface';
-import  { SearchTitlePipe } from '../app/pipes/search-title.pipe';
-import { SearchCategoryPipe } from '../app/pipes/search-category.pipe';
-import { SearchGeospatialPipe } from '../app/pipes/search-geospatial.pipe';
+import { User } from '../auth/user';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-manage-events',
@@ -15,18 +14,29 @@ import { SearchGeospatialPipe } from '../app/pipes/search-geospatial.pipe';
   templateUrl: './manage-events.component.html',
   styleUrls: ['./manage-events.component.css']
 })
-
 export class ManageEventsComponent implements OnInit {
 
   eventForm: FormGroup;
   filterForm: FormGroup;
-  events: Observable<Event[]>;
+  events$: Observable<Event[]>;
   title_query: string;
 
-  constructor(private EventManagerService: EventManagerService) { }
+  private uid: string;
+
+  constructor(private EventManagerService: EventManagerService,
+              private firebaseAuth: AngularFireAuth) {
+    this.firebaseAuth.authState.subscribe((auth) => {
+      console.log("auth:", auth);
+      if (auth) {
+        this.uid = auth.uid;
+        console.log("uid:", this.uid);
+      }
+    })
+               }
 
   ngOnInit() {
-    this.events = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
+    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
+    
     this.eventForm = new FormGroup ({
       title: new FormControl('', Validators.required),
       content: new FormControl('', Validators.required)
@@ -42,21 +52,21 @@ export class ManageEventsComponent implements OnInit {
     const content = this.eventForm.get('content').value;
     
     //Save data to firestore
-    this.EventManagerService.add({title, content, likes:0});
+    this.EventManagerService.add({title, content, likes:0, uid: this.uid});
   }
 
   filterEventsByTitle(ref?: QueryFn) {
     console.log('title == ' + this.title_query);
-    this.events = this.EventManagerService.getCollection$(ref => ref.where("title", '==', this.title_query))
+    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("title", '==', this.title_query))
   }
 
   filterEventsByCategory(ref?: QueryFn) {
     console.log('title == ' + this.title_query);
-    this.events = this.EventManagerService.getCollection$(ref => ref.where("category", '==', this.title_query))
+    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("category", '==', this.title_query))
   }
 
   clearFilter() {
-    this.events = this.EventManagerService.getCollection$();
+    this.events$ = this.EventManagerService.getCollection$();
   }
 
   like(post: Event) {
