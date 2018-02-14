@@ -32,7 +32,6 @@ import { GoogleMapsConfig } from '../environments/googlemaps.config';
 
 //Services
 import { AuthService } from '../auth/auth.service';
-import { MessagingService } from './app-chat/messaging.service';
 
 //Components
 import { AuthComponent } from '../auth/auth.component';
