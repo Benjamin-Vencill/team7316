@@ -1,4 +1,3 @@
-//Modules
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
@@ -14,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -40,9 +40,10 @@ import { MapComponent } from '../map/map.component';
 import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
-//import { ViewEventsComponent } from '../view-events/view-events.component';
+import { ViewEventComponent } from '../view-event/view-event.component';
 import { ManageEventsComponent } from '../manage-events/manage-events.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
     MatCheckboxModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatCardModule,
     MatNativeDateModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -81,9 +83,13 @@ import { ManageEventsComponent } from '../manage-events/manage-events.component'
     CannotFindPageComponent,
     EditPostComponent,
     AuthDialogComponent,
-    ManageEventsComponent
+    ManageEventsComponent,
+    EventEditComponent,
+    ViewEventComponent,
   ],
-  entryComponents: [AuthDialogComponent],
+  entryComponents: [
+    AuthDialogComponent,
+    ViewEventComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
