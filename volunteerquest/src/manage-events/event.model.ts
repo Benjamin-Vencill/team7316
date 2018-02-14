@@ -6,4 +6,7 @@ export interface Event {
     created?: Date;
     id?: string;
     category?: string;
+    lat?: number,
+    lng?: number
   }
+  
