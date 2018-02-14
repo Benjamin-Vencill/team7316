@@ -18,6 +18,7 @@ import { AdminGuard } from './auth/admin.guard';
 import { CanReadGuard } from './auth/can-read.guard';
 import { CanEditGuard } from './auth/can-edit.gaurd';
 
+
 const appRoutes: Routes = [
   { path: 'mapview', component: MapComponent}, // Want users not logged in to be able to see volunteer opportunities
   { path: 'authview', component: AuthComponent},

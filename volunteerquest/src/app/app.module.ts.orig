@@ -4,7 +4,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { MatButtonModule, MatMenuModule, MatToolbarModule } from '@angular/material';
@@ -18,43 +17,42 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MaterialTimeControlModule } from '../../node_modules/material-time-control/src/material-time-control.module';
-import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
+import { AppRoutingModule } from '../routing/app-routing.module';
+import { AuthModule } from '../auth/auth.module';
 
 //Configs
 import { FirebaseConfig } from '../environments/firebase.config';
 import { GoogleMapsConfig } from '../environments/googlemaps.config';
 
 //Services
-import { AuthService } from './auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 //Components
-import { AuthComponent } from './auth/auth.component';
-import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { AuthComponent } from '../auth/auth.component';
 import { AppComponent } from './app.component';
-import { CannotFindPageComponent } from './cannot-find-page/cannot-find-page.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
-import { EventEditComponent } from './event-edit/event-edit.component';
-import { FilterComponent } from './filter/filter.component';
-import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
-import { ManageEventsComponent } from './manage-events/manage-events.component';
-import { MapComponent } from './map/map.component';
-import { ViewEventComponent } from './view-event/view-event.component';
-//import { ViewEventsComponent } from '../view-events/view-events.component';
-//import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
-
-//Pipes
+import { MapComponent } from '../map/map.component';
+import { CannotFindPageComponent } from '../cannot-find-page/cannot-find-page.component';
+import { EditPostComponent } from '../edit-post/edit-post.component';
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { ViewEventComponent } from '../view-event/view-event.component';
+import { ManageEventsComponent } from '../manage-events/manage-events.component';
+<<<<<<< HEAD
+import { ReceiverComponent } from './app-chat/receiver/receiver.component';
+import { SenderComponent } from './app-chat/sender/sender.component';
 import { SearchTitlePipe } from './pipes/search-title.pipe';
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
+
+=======
+//import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
+>>>>>>> 7418ba3504e41893da1f46040589574a82da624b
 
 @NgModule({
   imports: [
@@ -66,7 +64,6 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     }),
     BrowserModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -78,11 +75,9 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    MatSelectModule,
     MatSliderModule,
     MatSnackBarModule,
     MatTabsModule,
-    MaterialTimeControlModule,
     MatToolbarModule,
     MatIconModule,
     ReactiveFormsModule,
@@ -93,26 +88,29 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
   declarations: [
     AppComponent,
     AuthComponent,
-    AuthDialogComponent,
+    MapComponent, 
     CannotFindPageComponent,
-    EventEditComponent,
     EditPostComponent,
-    FilterComponent,
-    FilterDialogComponent,
+    AuthDialogComponent,
     ManageEventsComponent,
-    ViewEventComponent,
-    MapComponent,
+<<<<<<< HEAD
+    ReceiverComponent,
+    SenderComponent,
     SearchTitlePipe,
     SearchCategoryPipe,
     SearchGeospatialPipe
   ],
+  entryComponents: [AuthDialogComponent],
+  providers: [MessagingService],
+=======
+    EventEditComponent,
+    ViewEventComponent,
+  ],
   entryComponents: [
     AuthDialogComponent,
-    FilterDialogComponent,
-    EventEditComponent,
-    ViewEventComponent
-  ],
+    ViewEventComponent],
   providers: [],
+>>>>>>> 7418ba3504e41893da1f46040589574a82da624b
   bootstrap: [AppComponent]
 })
 export class AppModule { }

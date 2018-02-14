@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
@@ -19,6 +19,8 @@ import { User } from '../auth/user';
 import { UserManagerService } from '../services/search-engine/user-manager.service';
 import { ViewEventComponent } from '../view-event/view-event.component'
 
+import { EventManagerService } from '../services/search-engine/event-manager.service';
+import { Event } from '../manage-events/event.model';
 
 interface Marker {
   lat: number;
@@ -28,7 +30,7 @@ interface Marker {
 
 @Component({
   selector: 'map-view',
-  providers: [UserManagerService],
+  providers: [UserManagerService, EventManagerService],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -49,6 +51,8 @@ export class MapComponent {
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private userManagerService: UserManagerService,
+              private authService: AuthService,
+              private eventManagerService: EventManagerService,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {}
 
@@ -71,11 +75,16 @@ export class MapComponent {
         })
       }
     });
+  }
 
     // Seems as though need to be able to use values in the user.filterOptions
     // object to filter on the events in the events collection to then 
     // show as markers on the map
 
+  getEvents() {
+    this.events$ = this.eventManagerService.getCollection$();
+    console.log('Events for map:');
+    console.log(this.events$);
   }
 
   clickedMarker(content: string, index: number) {

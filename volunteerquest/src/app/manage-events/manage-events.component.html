@@ -8,19 +8,30 @@
   <textarea class="form-input" placeholder="your event content" id="content" formControlName="content"></textarea>
   <button class="btn btn-primary" type="submit" [disabled]="eventForm.invalid">save</button>
 </form>
-<input class="form-input" placeholder="your event address" [(ngModel)]="address">
-<h2>Filter Events</h2>
-<form [formGroup]="filterForm" (ngSubmit)="filterEventsByTitle(title_query)" class="form-group">
-    <input class="input" placeholder="your query" id="title_query" type="text" formControlName="title_query" [(ngModel)]="title_query">
-    <button class="btn btn-primary" type="submit" [disabled]="filterForm.invalid">filter</button>
-</form>
-<button class="btn btn-primary" (click)="clearFilter()">Clear Filter</button>
 
-
-
+<br>
+<label>Filter by Title</label>
+<input class="input" [(ngModel)]="title_term">
+<br>
+<label>Filter by Category</label>
+<select [(ngModel)] = "cat_term">
+  <option value="humanitarian">Humanitarian</option>
+  <option value="animal">Animals</option>
+  <option value="environmental">Environmental</option>
+  <option value="education">Education</option>
+</select>
+<br><br>
+<label>Filter by Coordinates (to be replaced by address lookup)</label>
+<br>
+<label>lat</label>
+<input class="input" [(ngModel)]="lat_term">
+<label>lng</label>
+<input class="input" [(ngModel)]="lng_term">
+<label>radius (miles)</label>
+<input class="input" [(ngModel)]="radius_term">
 
 <h2> View Events </h2>
-<div class="card" *ngFor="let event of events$ | async">
+<div class="card" *ngFor="let event of events$ | searchCategoryPipe : cat_term | searchTitlePipe : title_term | searchGeospatialPipe : lat_term : lng_term : radius_term |  async">
     <div class="card-header">
       <div class="card-title h5">{{event.eventTitle}}</div>
     </div>

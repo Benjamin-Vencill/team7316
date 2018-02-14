@@ -4,9 +4,15 @@ import { EventManagerService } from '../services/search-engine/event-manager.ser
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GooglemapService } from '../services/googlemap.service';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Event } from './event.model';
+import { User } from '../auth/user';
 import { QueryFn } from 'angularfire2/firestore';
 import { Form } from '@angular/forms/src/directives/form_interface';
+
+import { SearchTitlePipe } from '../pipes/search-title.pipe';
+import { SearchCategoryPipe } from '../pipes/search-category.pipe';
+import { SearchGeospatialPipe } from '../pipes/search-geospatial.pipe';
 
 @Component({
   selector: 'app-manage-events',
