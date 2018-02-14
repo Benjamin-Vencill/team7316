@@ -7,6 +7,8 @@ export interface Event {
     street: string;
     city: string;
     zipcode: string;
+    id?: string;
+    created?: Date; 
     date?: Date;
     time?: object;
     uid?: string;
