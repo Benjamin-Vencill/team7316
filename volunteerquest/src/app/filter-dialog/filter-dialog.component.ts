@@ -1,8 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { GooglemapService } from '../services/googlemap.service';
 
 @Component({
   selector: 'app-filter-dialog',
+  providers: [GooglemapService],
   templateUrl: './filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.css']
 })
@@ -31,21 +33,42 @@ export class FilterDialogComponent {
 
   // Update the markers upon dialog close?
   constructor(public filterDialogRef: MatDialogRef<FilterDialogComponent>,
+    private GoogleMapService: GooglemapService,
+    private __zone: NgZone,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     console.log("data:", data);
    }
 
   onApply(): void {
-
-    let filterOptions = {
-      "categoriesSelected": this.categoriesSelected,
-      "startDate": this.startDate,
-      "endDate": this.endDate,
-      "radius": this.radius,
-      "saveThisFilter": false
-    }
-    console.log("in onApply, filterOptions:", filterOptions);
-    this.filterDialogRef.close(filterOptions);
+    let address = this.street + ", " + this.city + ", " + this.state + 
+                  ", " + this.zipcode;
+    console.log("address:", JSON.stringify(address));
+    this.GoogleMapService.getGeocoding(address).subscribe(result => {
+      this.__zone.run(() => {
+        // console.log("Result from Google Maps:", JSON.stringify(result));
+        if (result.hasOwnProperty('lat')) {
+          // this.lat = result.lat();
+          // this.lng = result.lng();
+          let filterOptions = {
+            "categoriesSelected": this.categoriesSelected,
+            "startDate": this.startDate,
+            "endDate": this.endDate,
+            "lat": result.lat(),
+            "lng": result.lng(),
+            "address": address,
+            "radius_term": this.radius,
+            "saveThisFilter": false
+          }
+          console.log("in onApply, filterOptions:", filterOptions);
+          this.filterDialogRef.close(filterOptions);
+        } else {
+          console.log("Unable to get coordinates from inputted address");
+        }
+      })
+    },
+    error => {
+      console.log("Error:", error)
+    });
   }
 
   onSave(): void {

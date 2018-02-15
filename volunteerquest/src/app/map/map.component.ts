@@ -17,6 +17,7 @@ import { EventManagerService } from '../services/search-engine/event-manager.ser
 import { Event } from '../manage-events/event.model';
 import { EventEditComponent } from '../event-edit/event-edit.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { GooglemapService } from '../services/googlemap.service';
 import { SearchTitlePipe } from '../pipes/search-title.pipe';
 import { SearchCategoryPipe } from '../pipes/search-category.pipe';
 import { SearchGeospatialPipe } from '../pipes/search-geospatial.pipe';
@@ -32,7 +33,7 @@ interface Marker {
 
 @Component({
   selector: 'map-view',
-  providers: [UserManagerService, EventManagerService],
+  providers: [UserManagerService, EventManagerService, GooglemapService],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -41,10 +42,14 @@ export class MapComponent {
   title: string = 'app';
   lat: number = 33.7490;
   lng: number = -84.3880;
-  zoom: number = 10;
+  zoom: number = 12;
   categories: string[];
   startDate: Date;
   endDate: Date;
+  address: string;
+  lat_term: number;
+  lng_term: number;
+  radius_term: string;
 
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
@@ -125,6 +130,10 @@ export class MapComponent {
           this.categories = filterOptions.categoriesSelected;
           this.startDate = filterOptions.startDate;
           this.endDate = filterOptions.endDate;
+          this.address = filterOptions.address;
+          this.lat_term = filterOptions.lat;
+          this.lng_term = filterOptions.lng;
+          this.radius_term = filterOptions.radius_term;
         }
       }
     });
