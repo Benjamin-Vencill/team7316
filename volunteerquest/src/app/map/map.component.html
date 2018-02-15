@@ -36,7 +36,7 @@
   <!-- this creates a google map on the page with the given lat/lng from -->
   <!-- the component as the initial center of the map: -->
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
+    <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
     (markerClick)="clickedMarker(event.content, i)"
       [latitude]="event.lat"
       [longitude]="event.lng">

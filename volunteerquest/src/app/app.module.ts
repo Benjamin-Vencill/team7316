@@ -54,6 +54,7 @@ import { ViewEventComponent } from './view-event/view-event.component';
 //Pipes
 import { SearchTitlePipe } from './pipes/search-title.pipe';
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
+import { SearchDatePipe } from './pipes/search-date.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
 
 @NgModule({
@@ -104,6 +105,7 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     MapComponent,
     SearchTitlePipe,
     SearchCategoryPipe,
+    SearchDatePipe,
     SearchGeospatialPipe
   ],
   entryComponents: [
