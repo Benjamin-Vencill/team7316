@@ -42,7 +42,7 @@ export class FilterDialogComponent {
   onApply(): void {
     let address = this.street + ", " + this.city + ", " + this.state + 
                   ", " + this.zipcode;
-    console.log("address:", JSON.stringify(address));
+    // console.log("address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
       this.__zone.run(() => {
         // console.log("Result from Google Maps:", JSON.stringify(result));
@@ -59,7 +59,7 @@ export class FilterDialogComponent {
             "radius_term": this.radius,
             "saveThisFilter": false
           }
-          console.log("in onApply, filterOptions:", filterOptions);
+          console.log("in onApply, filterOptions:", JSON.stringify(filterOptions));
           this.filterDialogRef.close(filterOptions);
         } else {
           console.log("Unable to get coordinates from inputted address");

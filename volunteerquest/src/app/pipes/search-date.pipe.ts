@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class SearchDatePipe implements PipeTransform {
   transform(events: Observable<any>, startDate: Date, endDate: Date): Observable<any> {
-    // console.log("in searchDatePipe, startDate:", JSON.stringify(startDate), ", endDate:", JSON.stringify(endDate));
+    console.log("In search date pipe.");
     if(!startDate || !endDate) {
         return events;
     }

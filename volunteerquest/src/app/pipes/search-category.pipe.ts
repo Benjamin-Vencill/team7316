@@ -7,10 +7,10 @@ import { Observable } from 'rxjs/Observable';
 export class SearchCategoryPipe implements PipeTransform {
 
   transform(events: Observable<any>, categories: string[]): Observable<any> {
-    console.log("categories:", JSON.stringify(categories));
-    console.log("events:", events);
+    console.log("In categories pipe.");
+    // console.log("events:", events);
     if(!categories) {
-      console.log("events are:", events);
+      // console.log("events are:", events);
       return events;
     }
     return events.map(event_arr => 

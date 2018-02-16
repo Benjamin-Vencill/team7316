@@ -69,6 +69,10 @@ export class MapComponent {
   ngOnInit() {
     console.log("In ngOnInit");
     this.firebaseAuth.authState.subscribe((auth) => {
+      this.events$ = this.eventManagerService.getCollection$();
+      // this.events$.subscribe(events => {
+      //   console.log("events found:", JSON.stringify(events));
+      // })
       console.log("auth:", auth);
       if (auth) {
         this.uid = auth.uid;
@@ -76,12 +80,8 @@ export class MapComponent {
         this.linkRef = this.afs.doc(`users/${this.uid}`);
         this.user$ = this.linkRef.valueChanges();
         this.user$.subscribe(user => {
-          console.log("user retrieved:", JSON.stringify(user));
+          // console.log("user retrieved:", JSON.stringify(user));
           // Todo: get the filterOptions off of the found user 
-          // document, and use these to get filtered events 
-          // from firebase
-          this.eventsCollection = this.afs.collection('events');  // reference
-          this.events$ = this.eventsCollection.valueChanges();     // observable
         })
       }
     });
