@@ -72,7 +72,7 @@ export class EventEditComponent implements OnInit {
                                         likes: this.likes, lat: this.lat, lng: this.lng,
                                         street: this.street, city: this.city,
                                         zipcode: this.zipcode, date: this.date,
-                                        uid: this.data.uid, category: 'humanitarian'})
+                                        uid: this.data.uid, category: 'humanitarian', expanded: false})
           .catch(onrejected => {
             console.log("Unable to add event, onrejected:", onrejected);
           })

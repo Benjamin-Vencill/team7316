@@ -35,7 +35,7 @@ export class ManageEventsComponent implements OnInit {
               private __zone: NgZone) { }
 
   ngOnInit() {
-    this.events$ = this.EventManagerService.getCollection$();
+    this.events$ = this.EventManagerService.getCollection$(ref => ref.where("likes", "<", 12).orderBy('likes', 'desc'));
     
     this.eventForm = new FormGroup ({
       title: new FormControl('', Validators.required),
@@ -54,7 +54,6 @@ export class ManageEventsComponent implements OnInit {
     const street = '';
     const city = '';
     const zipcode = '';
-    const category = 'uncategorized';
 
     console.log("in save method, address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
@@ -65,7 +64,7 @@ export class ManageEventsComponent implements OnInit {
             this.eventLat = result.lat();
             this.eventLng = result.lng();
             this.EventManagerService.add({title, content, likes:0, street, city, zipcode, 
-                                          lat: this.eventLat, lng: this.eventLng, category});
+                                          lat: this.eventLat, lng: this.eventLng, category: "humanitarian", expanded: false});
           } else {
             console.log("unable to get coordinates from inputted address");
           }

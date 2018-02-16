@@ -17,4 +17,5 @@ export interface Event {
     contact?: string;
     phone?: string;
     email?: string;
+    expanded: false;
   }
