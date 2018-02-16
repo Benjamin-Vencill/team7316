@@ -1,15 +1,15 @@
 <mat-toolbar color="primary">Your Events</mat-toolbar>
-<mat-card class="example-card" *ngFor="let event of events$ | async" (click)="expanded=!expanded">
+<mat-card class="example-card" *ngFor="let event of events$ | async" (click)="event.expanded=!event.expanded">
   <mat-card-header>
     <mat-card-title>{{event.title}}</mat-card-title>
     <mat-card-subtitle>{{event.street}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngIf = "!expanded">
+  <mat-card-content *ngIf = "!event.expanded">
     <p>
       {{event.content}}
     </p>
   </mat-card-content>
-  <mat-card-content *ngIf="expanded" >
+  <mat-card-content *ngIf="event.expanded">
     <p>{{event.content}} </p>
     <p>{{event.date}}</p>
     <p>{{event.time}}</p>
@@ -24,6 +24,7 @@
     <button mat-raised-button color="warn" class="buttons" (click)="deleteEvent(event.id)">Delete</button>
   </mat-card-actions>
 </mat-card>
+
 <mat-card *ngIf="(events$ | async)?.length==0">
   <mat-card-header>
     <mat-card-title>No Events Found</mat-card-title>
