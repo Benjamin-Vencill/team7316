@@ -1,13 +1,23 @@
 <mat-toolbar color="primary">Your Events</mat-toolbar>
-<mat-card class="example-card" *ngFor="let event of events$ | async">
+<mat-card class="example-card" *ngFor="let event of events$ | async" (click)="expanded=!expanded">
   <mat-card-header>
     <mat-card-title>{{event.title}}</mat-card-title>
     <mat-card-subtitle>{{event.street}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content *ngIf = "!expanded">
     <p>
       {{event.content}}
     </p>
+  </mat-card-content>
+  <mat-card-content *ngIf="expanded" >
+    <p>{{event.content}} </p>
+    <p>{{event.date}}</p>
+    <p>{{event.time}}</p>
+    <p>{{event.url}}</p>
+    <p>{{event.contact}}</p>
+    <p>{{event.phone}}</p>
+    <p>{{event.email}}</p>
+      
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" class="buttons" (click)="like(event)">Edit</button>
@@ -22,6 +32,7 @@
     <p>
       Select "Create" to add a new event!
     </p>
+    
   </mat-card-content>
   <mat-card-actions id="create-container">
     <span id="span-button"></span>
