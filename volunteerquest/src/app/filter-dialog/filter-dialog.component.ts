@@ -18,6 +18,7 @@ export class FilterDialogComponent {
   ];
   startDate: Date = null;
   endDate: Date = null;
+  minDate = new Date();
   street: string = "";
   city: string = "";
   state: string = "Georgia";
