@@ -18,7 +18,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-form-field>
-      <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="startPicker" [(ngModel)]="startDate" placeholder="Select a start date">
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" placeholder="Select a start date">
       <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
       <mat-datepicker  #startPicker></mat-datepicker>
     </mat-form-field>
