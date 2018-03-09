@@ -46,6 +46,22 @@ export class ViewEventComponent implements OnInit {
     this.EventManagerService.remove(eventID);
   }
 
+  editEventDialog(event: Event) {
+    console.log("event:", JSON.stringify(event));
+    // Get the data associated with this event and pass it to the event dialog component
+    let dialogRef = this.dialog.open(EventEditComponent, {
+      width: '30em',
+      data: {event: event}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The edit event dialog was closed");
+      this.events$ = this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.uid));
+      if (!this.events$) {
+        console.log("no events");
+      }
+    })
+  }
+
   openNewEventDialog() {
     // Close the current dialog and open the dialog to create new event
     let dialogRef = this.dialog.open(EventEditComponent, {
