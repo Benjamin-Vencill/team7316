@@ -59,7 +59,9 @@ export class EventEditComponent implements OnInit {
 
   createEvent() {
     // this.EventManagerService.add
+    console.log(this.time);
     let address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.zipcode;
+    let datetime = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), this.time.hour, this.time.minute)
     // console.log("address:", JSON.stringify(address));
     this.GoogleMapService.getGeocoding(address).subscribe(result => {
       this.__zone.run(() => {
@@ -71,8 +73,10 @@ export class EventEditComponent implements OnInit {
           this.EventManagerService.add({title: this.title, content: this.content,
                                         likes: this.likes, lat: this.lat, lng: this.lng,
                                         street: this.street, city: this.city,
-                                        zipcode: this.zipcode, date: this.date,
-                                        uid: this.data.uid, category: 'humanitarian', expanded: false})
+                                        zipcode: this.zipcode, date: datetime,
+                                        uid: this.data.uid, category: 'humanitarian', expanded: false,
+                                        contactPerson: this.contactPerson, contactNumber: this.contactNumber,
+                                        contactEmail: this.contactEmail })
           .catch(onrejected => {
             console.log("Unable to add event, onrejected:", onrejected);
           })
