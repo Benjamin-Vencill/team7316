@@ -14,7 +14,7 @@ export class AuthComponent {
   email: string;
   password: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   signup() {
     this.authService.signup(this.email, this.password);
