@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
@@ -63,6 +64,7 @@ export class MapComponent {
               private userManagerService: UserManagerService,
               private authService: AuthService,
               private eventManagerService: EventManagerService,
+              private router: Router,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {}
 
@@ -160,6 +162,11 @@ export class MapComponent {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed, result is:', JSON.stringify(result));
     });
+  }
+
+  openChatView(): void {
+    console.log("navigating to chatroom");
+    this.router.navigate(['chat']);
   }
 
   signOut() {
