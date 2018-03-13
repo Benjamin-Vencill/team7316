@@ -12,6 +12,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 import { FilterComponent } from '../app/filter/filter.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { MapComponent } from './map/map.component';
+import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 
 //Import Guards
 import { AdminGuard } from './auth/admin.guard';
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'editpostview', component: EditPostComponent, canActivate: [CanEditGuard]},
   { path: 'eventview', component: ManageEventsComponent},
   { path: 'filter', component: FilterComponent },
+  { path: 'chat', component: ChatroomComponent },
   { path: '', redirectTo: '/mapview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
 ] 
