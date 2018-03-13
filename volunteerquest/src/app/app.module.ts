@@ -57,9 +57,6 @@ import { ChatFormComponent } from './chat/chat-form/chat-form.component';
 import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 import { FeedComponent } from './chat/feed/feed.component';
 import { MessageComponent } from './chat/message/message.component';
-import { LoginFormComponent } from './chat/login-form/login-form.component';
-import { SignupFormComponent } from './chat/signup-form/signup-form.component';
-import { NavbarComponent } from './chat/navbar/navbar.component';
 import { UserListComponent } from './chat/user-list/user-list.component';
 import { UserItemComponent } from './chat/user-item/user-item.component';
 
@@ -123,9 +120,6 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     ChatroomComponent,
     FeedComponent,
     MessageComponent,
-    LoginFormComponent,
-    SignupFormComponent,
-    NavbarComponent,
     UserListComponent,
     UserItemComponent
   ],
