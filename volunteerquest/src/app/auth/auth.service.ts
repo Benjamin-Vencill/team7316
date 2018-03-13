@@ -32,10 +32,12 @@ export class AuthService {
         })  
   }
 
+  authUser() {
+    return this.user;
+  }
+
   signup(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(email, password)
+    this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(value => {
         console.log('Success!', value);
       })
