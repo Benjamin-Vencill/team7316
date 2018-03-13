@@ -31,6 +31,7 @@ export class AuthDialogComponent {
   nonProfitState?: string = "";
   nonProfitZipCode?: string = "";
   nonProfitWebURL?: string = "";
+  status:string;
   hide: boolean = true;
   
   private linkRef: AngularFirestoreDocument<User>;
@@ -150,7 +151,8 @@ export class AuthDialogComponent {
         admin: false,
         volunteer: this.isVolunteer,
         nonprofit: this.isNonprofit
-      }
+      },
+      status: this.status
     }
     return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
   }

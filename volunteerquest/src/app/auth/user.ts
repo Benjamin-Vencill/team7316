@@ -23,4 +23,5 @@ export interface User {
     nonProfitZipCode?: string;
     nonProfitWebURL?: string;
     phoneNumber?: string;
+    status?:string
 }
