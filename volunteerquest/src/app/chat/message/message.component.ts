@@ -21,8 +21,11 @@ export class MessageComponent implements OnInit {
 
   constructor(private authService: AuthService) {
     authService.authUser().subscribe(user => {
-      this.ownEmail = user.email;
-      this.isOwnMessage = (this.ownEmail === this.userEmail);
+      if (user) {
+        this.ownEmail = user.email;
+        this.isOwnMessage = (this.ownEmail === this.userEmail);
+      }
+      
     })
    }
 
