@@ -65,7 +65,7 @@ export class ChatService {
   
   getMessages$(): Observable<ChatMessage[]> {
     return this.afs.collection<ChatMessage>(this.path, ref => 
-      ref.limit(25).orderBy('timeSent', 'asc'))
+      ref.orderBy('timeSent', 'asc'))
       .snapshotChanges().map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as ChatMessage;
