@@ -20,12 +20,14 @@ export class AuthService {
   private authState: any;
   private userDocument: AngularFirestoreDocument<User>;
   private uid: string;
+  userData:User;
 
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router) 
     {
       // Get auth data, then get Firestore DB user document || null
+      this.authState = this.firebaseAuth.authState;
       this.user = this.firebaseAuth.authState
         .switchMap(user => {
           if (user) {
@@ -57,13 +59,13 @@ export class AuthService {
       this.userDocument = this.afs.doc(`users/${user.uid}`);
       this.userDocument.valueChanges().subscribe(userData => {
         this.uid = this.firebaseAuth.auth.currentUser.uid;
+        this.userData = userData;
       });
-      return user;
+      return this.userData;
     });
   }
 
   logout() {
-    console.log('In AuthServce logout()');
     this.setUserStatus('offline');
     this.firebaseAuth.auth.signOut();
     this.userDocument = null;
