@@ -173,8 +173,5 @@ export class MapComponent {
     console.log("in signOut method, map component");
     this.authService.logout();
     this.user$ = null; // Need to assign null to the user observable
-    this.snackBar.open("Signed Out", "Okay", {
-      duration: 2500
-    });
   }
 }
