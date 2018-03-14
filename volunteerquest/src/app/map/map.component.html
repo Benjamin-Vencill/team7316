@@ -16,6 +16,7 @@
       </button>
     </div>
   </mat-toolbar>
+
   <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
     <button *ngIf="user.roles.nonprofit" (click)="openPostEventDialog()" mat-menu-item>
       <mat-icon>event</mat-icon>Post an event
@@ -49,6 +50,7 @@
     </agm-marker>
   </agm-map>
 </div>
+
 <!-- UI elements for when a app user is not signed in.-->
 <ng-template #anonymous>
   <mat-toolbar>

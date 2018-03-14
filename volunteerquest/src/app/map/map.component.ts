@@ -84,7 +84,7 @@ export class MapComponent {
         this.user$.subscribe(user => {
           // console.log("user retrieved:", JSON.stringify(user));
           // Todo: get the filterOptions off of the found user 
-        })
+        });
       }
     });
   }
@@ -171,9 +171,7 @@ export class MapComponent {
 
   signOut() {
     console.log("in signOut method, map component");
-    this.firebaseAuth
-      .auth
-      .signOut();
+    this.authService.logout();
     this.user$ = null; // Need to assign null to the user observable
     this.snackBar.open("Signed Out", "Okay", {
       duration: 2500
