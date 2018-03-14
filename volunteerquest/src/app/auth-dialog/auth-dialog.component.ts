@@ -31,130 +31,118 @@ export class AuthDialogComponent {
   nonProfitState?: string = "";
   nonProfitZipCode?: string = "";
   nonProfitWebURL?: string = "";
-  status:string;
+  status: string = "offline";
   hide: boolean = true;
   
-  private linkRef: AngularFirestoreDocument<User>;
+  private user: User;
+  private userDocument: AngularFirestoreDocument<User>;
 
   constructor(public dialogRef: MatDialogRef<AuthDialogComponent>,
               private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
+              private authService: AuthService,
               public snackBar: MatSnackBar) {
   }
 
-  /**
-   * Invoked if already registered user signs in
-   */
   signin() {
-    this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(this.email.value, this.password)
-      .then(userAuthInfo => {
-        this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
-        this.linkRef.valueChanges().subscribe(userData => {
-          this.dialogRef.close();
-          if (userData.roles.volunteer) {
-            this.snackBar.open("Welcome, " + userData.firstName, '', {
-              duration: 2500
-            });
-          } else {
-            this.snackBar.open("Welcome " + userData.nonProfitName, '', {
-              duration: 2500
-            });
-          }
-        });
-      })
-      .catch(err => {
-        this.snackBar.open(err.message, "Okay", {
-          duration: 2500
-        });
+    this.authService.login(this.email.value, this.password)
+    .then((user) => {
+      this.user = user;
+    });
+    this.dialogRef.close();
+    this.showGreetUser();
+  }
+
+  showGreetUser() {
+    if (this.user.roles.volunteer) {
+      this.snackBar.open("Welcome, " + this.user.firstName, '', {
+        duration: 2500
       });
+    } else {
+      this.snackBar.open("Welcome " + this.user.nonProfitName, '', {
+        duration: 2500
+      });
+    }
+  }
+
+  showThanksForRegistering(name: string) {
+    this.snackBar.open("Welcome and thank you for registering, " + name, "", {
+      duration: 2500
+    });
   }
 
   /**
    * Invoked if volunteer is registering
    */
   volunteerRegistration() {
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(this.email.value, this.password)
-      .then(userAuthInfo => {
-        // Make call to insert new volunteer in firestore users collection
-        this.isVolunteer = true
-        this.updateUserData(userAuthInfo);
-        this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
-        this.linkRef.valueChanges().subscribe(userData => {
-          this.dialogRef.close();
-          this.snackBar.open("Welcome and thank you for registering, " + userData.firstName, "", {
-            duration: 2500
-          });
-        });
-      })
-      .catch(err => {
-        this.snackBar.open(err.message, "Okay", {
-          duration: 2500
-        });
-      });
+    this.authService.signup(this.email.value, this.password)
+    .then((user) => {
+      const newUser: User = {
+        uid: user.uid,
+        email: this.email.value,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
+        nonProfitName: this.nonProfitName,
+        nonProfitDescription: this.nonProfitDescription,
+        nonProfitAddress: this.nonProfitAddress,
+        nonProfitCity: this.nonProfitCity,
+        nonProfitState: this.nonProfitState,
+        nonProfitZipCode: this.nonProfitZipCode,
+        nonProfitWebURL: this.nonProfitWebURL,
+        roles: {
+          //Default accounts are subscriber only. 
+          subscriber: true,
+          editor: false,
+          admin: false,
+          volunteer: true,
+          nonprofit: false
+        },
+        status: this.status
+      }
+      this.user = user;
+      this.authService.setUserData(newUser);
+      this.authService.setUserStatus('online');
+      this.dialogRef.close();
+      this.showThanksForRegistering(user.firstName);
+    }).catch((error) => console.log(error)); 
   }
 
   /**
    * Invoked if nonprofit is registering
    */  
-  nonProfitRegistration() {   
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(this.email.value, this.password)
-      .then(userAuthInfo => {
-        // Make call to insert new nonprofit user in firestore users collection
-        this.isNonprofit = true
-        this.updateUserData(userAuthInfo);
-        this.linkRef = this.afs.doc(`users/${userAuthInfo.uid}`);
-        this.linkRef.valueChanges().subscribe(userData => {
-          this.dialogRef.close();
-          this.snackBar.open("Welcome and thank you for registering, " + userData.nonProfitName, "", {
-            duration: 2500
-          });
-        });
-      })
-      .catch(err => {
-        this.snackBar.open(err.message, "Okay", {
-          duration: 2500
-        });
-      });
-  }
-
-  /**
-   * Creates a reference to the actual user document in Firestore DB.
-   * @param userAuthInfo Authentication information associated with signed-in user
-   */
-  private updateUserData(userAuthInfo) {
-    //Set user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userAuthInfo.uid}`);
-    const data: User = {
-      uid: userAuthInfo.uid,
-      email: userAuthInfo.email,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      phoneNumber: this.phoneNumber,
-      nonProfitName: this.nonProfitName,
-      nonProfitDescription: this.nonProfitDescription,
-      nonProfitAddress: this.nonProfitAddress,
-      nonProfitCity: this.nonProfitCity,
-      nonProfitState: this.nonProfitState,
-      nonProfitZipCode: this.nonProfitZipCode,
-      nonProfitWebURL: this.nonProfitWebURL,
-      roles: {
-        //Default accounts are subscriber only. 
-        subscriber: true,
-        //TODO: enable sign-up with token for editor privalage?
-        editor: false,
-        admin: false,
-        volunteer: this.isVolunteer,
-        nonprofit: this.isNonprofit
-      },
-      status: this.status
-    }
-    return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
+  nonProfitRegistration() {
+    this.authService.signup(this.email.value, this.password)
+    .then((user) => {
+      const newUser: User = {
+        uid: user.uid,
+        email: this.email.value,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
+        nonProfitName: this.nonProfitName,
+        nonProfitDescription: this.nonProfitDescription,
+        nonProfitAddress: this.nonProfitAddress,
+        nonProfitCity: this.nonProfitCity,
+        nonProfitState: this.nonProfitState,
+        nonProfitZipCode: this.nonProfitZipCode,
+        nonProfitWebURL: this.nonProfitWebURL,
+        roles: {
+          //Default accounts are subscriber only. 
+          subscriber: true,
+          editor: false,
+          admin: false,
+          volunteer: false,
+          nonprofit: true
+        },
+        status: this.status
+      }
+      this.user = user;
+      this.authService.setUserData(newUser);
+      this.authService.setUserStatus('online');
+      this.dialogRef.close();
+      this.showThanksForRegistering(user.firstName);
+    }).catch((error) => console.log(error));  
   }
 
   getErrorMessage() {
@@ -164,9 +152,8 @@ export class AuthDialogComponent {
   }
 
   logout() {
-    this.firebaseAuth
-      .auth
-      .signOut();
+    this.authService.logout();
+    this.user = null;
   }
 
   onNoClick(): void {
