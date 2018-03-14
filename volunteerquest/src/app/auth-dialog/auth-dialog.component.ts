@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
-import { User } from '../auth/user';
+import { User, Roles } from '../auth/user';
 import { Validators } from '@angular/forms';
 import { isEmpty } from '@firebase/util';
 
@@ -48,25 +48,29 @@ export class AuthDialogComponent {
     this.authService.login(this.email.value, this.password)
     .then((user) => {
       this.user = user;
+      this.dialogRef.close();
+      if (this.user.roles.volunteer) {
+        this.showGreetUserSnackBar(user.firstName);
+      } else {
+        this.showGreetUserSnackBar(user.nonProfitName);
+      }
     });
-    this.dialogRef.close();
-    this.showGreetUser();
   }
 
-  showGreetUser() {
-    if (this.user.roles.volunteer) {
-      this.snackBar.open("Welcome, " + this.user.firstName, '', {
-        duration: 2500
-      });
-    } else {
-      this.snackBar.open("Welcome " + this.user.nonProfitName, '', {
-        duration: 2500
-      });
-    }
+  showGreetUserSnackBar(name:string) {
+    this.snackBar.open("Welcome, " + name, '', {
+      duration: 2500
+    });
   }
 
-  showThanksForRegistering(name: string) {
+  showThanksForRegisteringSnackBar(name: string) {
     this.snackBar.open("Welcome and thank you for registering, " + name, "", {
+      duration: 2500
+    });
+  }
+
+  showLogoutSnackBar() {
+    this.snackBar.open("Signed Out", "Okay", {
       duration: 2500
     });
   }
@@ -104,7 +108,7 @@ export class AuthDialogComponent {
       this.authService.setUserData(newUser);
       this.authService.setUserStatus('online');
       this.dialogRef.close();
-      this.showThanksForRegistering(user.firstName);
+      this.showThanksForRegisteringSnackBar(user.firstName);
     }).catch((error) => console.log(error)); 
   }
 
@@ -141,7 +145,7 @@ export class AuthDialogComponent {
       this.authService.setUserData(newUser);
       this.authService.setUserStatus('online');
       this.dialogRef.close();
-      this.showThanksForRegistering(user.firstName);
+      this.showThanksForRegisteringSnackBar(user.firstName);
     }).catch((error) => console.log(error));  
   }
 
@@ -153,7 +157,8 @@ export class AuthDialogComponent {
 
   logout() {
     this.authService.logout();
-    this.user = null;
+    this.showLogoutSnackBar();
+
   }
 
   onNoClick(): void {
