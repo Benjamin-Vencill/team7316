@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Event } from '../manage-events/event.model';
 import { EventEditComponent } from '../event-edit/event-edit.component';
 import { EventManagerService } from '../services/search-engine/event-manager.service';
+import { ConfirmDeleteEventDialogComponent } from '../confirm-delete-event-dialog/confirm-delete-event-dialog.component';
 
 
 @Component({
@@ -65,6 +66,22 @@ export class ViewEventComponent implements OnInit {
   openNewEventDialog() {
     // Close the current dialog and open the dialog to create new event
     let dialogRef = this.dialog.open(EventEditComponent, {
+      width: '30em',
+      data: {uid: this.uid}
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The post event dialog was closed");
+      this.events$ = this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.uid));
+      if (!this.events$) {
+        console.log("no events");
+      }
+    })
+  }
+  
+  // Dialog used to confirm deleteing an event
+  openConfirmDeleteDialog() {
+    let dialogRef = this.dialog.open(ConfirmDeleteEventDialogComponent, {
       width: '30em',
       data: {uid: this.uid}
     });
