@@ -112,6 +112,7 @@ import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog
   ],
   entryComponents: [
     AuthDialogComponent,
+    ConfirmDeleteEventDialogComponent,
     FilterDialogComponent,
     EventEditComponent,
     ViewEventComponent

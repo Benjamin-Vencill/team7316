@@ -42,9 +42,27 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
-  deleteEvent(eventID: string) {
-    console.log("eventID:", eventID);
-    this.EventManagerService.remove(eventID);
+  // First confirms with user if they would like to delete the event and then if confirmed, 
+  // deletes the event
+  deleteEvent(eventID: string, eventContent: string, eventTitle: string, eventDate: Date, eventStreet: string) {
+    let dialogRef = this.dialog.open(ConfirmDeleteEventDialogComponent, {
+      width: '30em',
+      data: { eventContent: eventContent,
+            eventTitle: eventTitle,
+            eventDate: eventDate,
+            eventStreet: eventStreet }
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The confirm delete event dialog was closed");
+      console.log("result:", result);
+      if (result) {
+        this.EventManagerService.remove(eventID);
+        console.log("event was deleted")
+      } else {
+        console.log("event was not deleted")
+      }
+    })
   }
 
   editEventDialog(event: Event) {
@@ -66,22 +84,6 @@ export class ViewEventComponent implements OnInit {
   openNewEventDialog() {
     // Close the current dialog and open the dialog to create new event
     let dialogRef = this.dialog.open(EventEditComponent, {
-      width: '30em',
-      data: {uid: this.uid}
-    });
-    
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The post event dialog was closed");
-      this.events$ = this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.uid));
-      if (!this.events$) {
-        console.log("no events");
-      }
-    })
-  }
-  
-  // Dialog used to confirm deleteing an event
-  openConfirmDeleteDialog() {
-    let dialogRef = this.dialog.open(ConfirmDeleteEventDialogComponent, {
       width: '30em',
       data: {uid: this.uid}
     });

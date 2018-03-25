@@ -1,3 +1,16 @@
-<p>
-  confirm-delete-event-dialog works!
-</p>
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Confirm Deletion of <b>{{data.eventTitle}}</b></mat-card-title>
+      <mat-card-subtitle>{{data.eventStreet}}</mat-card-subtitle>
+      <mat-card-subtitle>{{data.eventDate}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{data.eventContent}}
+      </p>
+    </mat-card-content>
+    <button mat-raised-button color="primary" class="buttons" (click)="cancelDeleteEvent()">Cancel</button>
+    <button mat-raised-button color="warn" class="buttons" (click)="confirmDeleteEvent()">Delete</button>
+  </mat-card>
+</mat-dialog-content>
