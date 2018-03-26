@@ -24,6 +24,13 @@ export class EventEditComponent implements OnInit {
               public snackBar: MatSnackBar,
               private __zone: NgZone) { }
 
+  categories = [
+    {value: 'animals', viewValue: 'Animals'},
+    {value: 'education', viewValue: 'Education'},
+    {value: 'environmental', viewValue: 'Environmental'},
+    {value: 'humanitarian', viewValue: 'Humanitarian'}
+  ]
+  
   states = [
     {value: 'GA', viewValue: 'Georgia'},
   ];
@@ -94,7 +101,7 @@ export class EventEditComponent implements OnInit {
                                         likes: this.likes, lat: this.lat, lng: this.lng,
                                         street: this.street, city: this.city,
                                         zipcode: this.zipcode, date: this.date,
-                                        uid: this.data.uid, category: 'humanitarian', expanded: false})
+                                        uid: this.data.uid, category: this.category, expanded: false})
           .catch(onrejected => {
             console.log("Unable to add event, onrejected:", onrejected);
           })
@@ -129,7 +136,8 @@ export class EventEditComponent implements OnInit {
       title: this.title, content: this.content,
       likes: this.likes, lat: this.lat, lng: this.lng,
       street: this.street, city: this.city,
-      zipcode: this.zipcode, date: this.date
+      zipcode: this.zipcode, date: this.date,
+      category: this.category
     })
     .catch(onrejected => {
       console.log("Unable to edit event, onrejected:", onrejected);
