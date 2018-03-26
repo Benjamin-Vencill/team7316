@@ -181,9 +181,15 @@ export class MapComponent {
     this.router.navigate(['chat']);
   }
 
+  showLogoutSnackBar() {
+    this.snackBar.open("Signed Out", "Okay", {
+      duration: 2500
+    });
+  }
+
   signOut() {
-    console.log("in signOut method, map component");
     this.authService.logout();
     this.user$ = null; // Need to assign null to the user observable
+    this.showLogoutSnackBar();
   }
 }

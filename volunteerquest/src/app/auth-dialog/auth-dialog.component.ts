@@ -45,15 +45,15 @@ export class AuthDialogComponent {
   }
 
   signin() {
-    this.authService.login(this.email.value, this.password)
-    .then((user) => {
-      this.user = user;
-      this.dialogRef.close();
-      if (this.user.roles.volunteer) {
-        this.showGreetUserSnackBar(user.firstName);
-      } else {
-        this.showGreetUserSnackBar(user.nonProfitName);
-      }
+    this.authService.login(this.email.value, this.password, (userData) => {
+      console.log("userData:", JSON.stringify(userData));
+        this.user = userData;
+        this.dialogRef.close();
+        if (this.user.roles.volunteer) {
+          this.showGreetUserSnackBar(userData.firstName);
+        } else {
+          this.showGreetUserSnackBar(userData.nonProfitName);
+        }
     });
   }
 
@@ -65,12 +65,6 @@ export class AuthDialogComponent {
 
   showThanksForRegisteringSnackBar(name: string) {
     this.snackBar.open("Welcome and thank you for registering, " + name, "", {
-      duration: 2500
-    });
-  }
-
-  showLogoutSnackBar() {
-    this.snackBar.open("Signed Out", "Okay", {
       duration: 2500
     });
   }
@@ -108,8 +102,8 @@ export class AuthDialogComponent {
       this.authService.setUserData(newUser);
       this.authService.setUserStatus('online');
       this.dialogRef.close();
-      this.showThanksForRegisteringSnackBar(user.firstName);
-    }).catch((error) => console.log(error)); 
+      this.showThanksForRegisteringSnackBar(this.firstName);
+    }).catch((error) => console.log(error));
   }
 
   /**
@@ -145,20 +139,14 @@ export class AuthDialogComponent {
       this.authService.setUserData(newUser);
       this.authService.setUserStatus('online');
       this.dialogRef.close();
-      this.showThanksForRegisteringSnackBar(user.firstName);
-    }).catch((error) => console.log(error));  
+      this.showThanksForRegisteringSnackBar(this.firstName);
+    }).catch((error) => console.log(error));
   }
 
   getErrorMessage() {
     return this.email.hasError('required') ? '' : 
       this.email.hasError('email') ? 'Not a valid email' : 
       '';
-  }
-
-  logout() {
-    this.authService.logout();
-    this.showLogoutSnackBar();
-
   }
 
   onNoClick(): void {
