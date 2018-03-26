@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
@@ -63,6 +64,7 @@ export class MapComponent {
               private userManagerService: UserManagerService,
               private authService: AuthService,
               private eventManagerService: EventManagerService,
+              private router: Router,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {}
 
@@ -82,7 +84,7 @@ export class MapComponent {
         this.user$.subscribe(user => {
           // console.log("user retrieved:", JSON.stringify(user));
           // Todo: get the filterOptions off of the found user 
-        })
+        });
       }
     });
   }
@@ -162,14 +164,14 @@ export class MapComponent {
     });
   }
 
+  openChatView(): void {
+    console.log("navigating to chatroom");
+    this.router.navigate(['chat']);
+  }
+
   signOut() {
     console.log("in signOut method, map component");
-    this.firebaseAuth
-      .auth
-      .signOut();
+    this.authService.logout();
     this.user$ = null; // Need to assign null to the user observable
-    this.snackBar.open("Signed Out", "Okay", {
-      duration: 2500
-    });
   }
 }

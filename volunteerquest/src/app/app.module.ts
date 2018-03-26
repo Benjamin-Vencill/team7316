@@ -35,6 +35,7 @@ import { GoogleMapsConfig } from '../environments/googlemaps.config';
 
 //Services
 import { AuthService } from './auth/auth.service';
+import { ChatService } from './chat/services/chat.service';
 
 //Components
 import { AuthComponent } from './auth/auth.component';
@@ -50,6 +51,14 @@ import { MapComponent } from './map/map.component';
 import { ViewEventComponent } from './view-event/view-event.component';
 //import { ViewEventsComponent } from '../view-events/view-events.component';
 //import { VolunteerEventComponent } from '../volunteer-event/volunteer-event.component';
+
+//Chatroom Components
+import { ChatFormComponent } from './chat/chat-form/chat-form.component';
+import { ChatroomComponent } from './chat/chatroom/chatroom.component';
+import { FeedComponent } from './chat/feed/feed.component';
+import { MessageComponent } from './chat/message/message.component';
+import { UserListComponent } from './chat/user-list/user-list.component';
+import { UserItemComponent } from './chat/user-item/user-item.component';
 
 //Pipes
 import { SearchTitlePipe } from './pipes/search-title.pipe';
@@ -106,7 +115,13 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     SearchTitlePipe,
     SearchCategoryPipe,
     SearchDatePipe,
-    SearchGeospatialPipe
+    SearchGeospatialPipe,
+    ChatFormComponent,
+    ChatroomComponent,
+    FeedComponent,
+    MessageComponent,
+    UserListComponent,
+    UserItemComponent
   ],
   entryComponents: [
     AuthDialogComponent,
@@ -114,7 +129,7 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     EventEditComponent,
     ViewEventComponent
   ],
-  providers: [],
+  providers: [AuthService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

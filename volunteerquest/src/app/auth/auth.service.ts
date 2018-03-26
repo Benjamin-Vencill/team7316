@@ -15,13 +15,19 @@ import { merge } from 'rxjs/observable/merge';
  */
 @Injectable()
 export class AuthService {
+  
   user: Observable<User>;
+  private authState: any;
+  private userDocument: AngularFirestoreDocument<User>;
+  private uid: string;
+  userData:User;
 
   constructor(private firebaseAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private router: Router) { 
-
+              private router: Router) 
+    {
       // Get auth data, then get Firestore DB user document || null
+      this.authState = this.firebaseAuth.authState;
       this.user = this.firebaseAuth.authState
         .switchMap(user => {
           if (user) {
@@ -29,77 +35,74 @@ export class AuthService {
           } else {
             return Observable.of(null);
           }
-        })  
+        });  
   }
 
-  signup(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Success!', value);
+
+
+  signup(email: string, password: string):Promise<User> {
+    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.authState = user;
+        this.setUserStatus('online');
+        console.log('Success!', user.uid);
+        return user;
       })
       .catch(err => {
         console.log('Something went wrong:',err.message);
       });    
   }
 
-  // login(email: string, password: string) {
-  //   this.firebaseAuth
-  //     .auth
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(userAuthInfo => {
-  //       // console.log("in login, value:", JSON.stringify(userAuthInfo));
-  //       this.updateUserData(userAuthInfo);
-  //       console.log('Nice, it worked!');
-  //     })
-  //     .catch(err => {
-  //       console.log('Something went wrong:',err.message);
-  //     });
-  // }
-
-  logout() {
-    this.firebaseAuth
-      .auth
-      .signOut();
+  login(email:string, password:string):Promise<User> {
+    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+    .then(user => {
+      this.userDocument = this.afs.doc(`users/${user.uid}`);
+      this.userDocument.valueChanges().subscribe(userData => {
+        this.uid = this.firebaseAuth.auth.currentUser.uid;
+        this.userData = userData;
+      });
+      return this.userData;
+    });
   }
 
-  /**
-   * Creates a reference to the actual user document in Firestore DB.
-   * @param userAuthInfo Authentication information associated with signed-in user
-   */
-  // private updateUserData(userAuthInfo) {
-  //   //Set user data to firestore on login
-  //   const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userAuthInfo.uid}`);
-  //   const data: User = {
-  //     uid: userAuthInfo.uid,
-  //     email: userAuthInfo.email,
-  //     roles: {
-  //       //Default accounts are subscriber only. 
-  //       subscriber: true,
-  //       //TODO: enable sign-up with token for editor privalage?
-  //       editor: false,
-  //       admin: false
-  //     }
-  //   }
-  //   return userRef.set(data, {merge: true}) //merge creates or updates data in non-destructive way
-  // }
+  logout() {
+    this.setUserStatus('offline');
+    this.firebaseAuth.auth.signOut();
+    this.userDocument = null;
+  }
+
+  setUserStatus(status:string): void {
+    const path = `users/${this.currentUserID}`;
+    const data = {
+      status: status
+    };
+    this.afs.doc<User>(path).update(data)
+    .catch(error => console.log(error));
+  }
+
+  setUserData(userData: User) {
+    const path = `users/${this.currentUserID}`;
+    this.afs.collection('users').doc(this.currentUserID).set(userData)
+    .catch(error => console.log(error));
+  }
+
+  authUser() {
+    return this.user;
+  }
+
+  get currentUserID(): string {
+    return this.authState !== null ? this.authState.uid : '';
+  }
+
 
   //Consider moving this logic to a separate class if it becomes overly complex
   // Role-based Authorization, only on client side. There are separate rules stated
   // in the firestore DB that are more secure
-  /**
-   * Determine if user has access to reading some document
-   * @param user 
-   */
+
   canRead(user: User): boolean {
     const allowed = ['admin', 'editor', 'subscriber']
     return this.checkAuthorization(user, allowed)
   }
-  /**
-   * Determine if user has acces to edit some document.
-   * @param user 
-   */
   canEdit(user: User): boolean {
     const allowed = ['admin', 'editor']
     return this.checkAuthorization(user, allowed)
