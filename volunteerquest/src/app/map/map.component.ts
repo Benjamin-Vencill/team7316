@@ -166,7 +166,7 @@ export class MapComponent {
 
   openViewAllEventsDialog(): void {
     let dialogRef = this.dialog.open(ViewEventComponent, {
-      // height: '400px',
+      height: '80%',
       width: '30em',
       data: {uid: this.uid}
     });
