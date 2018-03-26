@@ -16,12 +16,16 @@
       </button>
     </div>
   </mat-toolbar>
+
   <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
     <button *ngIf="user.roles.nonprofit" (click)="openPostEventDialog()" mat-menu-item>
       <mat-icon>event</mat-icon>Post an event
     </button>
     <button *ngIf="user.roles.nonprofit" (click)="openViewAllEventsDialog()" mat-menu-item>
-        <mat-icon>event</mat-icon>View Events
+        <mat-icon>event</mat-icon>Manage Events
+      </button>
+      <button *ngIf="user.roles.volunteer || user.roles.nonprofit" (click)="openChatView()" mat-menu-item>
+        <mat-icon>chat</mat-icon>Chat Feature
       </button>
     <button *ngIf="user.roles.volunteer" mat-menu-item>
       <mat-icon>star</mat-icon>Favorites
@@ -46,6 +50,7 @@
     </agm-marker>
   </agm-map>
 </div>
+
 <!-- UI elements for when a app user is not signed in.-->
 <ng-template #anonymous>
   <mat-toolbar>

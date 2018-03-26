@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
@@ -50,6 +51,7 @@ export class MapComponent {
   lat_term: number;
   lng_term: number;
   radius_term: string;
+  filterOptions: any;
 
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
@@ -63,6 +65,7 @@ export class MapComponent {
               private userManagerService: UserManagerService,
               private authService: AuthService,
               private eventManagerService: EventManagerService,
+              private router: Router,
               public snackBar: MatSnackBar,
               public dialog: MatDialog) {}
 
@@ -80,9 +83,17 @@ export class MapComponent {
         this.linkRef = this.afs.doc(`users/${this.uid}`);
         this.user$ = this.linkRef.valueChanges();
         this.user$.subscribe(user => {
-          // console.log("user retrieved:", JSON.stringify(user));
-          // Todo: get the filterOptions off of the found user 
-        })
+          console.log("user retrieved:", JSON.stringify(user));
+          if (user.filterOptions) {
+            this.filterOptions = user.filterOptions;
+            // Update filter options to display
+            this.categories = user.filterOptions.categoriesSelected;
+            this.startDate = user.filterOptions.startDate;
+            this.endDate = user.filterOptions.endDate;
+            this.address = user.filterOptions.address;
+            this.radius_term = user.filterOptions.radius_term;
+          }
+        });
       }
     });
   }
@@ -113,7 +124,9 @@ export class MapComponent {
 
   openFilterDialog(): void {
     let filterDialogRef = this.dialog.open(FilterDialogComponent, {
-      width: '30em'
+      width: '30em',
+      data: { userFilterOptions: this.filterOptions,
+              uid: this.uid }
     });
 
     filterDialogRef.afterClosed().subscribe(filterOptions => {
@@ -123,18 +136,19 @@ export class MapComponent {
         if (filterOptions.saveThisFilter) {
           delete filterOptions.saveThisFilter
           // TODO: update the returned filterobject to the user document
+          console.log("about to save user data, this.uid:", this.uid);
           this.userManagerService.update(this.uid, {filterOptions: filterOptions});
-        } else {
-          // If user just wants to apply changes without saving to database
-          console.log(JSON.stringify(filterOptions));
-          this.categories = filterOptions.categoriesSelected;
-          this.startDate = filterOptions.startDate;
-          this.endDate = filterOptions.endDate;
-          this.address = filterOptions.address;
-          this.lat_term = filterOptions.lat;
-          this.lng_term = filterOptions.lng;
-          this.radius_term = filterOptions.radius_term;
         }
+        // If user just wants to apply changes without saving to database
+        console.log(JSON.stringify(filterOptions));
+        this.filterOptions = filterOptions;
+        this.categories = filterOptions.categoriesSelected;
+        this.startDate = filterOptions.startDate;
+        this.endDate = filterOptions.endDate;
+        this.address = filterOptions.address;
+        this.lat_term = filterOptions.lat;
+        this.lng_term = filterOptions.lng;
+        this.radius_term = filterOptions.radius_term;
       }
     });
   }
@@ -152,7 +166,7 @@ export class MapComponent {
 
   openViewAllEventsDialog(): void {
     let dialogRef = this.dialog.open(ViewEventComponent, {
-      // height: '400px',
+      height: '80%',
       width: '30em',
       data: {uid: this.uid}
     });
@@ -162,14 +176,20 @@ export class MapComponent {
     });
   }
 
-  signOut() {
-    console.log("in signOut method, map component");
-    this.firebaseAuth
-      .auth
-      .signOut();
-    this.user$ = null; // Need to assign null to the user observable
+  openChatView(): void {
+    console.log("navigating to chatroom");
+    this.router.navigate(['chat']);
+  }
+
+  showLogoutSnackBar() {
     this.snackBar.open("Signed Out", "Okay", {
       duration: 2500
     });
+  }
+
+  signOut() {
+    this.authService.logout();
+    this.user$ = null; // Need to assign null to the user observable
+    this.showLogoutSnackBar();
   }
 }

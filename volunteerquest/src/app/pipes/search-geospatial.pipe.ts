@@ -41,7 +41,7 @@ export class SearchGeospatialPipe implements PipeTransform {
             && (box.west > coordinate.lat)
             && (box.south > coordinate.lng)
             && (box.north < coordinate.lng)) {
-            console.log("IN BOX TRUE");
+            //console.log("IN BOX TRUE");
             return true;
         } else {
             return false;
@@ -74,7 +74,7 @@ export class SearchGeospatialPipe implements PipeTransform {
       var botright: Coordinate = {lat:latMin, lng: lngMin};
 
       var box: BBox = {north: lngMax, south: lngMin, east:latMin, west:latMax}
-      console.log("BBOX:", box);
+      //console.log("BBOX:", box);
       
       return box
   }
