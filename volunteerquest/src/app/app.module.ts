@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MaterialTimeControlModule } from '../../node_modules/material-time-control/src/material-time-control.module';
+import { MaterialTimeControlModule } from './material-time-control/material-time-control.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';

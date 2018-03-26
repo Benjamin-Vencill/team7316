@@ -6,7 +6,7 @@ import { GooglemapService } from '../services/googlemap.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSelect } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MaterialTimeControlModule } from '../../../node_modules/material-time-control/src/material-time-control.module';
+import { MaterialTimeControlModule } from '../material-time-control/material-time-control.module';
 import { Validators } from '@angular/forms/src/validators';
 
 @Component({
