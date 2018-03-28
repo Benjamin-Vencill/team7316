@@ -9,6 +9,14 @@
   <mat-form-field>
       <textarea matInput placeholder="Description" [(ngModel)]="content" required></textarea>
     </mat-form-field>
+  <!-- Category -->
+  <mat-input-container>
+    <mat-select placeholder="Category" [(ngModel)]="category" required>
+      <mat-option *ngFor="let category of categories" [value]="category.value">
+        {{ category.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-input-container>
   <!-- Event Date Picker -->
   <mat-form-field class="example-full-width">
     <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
