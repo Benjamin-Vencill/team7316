@@ -71,21 +71,14 @@ export class MapComponent {
               public dialog: MatDialog) {}
 
   ngOnInit() {
-    console.log("In ngOnInit");
     this.firebaseAuth.authState.subscribe((auth) => {
       this.events$ = this.eventManagerService.getCollection$();
-      // this.events$.subscribe(events => {
-      //   console.log("events found:", JSON.stringify(events));
-      // })
-      console.log("auth:", auth);
       if (auth) {
         this.uid = auth.uid;
         this.userFound = true;
-        console.log("uid:", this.uid);
         this.linkRef = this.afs.doc(`users/${this.uid}`);
         this.user$ = this.linkRef.valueChanges();
         this.user$.subscribe(user => {
-          console.log("user retrieved:", JSON.stringify(user));
           if (user.filterOptions) {
             this.filterOptions = user.filterOptions;
             // Update filter options to display
@@ -108,8 +101,6 @@ export class MapComponent {
 
   getEvents() {
     this.events$ = this.eventManagerService.getCollection$();
-    console.log('Events for map:');
-    console.log(this.events$);
   }
 
   clickedMarker(content: string, index: number) {
@@ -122,7 +113,9 @@ export class MapComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed, result is:', JSON.stringify(result));
+      if (result) {
+        this.userFound = true;
+      }
     });
   }
 
@@ -130,21 +123,18 @@ export class MapComponent {
     let filterDialogRef = this.dialog.open(FilterDialogComponent, {
       width: '30em',
       data: { userFilterOptions: this.filterOptions,
-              userfound: this.userFound }
+              userFound: this.userFound }
     });
 
     filterDialogRef.afterClosed().subscribe(filterOptions => {
-      console.log('The filter dialog was closed, result is:', JSON.stringify(filterOptions));
       if (filterOptions) {
         // If user wants to save user options
         if (filterOptions.saveThisFilter) {
           delete filterOptions.saveThisFilter
           // TODO: update the returned filterobject to the user document
-          console.log("about to save user data, this.uid:", this.uid);
           this.userManagerService.update(this.uid, {filterOptions: filterOptions});
         }
         // If user just wants to apply changes without saving to database
-        console.log(JSON.stringify(filterOptions));
         this.filterOptions = filterOptions;
         this.categories = filterOptions.categoriesSelected;
         this.startDate = filterOptions.startDate;
@@ -164,7 +154,6 @@ export class MapComponent {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log("The post event dialog was closed");
     })
   }
 
@@ -176,7 +165,6 @@ export class MapComponent {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed, result is:', JSON.stringify(result));
     });
   }
 

@@ -48,7 +48,7 @@ export class AuthDialogComponent {
     this.authService.login(this.email.value, this.password, (userData) => {
       console.log("userData:", JSON.stringify(userData));
         this.user = userData;
-        this.dialogRef.close();
+        this.dialogRef.close(userData);
         if (this.user.roles.volunteer) {
           this.showGreetUserSnackBar(userData.firstName);
         } else {
@@ -101,7 +101,7 @@ export class AuthDialogComponent {
       this.user = user;
       this.authService.setUserData(newUser);
       this.authService.setUserStatus('online');
-      this.dialogRef.close();
+      this.dialogRef.close(user);
       this.showThanksForRegisteringSnackBar(this.firstName);
     }).catch((error) => console.log(error));
   }
@@ -138,7 +138,7 @@ export class AuthDialogComponent {
       this.user = user;
       this.authService.setUserData(newUser);
       this.authService.setUserStatus('online');
-      this.dialogRef.close();
+      this.dialogRef.close(user);
       this.showThanksForRegisteringSnackBar(this.firstName);
     }).catch((error) => console.log(error));
   }
