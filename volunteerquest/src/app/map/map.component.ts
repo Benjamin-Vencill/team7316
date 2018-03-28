@@ -52,6 +52,7 @@ export class MapComponent {
   lng_term: number;
   radius_term: string;
   filterOptions: any;
+  userFound: boolean;
 
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
@@ -79,6 +80,7 @@ export class MapComponent {
       console.log("auth:", auth);
       if (auth) {
         this.uid = auth.uid;
+        this.userFound = true;
         console.log("uid:", this.uid);
         this.linkRef = this.afs.doc(`users/${this.uid}`);
         this.user$ = this.linkRef.valueChanges();
@@ -94,6 +96,8 @@ export class MapComponent {
             this.radius_term = user.filterOptions.radius_term;
           }
         });
+      } else {
+        this.userFound = false;
       }
     });
   }
@@ -126,7 +130,7 @@ export class MapComponent {
     let filterDialogRef = this.dialog.open(FilterDialogComponent, {
       width: '30em',
       data: { userFilterOptions: this.filterOptions,
-              uid: this.uid }
+              userfound: this.userFound }
     });
 
     filterDialogRef.afterClosed().subscribe(filterOptions => {
