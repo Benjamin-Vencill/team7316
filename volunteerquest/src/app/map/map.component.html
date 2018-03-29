@@ -39,16 +39,21 @@
   </mat-menu>
   <!-- this creates a google map on the page with the given lat/lng from -->
   <!-- the component as the initial center of the map: -->
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
-    (markerClick)="clickedMarker(event.content, i)"
-      [latitude]="event.lat"
-      [longitude]="event.lng">
-      <agm-info-window>
-          <strong>{{event.content}}</strong>
-      </agm-info-window>
-    </agm-marker>
-  </agm-map>
+  <div class="wrapper">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+      <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
+      (markerClick)="clickedMarker(event.content, i)"
+        [latitude]="event.lat"
+        [longitude]="event.lng">
+        <agm-info-window>
+            <strong>{{event.content}}</strong>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+    <div class="over_map">
+      <mat-card class="event_info">Simple card</mat-card>
+    </div>
+  </div>
 </div>
 
 <!-- UI elements for when a app user is not signed in.-->

@@ -2,6 +2,22 @@
     /* background-color: rgba(242, 237, 92, 1); */
 }
 
+.over_map {
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    z-index: 99;
+}
+
+.event_info {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.wrapper {
+    position: relative;
+}
+
 a {
     color: black;
 }
@@ -29,5 +45,5 @@ a {
 }
 
 agm-map {
-    height: 100vh;
+    height: 88vh;
 }
