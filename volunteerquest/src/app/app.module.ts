@@ -11,6 +11,7 @@ import { MatButtonModule, MatMenuModule, MatToolbarModule } from '@angular/mater
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -89,6 +90,7 @@ import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    MatGridListModule,
     MatSelectModule,
     MatSidenavModule,
     MatSliderModule,

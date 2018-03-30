@@ -31,3 +31,15 @@ a {
 agm-map {
     height: 100vh;
 }
+
+.example-sidenav{
+    width: 200px;
+}
+.example-card {
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+}
+.example-card:hover {
+    background-color: rgb(241, 241, 241);
+}
