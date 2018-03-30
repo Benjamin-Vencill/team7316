@@ -90,6 +90,7 @@ import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog
     MatInputModule,
     MatMenuModule,
     MatSelectModule,
+    MatSidenavModule,
     MatSliderModule,
     MatSnackBarModule,
     MatTabsModule,

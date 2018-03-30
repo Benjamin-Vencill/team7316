@@ -1,55 +1,83 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div *ngIf="user$ | async; let user; else anonymous">
-  <!-- UI elements for when a volunteer or nonprofit is signed in. -->
-  <mat-toolbar>
-    <div id="menuContainer">
-      <button id="menuButton" mat-icon-button [matMenuTriggerFor]="appMenu">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div id="titleContainer">
-      <span id="title_text">Volunteer Quest</span>
-    </div>
-    <div id="filterContainer">
-      <button (click)="openFilterDialog()" id="filterButton" mat-icon-button>
-        <mat-icon>tune</mat-icon>
-      </button>
-    </div>
-  </mat-toolbar>
+    <div *ngIf="user$ | async; let user; else anonymous">
+      <!-- UI elements for when a volunteer or nonprofit is signed in. -->
+      <mat-toolbar>
+        <div id="menuContainer">
+          <button id="menuButton" mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <div id="titleContainer">
+          <span id="title_text">Volunteer Quest</span>
+        </div>
+        <div id="filterContainer">
+          <button (click)="openFilterDialog()" id="filterButton" mat-icon-button>
+            <mat-icon>tune</mat-icon>
+          </button>
+        </div>
+      </mat-toolbar>
 
-  <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
-    <button *ngIf="user.roles.nonprofit" (click)="openPostEventDialog()" mat-menu-item>
-      <mat-icon>event</mat-icon>Post an event
-    </button>
-    <button *ngIf="user.roles.nonprofit" (click)="openViewAllEventsDialog()" mat-menu-item>
-        <mat-icon>event</mat-icon>Manage Events
-      </button>
-      <button *ngIf="user.roles.volunteer || user.roles.nonprofit" (click)="openChatView()" mat-menu-item>
-        <mat-icon>chat</mat-icon>Chat Feature
-      </button>
-    <button *ngIf="user.roles.volunteer" mat-menu-item>
-      <mat-icon>star</mat-icon>Favorites
-    </button>
-    <button mat-menu-item>
-        <mat-icon>settings</mat-icon>Account
-      </button>
-    <button (click)="signOut()" mat-menu-item>
-      <mat-icon>person</mat-icon>Sign Out
-    </button>
-  </mat-menu>
-  <!-- this creates a google map on the page with the given lat/lng from -->
-  <!-- the component as the initial center of the map: -->
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
-    (markerClick)="clickedMarker(event.content, i)"
-      [latitude]="event.lat"
-      [longitude]="event.lng">
-      <agm-info-window>
-          <strong>{{event.content}}</strong>
-      </agm-info-window>
-    </agm-marker>
-  </agm-map>
-</div>
+      <mat-menu #appMenu="matMenu" id="over" overlapTrigger="true">
+        <button *ngIf="user.roles.nonprofit" (click)="openPostEventDialog()" mat-menu-item>
+          <mat-icon>event</mat-icon>Post an event
+        </button>
+        <button *ngIf="user.roles.nonprofit" (click)="openViewAllEventsDialog()" mat-menu-item>
+            <mat-icon>event</mat-icon>Manage Your Events
+          </button>
+          <button *ngIf="user.roles.volunteer || user.roles.nonprofit" (click)="openChatView()" mat-menu-item>
+            <mat-icon>chat</mat-icon>Chat Feature
+          </button>
+        <button *ngIf="user.roles.volunteer" mat-menu-item>
+          <mat-icon>star</mat-icon>Favorites
+        </button>
+        <button mat-menu-item>
+            <mat-icon>settings</mat-icon>Account
+          </button>
+        <button (click)="signOut()" mat-menu-item>
+          <mat-icon>person</mat-icon>Sign Out
+        </button>
+      </mat-menu>
+      <!-- this creates a google map on the page with the given lat/lng from -->
+      <!-- the component as the initial center of the map: -->
+      <mat-sidenav-container>
+          <mat-sidenav mode="side" opened>
+              <mat-card class="example-card" *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async" (click)="event.expanded=!event.expanded">
+                  <mat-card-header>
+                    <mat-card-title>{{event.title}}</mat-card-title>
+                    <mat-card-subtitle>{{event.street}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content *ngIf = "!event.expanded">
+                      <p>
+                        {{event.content}}
+                      </p>
+                  </mat-card-content>
+                  <mat-card-content *ngIf = "event.expanded">
+                    <p>{{event.content}} </p>
+                    <p>{{event.date}}</p>
+                    <p>{{event.time}}</p>
+                    <p>{{event.url}}</p>
+                    <p>{{event.contact}}</p>
+                    <p>{{event.phone}}</p>
+                    <p>{{event.email}}</p>
+                      
+                  </mat-card-content>
+                </mat-card>
+          </mat-sidenav>
+          <mat-sidenav-content>
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+          <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
+            (markerClick)="clickedMarker(event, i)"
+            [latitude]="event.lat"
+            [longitude]="event.lng">
+            <agm-info-window>
+              <strong>{{event.title}}</strong>
+            </agm-info-window>
+          </agm-marker>
+        </agm-map>
+
+        </mat-sidenav-content>
+</mat-sidenav-container>
+    </div>
 
 <!-- UI elements for when a app user is not signed in.-->
 <ng-template #anonymous>
@@ -77,11 +105,11 @@
   <!-- the component as the initial center of the map: -->
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
     <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
-    (markerClick)="clickedMarker(event.content, i)"
+    (markerClick)="clickedMarker(event.content, i)" 
       [latitude]="event.lat"
       [longitude]="event.lng">
       <agm-info-window>
-          <strong>{{event.content}}</strong>
+          <strong>{{event.title}}</strong>
       </agm-info-window>
     </agm-marker>
   </agm-map>

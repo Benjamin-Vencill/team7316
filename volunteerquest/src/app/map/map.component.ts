@@ -67,7 +67,7 @@ export class MapComponent {
               private eventManagerService: EventManagerService,
               private router: Router,
               public snackBar: MatSnackBar,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog,) {}
 
   ngOnInit() {
     console.log("In ngOnInit");
@@ -108,8 +108,10 @@ export class MapComponent {
     console.log(this.events$);
   }
 
-  clickedMarker(content: string, index: number) {
-    console.log(`clicked the marker: ${content || index}`)
+  clickedMarker(event: Event, index: number) {
+    console.log(`clicked the marker: ${event || index}`)
+    event.expanded = !event.expanded;
+    console.log(event.expanded)
   }
 
   openSignInDialog(): void {
