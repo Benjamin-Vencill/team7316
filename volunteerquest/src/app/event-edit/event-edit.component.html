@@ -21,6 +21,51 @@
         <w-mat-timepicker color="primary" [(userTime)]="time"></w-mat-timepicker>
       </form>
   </div>
+
+   <!-- CheckboxTest -->
+   <div class="container">
+     <div>
+       <input type="checkbox" id="checkbox-is-repeating" (change)="toggleIsRepeating($event)">
+       <label for="checkbox-is-repeating">Repeat</label>
+     </div>
+     <div *ngIf="eventIsRepeating">          
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="Choose an end date" [(ngModel)]="inputEndDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 [startAt]="repeatEndDate"></mat-datepicker>
+          </mat-form-field>
+      </div>
+     <div *ngIf="eventIsRepeating">
+        <div class="round-container">
+            <div class="container">
+                <div class="round">
+                  <input type="checkbox" id="checkbox-weekly" (change)="toggleWeeklyRepeating($event)"/>
+                  <label for="checkbox-weekly">Weekly</label>
+                </div>
+              </div>
+        </div>
+        <div class="round-container">
+            <div class="container">
+                <div class="round">
+                  <input type="checkbox" id="checkbox-biweekly"(change)="toggleBiWeeklyRepeating($event)"/>
+                  <label for="checkbox-biweekly">Bi-Weekly</label>
+                </div>
+              </div>
+        </div>
+        <div class="round-container">
+            <div class="container">
+                <div class="round">
+                  <input type="checkbox" id="checkbox-monthly"(change)="toggleMonthlyRepeating($event)"/>
+                  <label for="checkbox-monthly">Monthly</label>
+                </div>
+              </div>
+        </div>
+     </div>
+     
+        
+        
+   </div>
+
   <!-- Event Street Address -->
   <mat-form-field>
       <input matInput placeholder="Street Address" [(ngModel)]="street" required>

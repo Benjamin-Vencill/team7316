@@ -65,6 +65,7 @@ import { SearchTitlePipe } from './pipes/search-title.pipe';
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchDatePipe } from './pipes/search-date.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
+import { RoundCheckboxComponent } from './round-checkbox/round-checkbox.component';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     FeedComponent,
     MessageComponent,
     UserListComponent,
-    UserItemComponent
+    UserItemComponent,
+    RoundCheckboxComponent
   ],
   entryComponents: [
     AuthDialogComponent,

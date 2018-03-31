@@ -48,8 +48,10 @@ export class AuthDialogComponent {
     this.authService.login(this.email.value, this.password)
     .then((user) => {
       this.user = user;
+      return user;
+    }).then((user) => {
       this.dialogRef.close();
-      if (this.user.roles.volunteer) {
+      if (user.roles.volunteer) {
         this.showGreetUserSnackBar(user.firstName);
       } else {
         this.showGreetUserSnackBar(user.nonProfitName);
