@@ -103,10 +103,6 @@ export class MapComponent {
     this.events$ = this.eventManagerService.getCollection$();
   }
 
-  clickedMarker(content: string, index: number) {
-    console.log(`clicked the marker: ${content || index}`)
-  }
-
   openSignInDialog(): void {
     let dialogRef = this.dialog.open(AuthDialogComponent, {
       width: '30em'

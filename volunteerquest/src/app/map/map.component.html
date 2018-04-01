@@ -40,17 +40,30 @@
   <!-- this creates a google map on the page with the given lat/lng from -->
   <!-- the component as the initial center of the map: -->
   <div class="wrapper">
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="zoom">
       <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
-      (markerClick)="clickedMarker(event.content, i)"
+      (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow"
         [latitude]="event.lat"
         [longitude]="event.lng">
-        <agm-info-window>
-            <strong>{{event.content}}</strong>
+        <agm-info-window #infoWindow>
+          <mat-card-header>
+            <mat-card-title>{{event.title}}</mat-card-title>
+            <mat-card-subtitle>{{event.date}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{event.content}}</p>
+            <p>Category: {{event.category}}</p>
+            <p>{{event.street}}, {{event.city}}, GA</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <mat-icon color="primary">flag</mat-icon>
+            <mat-icon color="primary">mail</mat-icon>
+            <mat-icon color="primary">star_border</mat-icon>
+          </mat-card-actions>
         </agm-info-window>
       </agm-marker>
     </agm-map>
-    <div class="over_map">
+    <div *ngIf="" class="over_map">
       <mat-card class="event_info">Simple card</mat-card>
     </div>
   </div>
