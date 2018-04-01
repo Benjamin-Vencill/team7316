@@ -2,6 +2,43 @@
     /* background-color: rgba(242, 237, 92, 1); */
 }
 
+mat-card-header {
+    display: block;
+}
+
+mat-card-title {
+    display: block;
+    font-size: medium;
+    font-weight: 500;
+    padding-bottom: 0.5em;
+}
+
+mat-card-subtitle {
+    font-size: small;
+    font-weight: 500;
+}
+
+mat-icon {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.over_map {
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    z-index: 99;
+}
+
+.event_info {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.wrapper {
+    position: relative;
+}
+
 a {
     color: black;
 }
@@ -29,5 +66,5 @@ a {
 }
 
 agm-map {
-    height: 100vh;
+    height: 88vh;
 }

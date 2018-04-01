@@ -1,21 +1,24 @@
-<mat-accordion>
-  <mat-expansion-panel>
+<mat-accordion class="filter-dialog">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Categories
       </mat-panel-title>
+      <mat-icon>bookmark</mat-icon>
     </mat-expansion-panel-header>
     <mat-checkbox *ngFor="let category of categories" [checked]="categoriesSelected.indexOf(category.toLowerCase()) !== -1" (change)="selectCategory(category)">
       {{category}}
     </mat-checkbox>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
   </mat-expansion-panel>
-</mat-accordion>
-<mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Date Range
       </mat-panel-title>
+      <mat-icon>date_range</mat-icon>
     </mat-expansion-panel-header>
     <mat-form-field>
       <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" placeholder="Select a start date">
@@ -27,14 +30,17 @@
       <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
       <mat-datepicker  #endPicker></mat-datepicker>
     </mat-form-field>
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
   </mat-expansion-panel>
-</mat-accordion>
-<mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Location
       </mat-panel-title>
+      <mat-icon>map</mat-icon>
     </mat-expansion-panel-header>
     <mat-form-field>
       <input matInput placeholder="Street Address" [(ngModel)]="street" required>
@@ -49,6 +55,10 @@
     <mat-form-field>
       <input matInput placeholder="Distance (mi)" [(ngModel)]="radius">
     </mat-form-field>
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">End</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 <button mat-raised-button *ngIf="userFound" (click)="onSave()" id="saveButton" color="primary">Save</button>
