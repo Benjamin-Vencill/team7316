@@ -122,7 +122,8 @@ export class EventEditComponent implements OnInit {
   }
 
   toggleIsRepeating(event) {
-    if (event.target.checked) {
+    console.log(event.checked);
+    if (event.checked) {
         this.eventIsRepeating = true;
     } else {
       this.eventIsRepeating = false;
@@ -130,7 +131,7 @@ export class EventEditComponent implements OnInit {
   }
 
   toggleWeeklyRepeating(event) {
-    if (event.target.checked) {
+    if (event.checked) {
       this.eventIsWeekly = true;
     } else {
       this.eventIsWeekly = false;
@@ -138,7 +139,7 @@ export class EventEditComponent implements OnInit {
   }
 
   toggleBiWeeklyRepeating(event) {
-    if (event.target.checked) {
+    if (event.checked) {
       this.eventIsBiWeekly = true;
     } else {
       this.eventIsBiWeekly = false;
@@ -146,7 +147,7 @@ export class EventEditComponent implements OnInit {
   }
 
   toggleMonthlyRepeating(event) {
-    if (event.target.checked) {
+    if (event.checked) {
       this.eventIsMonthly = true;
     } else {
       this.eventIsMonthly = false;
@@ -154,30 +155,31 @@ export class EventEditComponent implements OnInit {
   }
 
   populateRecurringDates() {
-    var date = this.date;
+    var curr_date = new Date(this.date);
+
     if (this.eventIsMonthly) {
-      while (date < this.repeatEndDate) {
-        if(date.getDay() == this.date.getDay()) {
-          this.repeatEventArr.push(new Date(date));
+      while (curr_date.getTime() < this.repeatEndDate.getTime()) {
+        if(curr_date.getDate() == this.date.getDate()) {
+          this.repeatEventArr.push(new Date(curr_date));
         }
-        date = new Date(date.getDay() + 1);
+        curr_date.setDate(curr_date.getDate() + 1);
       }
       
     } else if (this.eventIsBiWeekly) {
-      while (date < this.repeatEndDate) {
-        this.repeatEventArr.push(new Date(date));
-        date = new Date(date.getDay() + 14);
+      while (curr_date.getTime() < this.repeatEndDate.getTime()) {
+        this.repeatEventArr.push(new Date(curr_date));
+        curr_date.setDate(curr_date.getDate() + 14);
       }
     } else if (this.eventIsWeekly) {
-      while (date < this.repeatEndDate) {
-        this.repeatEventArr.push(new Date(date));
-        date = new Date(date.getDay() + 7);
+      while (curr_date.getTime() < this.repeatEndDate.getTime()) {
+        this.repeatEventArr.push(new Date(curr_date));
+        curr_date.setDate(curr_date.getDate() + 7);
       }
     } else {
       //not a repeating event
       this.repeatEventArr.push(this.date);
     }
-    console.log(this.repeatEventArr);
+    //console.log(this.repeatEventArr);
 
   }
 }
