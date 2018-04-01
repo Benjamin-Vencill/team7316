@@ -55,6 +55,14 @@ export class EventEditComponent implements OnInit {
   isEditEvent: boolean;
   id: string;
 
+  eventIsRepeating:boolean = false;
+  eventIsMonthly:boolean = false;
+  eventIsWeekly:boolean = false;
+  eventIsBiWeekly:boolean = false;
+
+  repeatEndDate: Date;
+  repeatEventArr:Date[] = [];
+
   dateFilter = (date: Date): boolean => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1); 
@@ -97,21 +105,29 @@ export class EventEditComponent implements OnInit {
           //Save data to firestore
           this.lat = result.lat();
           this.lng = result.lng();
-          this.EventManagerService.add({title: this.title, content: this.content,
-                                        likes: this.likes, lat: this.lat, lng: this.lng,
-                                        street: this.street, city: this.city,
-                                        zipcode: this.zipcode, date: this.date,
-                                        uid: this.data.uid, category: this.category, expanded: false})
-          .catch(onrejected => {
-            console.log("Unable to add event, onrejected:", onrejected);
-          })
-          .then(value => {
-            console.log("Successfully added event, value:", value);
-            this.dialogRef.close();
-            this.snackBar.open("Created New Event: " + this.title, '', {
-              duration: 2500
+
+          //Get a list of recurring events
+          this.populateRecurringDates();
+          //For each date in the recurrence list, create a new event with that date
+          this.repeatEventArr.forEach(recurrDate => {
+            this.EventManagerService.add({title: this.title, content: this.content,
+              likes: this.likes, lat: this.lat, lng: this.lng,
+              street: this.street, city: this.city,
+              zipcode: this.zipcode, date: recurrDate,
+              uid: this.data.uid, category: 'humanitarian', expanded: false})
+            
+            .catch(onrejected => {
+              console.log("Unable to add event, onrejected:", onrejected);
+            })
+            .then(value => {
+              console.log("Successfully added event, value:", value);
+              this.dialogRef.close();
+              this.snackBar.open("Created New Event: " + this.title, '', {
+                duration: 2500
+              });
             });
-          })
+          });
+          
         } else {
           console.log("Unable to get coordinates from inputted address");
           this.snackBar.open("The provided address was invalid, unable to create event", '', {
@@ -149,5 +165,67 @@ export class EventEditComponent implements OnInit {
         duration: 2500
       });
     })
+  }
+
+  toggleIsRepeating(event) {
+    console.log(event.checked);
+    if (event.checked) {
+        this.eventIsRepeating = true;
+    } else {
+      this.eventIsRepeating = false;
+    }
+  }
+
+  toggleWeeklyRepeating(event) {
+    if (event.checked) {
+      this.eventIsWeekly = true;
+    } else {
+      this.eventIsWeekly = false;
+    }
+  }
+
+  toggleBiWeeklyRepeating(event) {
+    if (event.checked) {
+      this.eventIsBiWeekly = true;
+    } else {
+      this.eventIsBiWeekly = false;
+    }
+  }
+
+  toggleMonthlyRepeating(event) {
+    if (event.checked) {
+      this.eventIsMonthly = true;
+    } else {
+      this.eventIsMonthly = false;
+    }
+  }
+
+  populateRecurringDates() {
+    var curr_date = new Date(this.date);
+
+    if (this.eventIsMonthly) {
+      while (curr_date.getTime() < this.repeatEndDate.getTime()) {
+        if(curr_date.getDate() == this.date.getDate()) {
+          this.repeatEventArr.push(new Date(curr_date));
+        }
+        curr_date.setDate(curr_date.getDate() + 1);
+      }
+      
+    } else if (this.eventIsBiWeekly) {
+      while (curr_date.getTime() < this.repeatEndDate.getTime()) {
+        this.repeatEventArr.push(new Date(curr_date));
+        curr_date.setDate(curr_date.getDate() + 14);
+      }
+    } else if (this.eventIsWeekly) {
+      while (curr_date.getTime() < this.repeatEndDate.getTime()) {
+        this.repeatEventArr.push(new Date(curr_date));
+        curr_date.setDate(curr_date.getDate() + 7);
+      }
+    } else {
+      //not a repeating event
+      this.repeatEventArr.push(this.date);
+    }
+    //console.log(this.repeatEventArr);
+
   }
 }
