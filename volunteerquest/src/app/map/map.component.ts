@@ -104,12 +104,12 @@ export class MapComponent {
 
   getEvents() {
     this.events$ = this.eventManagerService.getCollection$();
-    console.log('Events for map:');
-    console.log(this.events$);
+    //console.log('Events for map:');
+    //console.log(this.events$);
   }
 
   clickedMarker(content: string, index: number) {
-    console.log(`clicked the marker: ${content || index}`)
+    //console.log(`clicked the marker: ${content || index}`)
   }
 
   openSignInDialog(): void {
