@@ -46,20 +46,22 @@
         [latitude]="event.lat"
         [longitude]="event.lng">
         <agm-info-window #infoWindow>
-          <mat-card-header>
-            <mat-card-title>{{event.title}}</mat-card-title>
-            <mat-card-subtitle>{{event.date}}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <p>{{event.content}}</p>
-            <p>Category: {{event.category}}</p>
-            <p>{{event.street}}, {{event.city}}, GA</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <mat-icon color="primary">flag</mat-icon>
-            <mat-icon color="primary">mail</mat-icon>
-            <mat-icon color="primary">star_border</mat-icon>
-          </mat-card-actions>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{event.title}}</mat-card-title>
+              <mat-card-subtitle>{{event.date}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{event.content}}</p>
+              <p>Category: {{event.category}}</p>
+              <p>{{event.street}}, {{event.city}}, GA</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <mat-icon color="primary">flag</mat-icon>
+              <mat-icon color="primary">mail</mat-icon>
+              <mat-icon color="primary">star_border</mat-icon>
+            </mat-card-actions>
+          </mat-card>
         </agm-info-window>
       </agm-marker>
     </agm-map>
@@ -99,20 +101,22 @@
     [latitude]="event.lat"
       [longitude]="event.lng">
       <agm-info-window #infoWindow>
-        <mat-card-header>
-          <mat-card-title>{{event.title}}</mat-card-title>
-          <mat-card-subtitle>{{event.date}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{event.content}}</p>
-          <p>Category: {{event.category}}</p>
-          <p>{{event.street}}, {{event.city}}, GA</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <mat-icon color="primary">flag</mat-icon>
-          <mat-icon color="primary">mail</mat-icon>
-          <mat-icon color="primary">star_border</mat-icon>
-        </mat-card-actions>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{event.title}}</mat-card-title>
+            <mat-card-subtitle>{{event.date}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{event.content}}</p>
+            <p>Category: {{event.category}}</p>
+            <p>{{event.street}}, {{event.city}}, GA</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <mat-icon color="primary">flag</mat-icon>
+            <mat-icon color="primary">mail</mat-icon>
+            <mat-icon color="primary">star_border</mat-icon>
+          </mat-card-actions>
+        </mat-card>
       </agm-info-window>
     </agm-marker>
   </agm-map>
