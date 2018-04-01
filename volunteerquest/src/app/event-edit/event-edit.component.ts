@@ -6,7 +6,7 @@ import { GooglemapService } from '../services/googlemap.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSelect } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MaterialTimeControlModule } from '../../../node_modules/material-time-control/src/material-time-control.module';
+import { MaterialTimeControlModule } from '../material-time-control/material-time-control.module';
 import { Validators } from '@angular/forms/src/validators';
 
 @Component({
@@ -24,6 +24,13 @@ export class EventEditComponent implements OnInit {
               public snackBar: MatSnackBar,
               private __zone: NgZone) { }
 
+  categories = [
+    {value: 'animals', viewValue: 'Animals'},
+    {value: 'education', viewValue: 'Education'},
+    {value: 'environmental', viewValue: 'Environmental'},
+    {value: 'humanitarian', viewValue: 'Humanitarian'}
+  ]
+  
   states = [
     {value: 'GA', viewValue: 'Georgia'},
   ];
@@ -45,6 +52,8 @@ export class EventEditComponent implements OnInit {
   contactEmail: string;
   time = {hour: 12, minute: 0, meriden: 'PM', format: 12};
   eventForm: FormGroup;
+  isEditEvent: boolean;
+  id: string;
 
   eventIsRepeating:boolean = false;
   eventIsMonthly:boolean = false;
@@ -63,6 +72,26 @@ export class EventEditComponent implements OnInit {
 
   ngOnInit() {
     // console.log("In createEvent, uid:", this.data.uid);
+    // Check if there is already data, if so, display it
+    console.log("In event edit component, data passed in:", JSON.stringify(this.data));
+    if(this.data.event) {
+      this.title = this.data.event.title;
+      this.content = this.data.event.content;
+      this.lat = this.data.event.lat;
+      this.lng = this.data.event.lng;
+      this.street = this.data.event.street;
+      this.city = this.data.event.city;
+      this.state = this.data.event.state;
+      this.zipcode = this.data.event.zipcode;
+      this.category = this.data.event.category;
+      this.url = this.data.event.url;
+      this.date = this.data.event.date;
+      this.contactPerson = this.data.event.contactPerson;
+      this.contactNumber = this.data.event.contactNumber;
+      this.time = this.data.event.time;
+      this.id = this.data.event.id;
+      this.isEditEvent = true;
+    }
   }
 
   createEvent() {
@@ -118,7 +147,24 @@ export class EventEditComponent implements OnInit {
   }
 
   editEvent() {
-    // this.EventManagerService.getCollection$
+    console.log("event id:", this.id);
+    this.EventManagerService.update(this.id, {
+      title: this.title, content: this.content,
+      likes: this.likes, lat: this.lat, lng: this.lng,
+      street: this.street, city: this.city,
+      zipcode: this.zipcode, date: this.date,
+      category: this.category
+    })
+    .catch(onrejected => {
+      console.log("Unable to edit event, onrejected:", onrejected);
+    })
+    .then(value => {
+      console.log("Successfully edited event");
+      this.dialogRef.close();
+      this.snackBar.open("Edited Event: " + this.title, '', {
+        duration: 2500
+      });
+    })
   }
 
   toggleIsRepeating(event) {

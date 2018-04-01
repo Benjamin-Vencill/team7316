@@ -50,18 +50,20 @@ export class AuthService {
       })
       .catch(err => {
         console.log('Something went wrong:',err.message);
-      });    
+      });
   }
 
-  login(email:string, password:string):Promise<User> {
+  login(email:string, password:string, callback: Function) {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
     .then(user => {
+      console.log("in auth.service, user:", JSON.stringify(user));
       this.userDocument = this.afs.doc(`users/${user.uid}`);
       this.userDocument.valueChanges().subscribe(userData => {
+        console.log("in valueChanges, userData:", JSON.stringify(userData));
         this.uid = this.firebaseAuth.auth.currentUser.uid;
         this.userData = userData;
+        callback(userData);
       });
-      return this.userData;
     });
   }
 

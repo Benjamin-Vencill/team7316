@@ -7,14 +7,24 @@ export interface Roles {    // Privileges associated with each role
     volunteer?: boolean;
     nonprofit?: boolean;
  }
-  
+
+export interface FilterOptions {
+    address?: string;
+    categoriesSelected?: string [];
+    endDate?: Date;
+    startDate?: Date;
+    radius_term?: string;
+    lat?: number;
+    lng?: number;
+}
+
 export interface User {
     email: string;
     firstName: string;
     lastName: string;
     roles: Roles;
     uid: string;
-    filterOptions?: Object;
+    filterOptions?: FilterOptions;
     nonProfitName?: string;
     nonProfitDescription?: string;
     nonProfitAddress?: string;

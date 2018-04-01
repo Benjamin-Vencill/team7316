@@ -5,7 +5,7 @@
         Categories
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-checkbox *ngFor="let category of categories" [checked]="categoriesSelected.indexOf(category)" (change)="selectCategory(category)">
+    <mat-checkbox *ngFor="let category of categories" [checked]="categoriesSelected.indexOf(category.toLowerCase()) !== -1" (change)="selectCategory(category)">
       {{category}}
     </mat-checkbox>
   </mat-expansion-panel>
@@ -51,5 +51,5 @@
     </mat-form-field>
   </mat-expansion-panel>
 </mat-accordion>
-<button mat-raised-button (click)="onSave()" id="saveButton" color="primary">Save</button>
-<button mat-raised-button  (click)="onApply()" id="applyButton" color="primary">Apply</button>
+<button mat-raised-button *ngIf="userFound" (click)="onSave()" id="saveButton" color="primary">Save</button>
+<button mat-raised-button (click)="onApply()" id="applyButton" color="primary">Apply</button>

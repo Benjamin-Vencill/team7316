@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MaterialTimeControlModule } from '../../node_modules/material-time-control/src/material-time-control.module';
+import { MaterialTimeControlModule } from './material-time-control/material-time-control.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
@@ -65,6 +65,7 @@ import { SearchTitlePipe } from './pipes/search-title.pipe';
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchDatePipe } from './pipes/search-date.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
+import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog/confirm-delete-event-dialog.component';
 
 @NgModule({
   imports: [
@@ -121,10 +122,12 @@ import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
     FeedComponent,
     MessageComponent,
     UserListComponent,
-    UserItemComponent
+    UserItemComponent,
+    ConfirmDeleteEventDialogComponent
   ],
   entryComponents: [
     AuthDialogComponent,
+    ConfirmDeleteEventDialogComponent,
     FilterDialogComponent,
     EventEditComponent,
     ViewEventComponent
