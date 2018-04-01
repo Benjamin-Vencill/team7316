@@ -130,6 +130,7 @@ export class MapComponent {
           // TODO: update the returned filterobject to the user document
           this.userManagerService.update(this.uid, {filterOptions: filterOptions});
         }
+        this.getEvents();
         // If user just wants to apply changes without saving to database
         this.filterOptions = filterOptions;
         this.categories = filterOptions.categoriesSelected;
