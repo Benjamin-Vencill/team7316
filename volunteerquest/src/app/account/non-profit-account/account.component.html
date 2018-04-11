@@ -1,0 +1,131 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div *ngIf="user$ | async; let user; else anonymous">
+  <!-- UI elements for when a volunteer or nonprofit is signed in. -->
+  <mat-toolbar>
+      <div id="backToMap">
+          <button (click)="returnToMap()" id="backButton" mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+        </div>
+    <div id="titleContainer">
+      <span id="title_text">My Account</span>
+    </div>
+  </mat-toolbar>
+
+
+<mat-expansion-panel (opened)="msgPanelOpenState = true"
+      (closed)="msgPanelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title> Messages</mat-panel-title>
+        <mat-panel-description>Open to View Direct Messages</mat-panel-description>
+    </mat-expansion-panel-header>
+</mat-expansion-panel>  
+
+<mat-expansion-panel (opened)="editPanelOpenState = true"
+                     (closed)="editPanelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Edit Account
+          </mat-panel-title>
+          <mat-panel-description>
+           Edit Account Information
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <div class="edit-fields" *ngIf="editPanelOpenState">
+            <div>
+              <!--label class="field-label" >Nonprofit Name:&emsp;</label-->
+              <mat-form-field>
+                <input matInput placeholder="Nonprofit Name" value="{{ nonProfitN }}" [(ngModel)]="nonProfitName">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Nonprofit Description:&emsp;</label> -->
+              <mat-form-field hintLabel="A brief introduction to your organization.">
+                <input matInput placeholder="Description" value="{{ nonProfitDescription }}" [(ngModel)]="nonProfitDescription">
+              </mat-form-field>
+            </div>
+            <br>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Address:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="Address Line 1" value="{{ nonProfitAddress }}" [(ngModel)]="nonProfitAddress">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >City:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="Address City" value="{{ nonProfitCity }}" [(ngModel)]="nonProfitCity">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >State:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="State" value="{{ nonProfitState }}" [(ngModel)]="nonProfitState">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Zip Code:&emsp;</label> -->
+              <mat-form-field hintLabel="(must be 5 digits)">
+                <input matInput #input length="5" placeholder="Zip Code" value="{{ nonProfitZipCode }}" [(ngModel)]="nonProfitZipCode">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Web URL:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="Website URL" value="{{ nonProfitWebURL }}" [(ngModel)]="nonProfitWebURL">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Point of Contact First Name:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="Coordinator First Name" value="{{ firstName }}" [(ngModel)]="firstName">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Person of Contact Last Name:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="Coordinator Last Name" value="{{ lastName }}" [(ngModel)]="lastName">
+              </mat-form-field>
+            </div>
+        
+            <div class="row">
+              <!-- <label class="field-label" >Phone Number:&emsp;</label> -->
+              <mat-form-field>
+                <input matInput placeholder="Phone Number" value="{{ phoneNumber }}" [(ngModel)]="phoneNumber">
+              </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="accent" (click)="clearForm()">
+                Clear Form 
+            </button>
+            <button mat-raised-button color="accent" (click)="resetForm()">
+                Clear Changes 
+            </button>
+            
+            <button mat-raised-button color="primary" (click)="nonProfitUpdate()">
+                Save Changes 
+            </button>
+        </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel (opened)="delPanelOpenState = true"
+                     (closed)="delPanelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title> Delete Account</mat-panel-title>
+        <mat-panel-description>Delete Account from Volunteer Quest</mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-raised-button color="warn" (click)="deleteAccount()">
+        Delete Account 
+    </button>
+</mat-expansion-panel> 
+
+
