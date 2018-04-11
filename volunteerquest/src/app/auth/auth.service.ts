@@ -56,10 +56,10 @@ export class AuthService {
   login(email:string, password:string, callback: Function) {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
     .then(user => {
-      console.log("in auth.service, user:", JSON.stringify(user));
+      //console.log("in auth.service, user:", JSON.stringify(user));
       this.userDocument = this.afs.doc(`users/${user.uid}`);
       this.userDocument.valueChanges().subscribe(userData => {
-        console.log("in valueChanges, userData:", JSON.stringify(userData));
+        //console.log("in valueChanges, userData:", JSON.stringify(userData));
         this.uid = this.firebaseAuth.auth.currentUser.uid;
         this.userData = userData;
         callback(userData);
@@ -84,7 +84,7 @@ export class AuthService {
 
   setUserData(userData: User) {
     const path = `users/${this.currentUserID}`;
-    this.afs.collection('users').doc(this.currentUserID).set(userData)
+    this.afs.collection('users').doc(userData.uid).set(userData)
     .catch(error => console.log(error));
   }
 

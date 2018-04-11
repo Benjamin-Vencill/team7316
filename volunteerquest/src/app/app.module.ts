@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MaterialTimeControlModule } from './material-time-control/material-time-control.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
@@ -64,6 +65,8 @@ import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchDatePipe } from './pipes/search-date.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
 import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog/confirm-delete-event-dialog.component';
+import { AccountComponent } from './account/non-profit-account/account.component';
+import { ConfirmDeleteAccountDialogComponent } from './account/confirm-delete-account-dialog/confirm-delete-account-dialog.component';
 
 @NgModule({
   imports: [
@@ -89,6 +92,7 @@ import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog
     MatMenuModule,
     MatSelectModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
     MatTabsModule,
     MaterialTimeControlModule,
@@ -121,11 +125,14 @@ import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog
     MessageComponent,
     UserListComponent,
     UserItemComponent,
-    ConfirmDeleteEventDialogComponent
+    ConfirmDeleteEventDialogComponent,
+    ConfirmDeleteAccountDialogComponent,
+    AccountComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     ConfirmDeleteEventDialogComponent,
+    ConfirmDeleteAccountDialogComponent,
     FilterDialogComponent,
     EventEditComponent,
     ViewEventComponent

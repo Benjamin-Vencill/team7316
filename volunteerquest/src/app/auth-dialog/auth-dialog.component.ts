@@ -46,7 +46,7 @@ export class AuthDialogComponent {
 
   signin() {
     this.authService.login(this.email.value, this.password, (userData) => {
-      console.log("userData:", JSON.stringify(userData));
+      //console.log("userData:", JSON.stringify(userData));
         this.user = userData;
         this.dialogRef.close(userData);
         if (this.user.roles.volunteer) {
