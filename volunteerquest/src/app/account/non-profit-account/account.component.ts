@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgmCoreModule } from '@agm/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
-import { Http, Response, Headers } from '@angular/http';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Observable } from 'rxjs/Observable';
 import { Validators } from '@angular/forms';
 import 'rxjs/add/operator/map'
@@ -17,25 +14,19 @@ import * as firebase from 'firebase/app';
 import 'hammerjs';
 
 
-import { AuthDialogComponent } from '../../auth-dialog/auth-dialog.component';
 import { AuthService } from '../../auth/auth.service';
+import { ConfirmDeleteAccountDialogComponent } from '../confirm-delete-account-dialog/confirm-delete-account-dialog.component';
 import { EventManagerService } from '../../services/search-engine/event-manager.service';
-import { Event } from '../../manage-events/event.model';
-import { EventEditComponent } from '../../event-edit/event-edit.component';
-import { FilterDialogComponent } from '../../filter-dialog/filter-dialog.component';
-import { GooglemapService } from '../../services/googlemap.service';
-import { SearchTitlePipe } from '../../pipes/search-title.pipe';
-import { SearchCategoryPipe } from '../../pipes/search-category.pipe';
-import { SearchGeospatialPipe } from '../../pipes/search-geospatial.pipe';
 import { User } from '../../auth/user';
 import { UserManagerService } from '../../services/search-engine/user-manager.service';
-import { ViewEventComponent } from '../../view-event/view-event.component'
-
 
 
 @Component({
   selector: 'app-account',
-  providers: [UserManagerService],
+  providers: [UserManagerService, 
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ],
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
@@ -65,13 +56,17 @@ export class AccountComponent implements OnInit {
   hide: boolean = true;
   isEditEnabled = false;
 
-  constructor(private firebaseAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private userManagerService: UserManagerService,
-    private authService: AuthService,
-    private router: Router,
-    public snackBar: MatSnackBar,
-    public dialog: MatDialog) { 
+  constructor(
+              private firebaseAuth: AngularFireAuth,
+              private afs: AngularFirestore,
+              private userManagerService: UserManagerService,
+              private authService: AuthService,
+              private router: Router,
+              public snackBar: MatSnackBar,
+              public dialog: MatDialog,
+              public dialogRef: MatDialogRef<ConfirmDeleteAccountDialogComponent>) { 
+
+
       this.firebaseAuth.authState.subscribe( auth => {
         if (auth !== undefined && auth !== null) {
           this.authUser = auth;
@@ -168,11 +163,29 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  // First confirms with user if they would like to delete the event and then if confirmed, 
+  // deletes the event
   deleteAccount() {
-    console.log("account delete TODO");
-    )
+    let dialogRef = this.dialog.open(ConfirmDeleteAccountDialogComponent, {
+      width: '30em',
+      data: {
+        email: this.user.email
+      }
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //this.userManagerService.remove(this.user.uid);
+        this.snackBar.open("Deleted " + this.user.email, '', {
+          duration: 2500
+        });
+        this.returnToMap();
+        
+      }
+    })
+  }
 
- }
+
   returnToMap(): void {
     this.router.navigate(['mapview']);
   }

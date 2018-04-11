@@ -66,7 +66,7 @@ import { SearchDatePipe } from './pipes/search-date.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
 import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog/confirm-delete-event-dialog.component';
 import { AccountComponent } from './account/non-profit-account/account.component';
-import { ConfirmEditProfileDialogComponent } from './account/confirm-edit-profile-dialog/confirm-edit-profile-dialog.component';
+import { ConfirmDeleteAccountDialogComponent } from './account/confirm-delete-account-dialog/confirm-delete-account-dialog.component';
 
 @NgModule({
   imports: [
@@ -126,12 +126,13 @@ import { ConfirmEditProfileDialogComponent } from './account/confirm-edit-profil
     UserListComponent,
     UserItemComponent,
     ConfirmDeleteEventDialogComponent,
-    ConfirmEditProfileDialogComponent,
+    ConfirmDeleteAccountDialogComponent,
     AccountComponent
   ],
   entryComponents: [
     AuthDialogComponent,
     ConfirmDeleteEventDialogComponent,
+    ConfirmDeleteAccountDialogComponent,
     FilterDialogComponent,
     EventEditComponent,
     ViewEventComponent

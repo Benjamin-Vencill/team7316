@@ -6,11 +6,20 @@
           <button (click)="returnToMap()" id="backButton" mat-icon-button>
             <mat-icon>arrow_back</mat-icon>
           </button>
-        </div>
+      </div>
     <div id="titleContainer">
       <span id="title_text">My Account</span>
     </div>
   </mat-toolbar>
+
+  <mat-toolbar>
+    <div id="subContainer">
+      <span id="sub_text">{{user.email}}</span>
+    </div>
+  </mat-toolbar>
+
+
+
 
 
 <mat-expansion-panel (opened)="msgPanelOpenState = true"

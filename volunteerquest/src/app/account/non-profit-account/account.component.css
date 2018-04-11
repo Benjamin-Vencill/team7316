@@ -57,6 +57,17 @@ a {
     font-size: 1.5em;
 }
 
+#subContainer {
+    text-align: center;
+    width: 100%;
+}
+
+#sub_text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .90em;
+
+}
+
 #menuContainer {
     width: 10%;
 }
