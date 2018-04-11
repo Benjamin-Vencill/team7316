@@ -170,6 +170,10 @@ export class MapComponent {
     this.router.navigate(['chat']);
   }
 
+  openAccountView(): void {
+    this.router.navigate(['account']);
+  }
+
   showLogoutSnackBar() {
     this.snackBar.open("Signed Out", "Okay", {
       duration: 2500

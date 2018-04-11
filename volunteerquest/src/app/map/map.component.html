@@ -30,7 +30,7 @@
     <button *ngIf="user.roles.volunteer" mat-menu-item>
       <mat-icon>star</mat-icon>Favorites
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item *ngIf="user.roles.nonprofit" (click)="openAccountView()">
         <mat-icon>person</mat-icon>Account
       </button>
     <button (click)="signOut()" mat-menu-item>
