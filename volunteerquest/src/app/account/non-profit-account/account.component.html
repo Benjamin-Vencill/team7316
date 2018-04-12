@@ -1,5 +1,5 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div *ngIf="user$ | async; let user; else anonymous">
+<div *ngIf="user$ | async; let user;">
   <!-- UI elements for when a volunteer or nonprofit is signed in. -->
   <mat-toolbar>
       <div id="backToMap">
