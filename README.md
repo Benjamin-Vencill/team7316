@@ -22,7 +22,7 @@ Code repository for Team VEx'D.
    
    On mobile, pinch to zoom and drag to pan the map to search an area. For those on the web, you’ll have to use the good ol’ mouse.
    
-Click on an event to view its details, save it as a favorite, or subscribe to get updates.
+   Click on an event to view its details, save it as a favorite, or subscribe to get updates.
 
 * **The Menu**
    On the top left of the application,  you’ll find a menu icon. Tap or click to access menu options. The available options, covered in detail ahead, are:
@@ -73,7 +73,7 @@ Click on an event to view its details, save it as a favorite, or subscribe to ge
 #### 2. Bug Fixes
 *Volunteer Quest is a brand new application that is still under development. We are routinely adding new features and improving old ones. Because this is our first release, we don’t have any fixes from previous releases. In the future, bug fixes will be found in this section.*
 
-#### 2.Known Bugs
+#### 3.Known Bugs
 *As mentioned, the developers at Volunteer Quest are working around the clock to bring new features to eager volunteers to better support organizations and their volunteers. New features aren’t always perfect the first time around, so here’s a list of known issues*
 
 * **Already Taken!**
