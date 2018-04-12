@@ -43,8 +43,9 @@
     <agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="zoom">
       <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
       (markerClick)="tmp=gm.lastOpen; gm.lastOpen=infoWindow; tmp?.close();"
-        [latitude]="event.lat"
-        [longitude]="event.lng">
+      [iconUrl]="getEventIcon(event.category)"
+      [latitude]="event.lat"
+      [longitude]="event.lng">
         <agm-info-window #infoWindow>
           <mat-card>
             <mat-card-header>
@@ -97,9 +98,10 @@
   <!-- the component as the initial center of the map: -->
   <agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="zoom">
     <agm-marker *ngFor="let event of events$ | searchCategoryPipe : categories | searchTitlePipe : title_term | searchDatePipe : startDate : endDate | searchGeospatialPipe : lat_term : lng_term : radius_term | async, let i = index"
+    [iconUrl]="getEventIcon(event.category)"
     (markerClick)="tmp=gm.lastOpen; gm.lastOpen=infoWindow; tmp?.close();"
     [latitude]="event.lat"
-      [longitude]="event.lng">
+    [longitude]="event.lng">
       <agm-info-window #infoWindow>
         <mat-card>
           <mat-card-header>
