@@ -170,8 +170,12 @@ export class MapComponent {
     this.router.navigate(['chat']);
   }
 
-  openAccountView(): void {
-    this.router.navigate(['account']);
+  openNonProfitAccountView(): void {
+    this.router.navigate(['account-np']);
+  }
+
+  openVolunteerAccountView(): void {
+    this.router.navigate(['account-v']);
   }
 
   showLogoutSnackBar() {
