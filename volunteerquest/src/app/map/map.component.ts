@@ -107,19 +107,19 @@ export class MapComponent {
   getEventIcon(category: string) {
     switch(category) { 
       case 'humanitarian': { 
-          this.iconPath = 'assets/humanitarian_4.png';
+          this.iconPath = 'assets/humanitarian_2.png';
           break; 
       } 
       case 'environmental': { 
-          this.iconPath = 'assets/tree_4.png';
+          this.iconPath = 'assets/tree_2.png';
           break; 
       } 
       case 'animals': {
-          this.iconPath = 'assets/pets_4.png';
+          this.iconPath = 'assets/pets_2.png';
           break;
       }
       case 'education': {
-          this.iconPath = 'assets/education_4.png';
+          this.iconPath = 'assets/education_2.png';
           break;
       }
       default: { 
