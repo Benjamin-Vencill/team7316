@@ -18,7 +18,8 @@ import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 import { AdminGuard } from './auth/admin.guard';
 import { CanReadGuard } from './auth/can-read.guard';
 import { CanEditGuard } from './auth/can-edit.gaurd';
-import { AccountComponent } from './account/non-profit-account/account.component';
+import { NonProfitAccountComponent } from './account/non-profit-account/non-profit-account.component';
+import { VolunteerAccountComponent } from './account/volunteer-account/volunteer-account.component';
 
 
 const appRoutes: Routes = [
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
   { path: 'eventview', component: ManageEventsComponent},
   { path: 'filter', component: FilterComponent },
   { path: 'chat', component: ChatroomComponent },
-  { path: 'account', component: AccountComponent},
+  { path: 'account-np', component: NonProfitAccountComponent},
+  { path: 'account-v', component: VolunteerAccountComponent},
   { path: '', redirectTo: '/mapview', pathMatch: 'full'},
   { path: '**', component: CannotFindPageComponent}
 ] 
