@@ -53,6 +53,7 @@ export class MapComponent {
   radius_term: string;
   filterOptions: any;
   userFound: boolean;
+  iconPath: string;
 
   private uid: string;
   private linkRef: AngularFirestoreDocument<User>;
@@ -101,6 +102,31 @@ export class MapComponent {
 
   getEvents() {
     this.events$ = this.eventManagerService.getCollection$();
+  }
+
+  getEventIcon(category: string) {
+    switch(category) { 
+      case 'humanitarian': { 
+          this.iconPath = 'assets/humanitarian_2.png';
+          break; 
+      } 
+      case 'environmental': { 
+          this.iconPath = 'assets/tree_2.png';
+          break; 
+      } 
+      case 'animals': {
+          this.iconPath = 'assets/pets_2.png';
+          break;
+      }
+      case 'education': {
+          this.iconPath = 'assets/education_2.png';
+          break;
+      }
+      default: { 
+          break; 
+      }
+    }
+    return this.iconPath;
   }
 
   openSignInDialog(): void {
