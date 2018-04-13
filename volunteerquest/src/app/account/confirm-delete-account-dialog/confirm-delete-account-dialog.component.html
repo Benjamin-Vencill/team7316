@@ -1,0 +1,11 @@
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Confirm Deleting Account</mat-card-title>
+      <mat-card-title><b>{{data.email}}</b></mat-card-title>
+      <mat-card-subtitle>This action <b>cannot</b> be undone.</mat-card-subtitle>
+    </mat-card-header>
+    <button mat-raised-button color="primary" class="buttons" (click)="cancelDeleteAccount()">Cancel</button>
+    <button mat-raised-button color="warn" class="buttons" (click)="confirmDeleteAccount()">Delete</button>
+  </mat-card>
+</mat-dialog-content>

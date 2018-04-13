@@ -30,11 +30,14 @@
     <button *ngIf="user.roles.volunteer" mat-menu-item>
       <mat-icon>star</mat-icon>Favorites
     </button>
-    <button mat-menu-item>
-        <mat-icon>settings</mat-icon>Account
-      </button>
+    <button mat-menu-item *ngIf="user.roles.nonprofit" (click)="openNonProfitAccountView()">
+        <mat-icon>person</mat-icon>Account
+    </button>
+    <button mat-menu-item *ngIf="user.roles.volunteer" (click)="openVolunteerAccountView()">
+        <mat-icon>person</mat-icon>Account
+    </button>
     <button (click)="signOut()" mat-menu-item>
-      <mat-icon>person</mat-icon>Sign Out
+      <mat-icon>settings</mat-icon>Sign Out
     </button>
   </mat-menu>
   <!-- this creates a google map on the page with the given lat/lng from -->

@@ -86,12 +86,12 @@
         </mat-select>
       </mat-input-container>
       <mat-input-container>
-        <input matInput placeholder="Zipcode" [(ngModel)]="zipcode" required>
+        <input matInput type="number" placeholder="Zipcode" [(ngModel)]="zipcode" required>
       </mat-input-container>
   </div>
   <!-- Event Website URL -->
   <mat-form-field>
-    <input matInput placeholder="Website URL" [(ngModel)]="url">
+    <input matInput type="url" placeholder="Website URL" [(ngModel)]="url">
   </mat-form-field>
   <!-- Person of Contact -->
   <mat-form-field>
@@ -99,11 +99,11 @@
   </mat-form-field>
   <!-- Event number, NOTE: QoL would be to auto fill the nonprofits number and email -->
   <mat-form-field>
-      <input matInput placeholder="Contact Phone" [(ngModel)]="contactNumber" required>
+      <input matInput type="tel" placeholder="Contact Phone" [(ngModel)]="contactNumber" required>
   </mat-form-field>
   <!-- Event Email TODO: Add validation-->
   <mat-form-field>
-    <input matInput placeholder="Contact Email" [(ngModel)]="contactEmail" required>
+    <input matInput type="email" placeholder="Contact Email" [(ngModel)]="contactEmail" required>
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="createEvent()" *ngIf = "!isEditEvent"
             [disabled]= "!title || !content || !date || !street || !city || !state

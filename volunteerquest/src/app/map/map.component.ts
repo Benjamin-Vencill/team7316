@@ -196,6 +196,14 @@ export class MapComponent {
     this.router.navigate(['chat']);
   }
 
+  openNonProfitAccountView(): void {
+    this.router.navigate(['account-np']);
+  }
+
+  openVolunteerAccountView(): void {
+    this.router.navigate(['account-v']);
+  }
+
   showLogoutSnackBar() {
     this.snackBar.open("Signed Out", "Okay", {
       duration: 2500
