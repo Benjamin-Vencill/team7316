@@ -73,6 +73,16 @@ export class AuthService {
     this.userDocument = null;
   }
 
+  deleteUser() {
+    var user = firebase.auth().currentUser;
+    
+    user.delete().then(function() {
+      console.log("Successfully deleted user.");
+    }).catch(function(error) {
+      console.log("Error deleting user.");
+    });
+  }
+
   setUserStatus(status:string): void {
     const path = `users/${this.currentUserID}`;
     const data = {

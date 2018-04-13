@@ -81,7 +81,7 @@
             <div class="row">
               <!-- <label class="field-label" >Zip Code:&emsp;</label> -->
               <mat-form-field hintLabel="(must be 5 digits)">
-                <input matInput #input length="5" placeholder="Zip Code" value="{{ nonProfitZipCode }}" [(ngModel)]="nonProfitZipCode">
+                <input matInput #input type="number" length="5" placeholder="Zip Code" value="{{ nonProfitZipCode }}" [(ngModel)]="nonProfitZipCode">
               </mat-form-field>
             </div>
         
@@ -109,7 +109,7 @@
             <div class="row">
               <!-- <label class="field-label" >Phone Number:&emsp;</label> -->
               <mat-form-field>
-                <input matInput placeholder="Phone Number" value="{{ phoneNumber }}" [(ngModel)]="phoneNumber">
+                <input matInput type="tel" placeholder="Phone Number" value="{{ phoneNumber }}" [(ngModel)]="phoneNumber">
               </mat-form-field>
             </div>
 

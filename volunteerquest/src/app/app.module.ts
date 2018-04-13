@@ -65,8 +65,9 @@ import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchDatePipe } from './pipes/search-date.pipe';
 import { SearchGeospatialPipe } from './pipes/search-geospatial.pipe';
 import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog/confirm-delete-event-dialog.component';
-import { AccountComponent } from './account/non-profit-account/account.component';
+import { NonProfitAccountComponent } from './account/non-profit-account/non-profit-account.component';
 import { ConfirmDeleteAccountDialogComponent } from './account/confirm-delete-account-dialog/confirm-delete-account-dialog.component';
+import { VolunteerAccountComponent } from './account/volunteer-account/volunteer-account.component';
 
 @NgModule({
   imports: [
@@ -127,7 +128,8 @@ import { ConfirmDeleteAccountDialogComponent } from './account/confirm-delete-ac
     UserItemComponent,
     ConfirmDeleteEventDialogComponent,
     ConfirmDeleteAccountDialogComponent,
-    AccountComponent
+    NonProfitAccountComponent,
+    VolunteerAccountComponent
   ],
   entryComponents: [
     AuthDialogComponent,

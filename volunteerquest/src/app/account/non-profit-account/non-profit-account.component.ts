@@ -27,10 +27,10 @@ import { UserManagerService } from '../../services/search-engine/user-manager.se
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
   ],
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  templateUrl: './non-profit-account.component.html',
+  styleUrls: ['./non-profit-account.component.css']
 })
-export class AccountComponent implements OnInit {
+export class NonProfitAccountComponent implements OnInit {
 
   user$: Observable<User>;
   user: User;
