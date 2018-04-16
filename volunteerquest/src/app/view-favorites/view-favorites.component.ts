@@ -30,7 +30,7 @@ export class ViewFavoritesComponent implements OnInit {
       //   if (i == 0) {
       //     this.events$ = this.EventManagerService.getCollection$(ref => ref.where("id", '==', this.favoriteEvents[i]));
       //   } else {
-      //     this.events$.concat(this.EventManagerService.getCollection$(ref => ref.where("id", '==', this.favoriteEvents[i])));
+      //     this.events$.concat(this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.favoriteEvents[i])));
       //   }
       //   console.log("In iteration " + i + ", this.events$:", this.events$);
       // }

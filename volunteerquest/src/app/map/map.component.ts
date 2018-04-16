@@ -103,11 +103,21 @@ export class MapComponent {
 
   favoriteEvent(event) {
     console.log("event:", JSON.stringify(event));
+    if (event.subscribers == null) {
+      event.subscribers = [ this.uid ];
+    } else {
+      if (event.subscribers.indexOf(this.uid) !== -1) {
+        // event.subscribes.
+      }
+    }
     if (this.favoriteEvents == null) {
       this.favoriteEvents = [event.id];
     } else {
       this.favoriteEvents.push(event.id);
     }
+    this.eventManagerService.update(event.id, {
+      
+    })
     console.log("this.favoriteEvents:", JSON.stringify(this.favoriteEvents));
     this.userManagerService.update(this.uid, {favorites: this.favoriteEvents});
   }
