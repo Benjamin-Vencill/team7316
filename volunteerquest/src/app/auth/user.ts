@@ -24,6 +24,7 @@ export interface User {
     lastName: string;
     roles: Roles;
     uid: string;
+    favorites?: string[];
     filterOptions?: FilterOptions;
     nonProfitName?: string;
     nonProfitDescription?: string;

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">Your Events</mat-toolbar>
+<mat-toolbar color="primary">Your Favorite Events</mat-toolbar>
 <mat-card class="example-card" *ngFor="let event of events$ | async" (click)="event.expanded=!event.expanded">
   <mat-card-header>
     <mat-card-title>{{event.title}}</mat-card-title>
@@ -17,6 +17,7 @@
     <p>{{event.contact}}</p>
     <p>{{event.phone}}</p>
     <p>{{event.email}}</p>
+      
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" class="buttons" (click)="editEventDialog(event)">Edit</button>

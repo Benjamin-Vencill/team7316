@@ -20,54 +20,49 @@
   <!-- Event Date Picker -->
   <mat-form-field class="example-full-width">
     <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
-           placeholder="Date" [(ngModel)]="date" required>
+      placeholder="Date" [(ngModel)]="date" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <!-- Event Time Picker -->
   <div class="container">
-      <form class="demo-form">
-        <w-mat-timepicker color="primary" [(userTime)]="time"></w-mat-timepicker>
-      </form>
+    <form class="demo-form">
+      <w-mat-timepicker color="primary" [(userTime)]="time"></w-mat-timepicker>
+    </form>
   </div>
 
-   <!-- CheckboxTest -->
-   <div class="container">
-     <div>
-       <mat-checkbox id="checkbox-is-repeating" (change)="toggleIsRepeating($event)">
-          Repeat
+  <!-- CheckboxTest -->
+  <div class="container">
+    <div>
+      <mat-checkbox id="checkbox-is-repeating" (change)="toggleIsRepeating($event)">
+        Repeat
       </mat-checkbox>
-     </div>
-     
-     <div *ngIf="eventIsRepeating">
-        <div class="container">
-            <mat-checkbox id="checkbox-weekly" (change)="toggleWeeklyRepeating($event)">
-                Weekly
-            </mat-checkbox>
-        </div>
-        <div class="container">
-            <mat-checkbox id="checkbox-biweekly" (change)="toggleBiWeeklyRepeating($event)">
-                Bi-Weekly
-            </mat-checkbox>
+    </div>
+    <div *ngIf="eventIsRepeating">
+      <div class="container">
+        <mat-checkbox id="checkbox-weekly" (change)="toggleWeeklyRepeating($event)">
+          Weekly
+        </mat-checkbox>
       </div>
       <div class="container">
-          <mat-checkbox id="checkbox-monthly" (change)="toggleMonthlyRepeating($event)">
-              Monthly
-          </mat-checkbox>
-    </div>
-    <div *ngIf="eventIsRepeating">          
+        <mat-checkbox id="checkbox-biweekly" (change)="toggleBiWeeklyRepeating($event)">
+          Bi-Weekly
+        </mat-checkbox>
+      </div>
+      <div class="container">
+        <mat-checkbox id="checkbox-monthly" (change)="toggleMonthlyRepeating($event)">
+          Monthly
+        </mat-checkbox>
+      </div>
+      <div *ngIf="eventIsRepeating">
         <mat-form-field>
           <input matInput [matDatepicker]="picker2" placeholder="Choose an end date" [(ngModel)]="repeatEndDate">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 [startAt]="repeatEndDate"></mat-datepicker>
         </mat-form-field>
+      </div>
     </div>
-     </div>
-     
-        
-        
-   </div>
-
+  </div>
   <!-- Event Street Address -->
   <mat-form-field>
       <input matInput placeholder="Street Address" [(ngModel)]="street" required>
@@ -79,15 +74,15 @@
   <!-- Event State and Zip -->
   <div>
     <mat-input-container>
-        <mat-select placeholder="State" [(ngModel)]="state" required>
-          <mat-option *ngFor="let state of states" [value]="state.value">
-            {{ state.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-input-container>
-      <mat-input-container>
-        <input matInput type="number" placeholder="Zipcode" [(ngModel)]="zipcode" required>
-      </mat-input-container>
+      <mat-select placeholder="State" [(ngModel)]="state" required>
+        <mat-option *ngFor="let state of states" [value]="state.value">
+          {{ state.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-input-container>
+    <mat-input-container>
+      <input matInput type="number" placeholder="Zipcode" [(ngModel)]="zipcode" required>
+    </mat-input-container>
   </div>
   <!-- Event Website URL -->
   <mat-form-field>

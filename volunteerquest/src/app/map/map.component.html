@@ -27,7 +27,7 @@
       <button *ngIf="user.roles.volunteer || user.roles.nonprofit" (click)="openChatView()" mat-menu-item>
         <mat-icon>chat</mat-icon>Chat Feature
       </button>
-    <button *ngIf="user.roles.volunteer" mat-menu-item>
+    <button *ngIf="user.roles.volunteer" (click)="openFavoriteEventsDialog()" mat-menu-item>
       <mat-icon>star</mat-icon>Favorites
     </button>
     <button mat-menu-item *ngIf="user.roles.nonprofit" (click)="openNonProfitAccountView()">
@@ -61,9 +61,15 @@
               <p>{{event.street}}, {{event.city}}, GA</p>
             </mat-card-content>
             <mat-card-actions>
-              <mat-icon color="primary">flag</mat-icon>
-              <mat-icon color="primary">mail</mat-icon>
-              <mat-icon color="primary">star_border</mat-icon>
+              <button mat-icon-button>
+                <mat-icon color="primary">flag</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon color="primary">mail</mat-icon>
+              </button>
+              <button (click)="favoriteEvent(event)" mat-icon-button>
+                <mat-icon color="primary">star_border</mat-icon>
+              </button>
             </mat-card-actions>
           </mat-card>
         </agm-info-window>
@@ -117,9 +123,15 @@
             <p>{{event.street}}, {{event.city}}, GA</p>
           </mat-card-content>
           <mat-card-actions>
-            <mat-icon color="primary">flag</mat-icon>
-            <mat-icon color="primary">mail</mat-icon>
-            <mat-icon color="primary">star_border</mat-icon>
+            <button mat-icon-button>
+              <mat-icon color="primary">flag</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon color="primary">mail</mat-icon>
+            </button>
+            <button (click)="favoriteEvent(event)" mat-icon-button>
+              <mat-icon color="primary">star_border</mat-icon>
+            </button>
           </mat-card-actions>
         </mat-card>
       </agm-info-window>

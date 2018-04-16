@@ -17,6 +17,7 @@ import { AuthService } from '../auth/auth.service';
 import { EventManagerService } from '../services/search-engine/event-manager.service';
 import { Event } from '../manage-events/event.model';
 import { EventEditComponent } from '../event-edit/event-edit.component';
+import { ViewFavoritesComponent } from '../view-favorites/view-favorites.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { GooglemapService } from '../services/googlemap.service';
 import { SearchTitlePipe } from '../pipes/search-title.pipe';
@@ -51,6 +52,7 @@ export class MapComponent {
   lat_term: number;
   lng_term: number;
   radius_term: string;
+  favoriteEvents: string[];
   filterOptions: any;
   userFound: boolean;
   iconPath: string;
@@ -89,6 +91,9 @@ export class MapComponent {
             this.address = user.filterOptions.address;
             this.radius_term = user.filterOptions.radius_term;
           }
+          if (user.favorites) {
+            this.favoriteEvents = user.favorites;
+          }
         });
       } else {
         this.userFound = false;
@@ -96,9 +101,16 @@ export class MapComponent {
     });
   }
 
-    // Seems as though need to be able to use values in the user.filterOptions
-    // object to filter on the events in the events collection to then 
-    // show as markers on the map
+  favoriteEvent(event) {
+    console.log("event:", JSON.stringify(event));
+    if (this.favoriteEvents == null) {
+      this.favoriteEvents = [event.id];
+    } else {
+      this.favoriteEvents.push(event.id);
+    }
+    console.log("this.favoriteEvents:", JSON.stringify(this.favoriteEvents));
+    this.userManagerService.update(this.uid, {favorites: this.favoriteEvents});
+  }
 
   getEvents() {
     this.events$ = this.eventManagerService.getCollection$();
@@ -139,6 +151,19 @@ export class MapComponent {
         this.userFound = true;
       }
     });
+  }
+
+  openFavoriteEventsDialog(): void {
+    let filterDialogRef = this.dialog.open(ViewFavoritesComponent, {
+      width: '30em',
+      height: '80%',
+      data: { user: this.uid,
+              favoriteEvents: this.favoriteEvents }
+    });
+
+    filterDialogRef.afterClosed().subscribe(result => {
+      console.log("Closed view favorite events dialog; result:", JSON.stringify(result));
+    })
   }
 
   openFilterDialog(): void {

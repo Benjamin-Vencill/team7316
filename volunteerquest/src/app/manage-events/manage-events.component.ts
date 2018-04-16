@@ -87,7 +87,4 @@ export class ManageEventsComponent implements OnInit {
   remove(id: string) {
     this.EventManagerService.remove(id);
   }
-
-
-
 }

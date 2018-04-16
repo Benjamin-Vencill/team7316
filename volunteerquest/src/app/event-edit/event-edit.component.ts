@@ -105,7 +105,6 @@ export class EventEditComponent implements OnInit {
           //Save data to firestore
           this.lat = result.lat();
           this.lng = result.lng();
-
           //Get a list of recurring events
           this.populateRecurringDates();
           //For each date in the recurrence list, create a new event with that date
@@ -115,7 +114,6 @@ export class EventEditComponent implements OnInit {
               street: this.street, city: this.city,
               zipcode: this.zipcode, date: recurrDate,
               uid: this.data.uid, category: 'humanitarian', expanded: false})
-            
             .catch(onrejected => {
               console.log("Unable to add event, onrejected:", onrejected);
             })
@@ -127,7 +125,6 @@ export class EventEditComponent implements OnInit {
               });
             });
           });
-          
         } else {
           console.log("Unable to get coordinates from inputted address");
           this.snackBar.open("The provided address was invalid, unable to create event", '', {
