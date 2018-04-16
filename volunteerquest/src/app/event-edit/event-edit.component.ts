@@ -112,9 +112,9 @@ export class EventEditComponent implements OnInit {
           this.repeatEventArr.forEach(recurrDate => {
             this.EventManagerService.add({title: this.title, content: this.content,
               likes: this.likes, lat: this.lat, lng: this.lng,
-              street: this.street, city: this.city,
-              zipcode: this.zipcode, date: recurrDate,
-              uid: this.data.uid, category: 'humanitarian', expanded: false})
+              street: this.street, city: this.city, email: this.contactEmail,
+              zipcode: this.zipcode, date: recurrDate, contact: this.contactPerson,
+              phone: this.contactNumber, uid: this.data.uid, category: 'humanitarian', expanded: false})
             
             .catch(onrejected => {
               console.log("Unable to add event, onrejected:", onrejected);
@@ -151,9 +151,9 @@ export class EventEditComponent implements OnInit {
     this.EventManagerService.update(this.id, {
       title: this.title, content: this.content,
       likes: this.likes, lat: this.lat, lng: this.lng,
-      street: this.street, city: this.city,
-      zipcode: this.zipcode, date: this.date,
-      category: this.category
+      street: this.street, city: this.city, phone: this.contactNumber,
+      zipcode: this.zipcode, date: this.date, contact: this.contactPerson,
+      email: this.contactEmail, category: this.category
     })
     .catch(onrejected => {
       console.log("Unable to edit event, onrejected:", onrejected);
