@@ -82,6 +82,12 @@ Code repository for Team VEx'D.
 * **Rinse, and Repeat**
     When editing an existing event, selecting the repeat option does not produce a series of repeating events.
    When editing an event that is part of a series of repeating events, editing one event in the series does not affect the others.
+   
+* **Map Markers**
+    When a user selects the favorite icon, the map marker dialog box closes, where it should stay open and indicate if the event is now favorited or not.
+    
+* **Favorite Events**
+    When there are two events in the favorite events dialog, and a user unfavorites one of the two events, sometimes the dialog states no favorite events found despite one favorite event still remaining.
 
 
 	
