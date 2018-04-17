@@ -19,7 +19,7 @@ export class EventManagerService {
 
   constructor(private afs: AngularFirestore) { }
 
-  Create
+  //Create
   add(data: Event): Promise<DocumentReference> {
     return this.afs.collection<Event>(this.path).add({...data});
   }
