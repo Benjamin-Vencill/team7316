@@ -12,6 +12,8 @@ export interface Event {
     created?: Date; 
     date?: Date;
     time?: object;
+    time_string?: string;
+    date_string?: string;
     uid?: string;
     url?: string;
     contact?: string;

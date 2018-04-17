@@ -51,6 +51,7 @@ export class EventEditComponent implements OnInit {
   contactNumber: string;
   contactEmail: string;
   time = {hour: 12, minute: 0, meriden: 'PM', format: 12};
+  time_string: string;
   eventForm: FormGroup;
   isEditEvent: boolean;
   id: string;
@@ -116,6 +117,7 @@ export class EventEditComponent implements OnInit {
               street: this.street, city: this.city, email: this.contactEmail,
               zipcode: this.zipcode, date: recurrDate, contact: this.contactPerson,
               phone: this.contactNumber, uid: this.data.uid, category: 'humanitarian',
+              time: this.time, time_string: this.getTimeString(), date_string: this.getDateString(),
               subscribers: {}, expanded: false})
             .catch(onrejected => {
               console.log("Unable to add event, onrejected:", onrejected);
@@ -152,7 +154,8 @@ export class EventEditComponent implements OnInit {
       title: this.title, content: this.content,
       likes: this.likes, lat: this.lat, lng: this.lng,
       street: this.street, city: this.city, phone: this.contactNumber,
-      zipcode: this.zipcode, date: this.date, contact: this.contactPerson,
+      zipcode: this.zipcode, date: this.date, time: this.time, time_string: this.getTimeString(),
+      date_string: this.getDateString(), contact: this.contactPerson,
       email: this.contactEmail, category: this.category, subscribers: this.subscribers
     })
     .catch(onrejected => {
@@ -198,6 +201,22 @@ export class EventEditComponent implements OnInit {
     } else {
       this.eventIsMonthly = false;
     }
+  }
+
+  getTimeString() {
+    return this.time.hour + ":" + this.time.minute + ' ' + this.time.meriden;
+  }
+
+  getDateString() {
+    const day_of_week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    return day_of_week[this.date.getDay()] 
+          + ', ' 
+          + months[this.date.getMonth()]
+          + ' '
+          + this.date.getDate() 
+          + ', ' 
+          + this.date.getFullYear();
   }
 
   populateRecurringDates() {
