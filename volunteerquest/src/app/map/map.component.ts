@@ -102,24 +102,18 @@ export class MapComponent {
   }
 
   favoriteEvent(event) {
-    console.log("event:", JSON.stringify(event));
     if (event.subscribers == null) {
-      event.subscribers = [ this.uid ];
+      event.subscribers = { [this.uid]: true };
     } else {
-      if (event.subscribers.indexOf(this.uid) !== -1) {
-        // event.subscribes.
+      if (this.uid in event.subscribers) {
+        delete event.subscribers[this.uid];
+      } else {
+        event.subscribers[this.uid] = true;
       }
     }
-    if (this.favoriteEvents == null) {
-      this.favoriteEvents = [event.id];
-    } else {
-      this.favoriteEvents.push(event.id);
-    }
     this.eventManagerService.update(event.id, {
-      
-    })
-    console.log("this.favoriteEvents:", JSON.stringify(this.favoriteEvents));
-    this.userManagerService.update(this.uid, {favorites: this.favoriteEvents});
+      subscribers: event.subscribers
+    });
   }
 
   getEvents() {
@@ -167,8 +161,7 @@ export class MapComponent {
     let filterDialogRef = this.dialog.open(ViewFavoritesComponent, {
       width: '30em',
       height: '80%',
-      data: { user: this.uid,
-              favoriteEvents: this.favoriteEvents }
+      data: { user: this.uid }
     });
 
     filterDialogRef.afterClosed().subscribe(result => {

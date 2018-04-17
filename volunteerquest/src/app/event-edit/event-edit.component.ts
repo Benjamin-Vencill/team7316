@@ -54,6 +54,7 @@ export class EventEditComponent implements OnInit {
   eventForm: FormGroup;
   isEditEvent: boolean;
   id: string;
+  subscribers: any;
 
   eventIsRepeating:boolean = false;
   eventIsMonthly:boolean = false;
@@ -89,6 +90,7 @@ export class EventEditComponent implements OnInit {
       this.contactPerson = this.data.event.contactPerson;
       this.contactNumber = this.data.event.contactNumber;
       this.time = this.data.event.time;
+      this.subscribers = this.data.event.subscribers;
       this.id = this.data.event.id;
       this.isEditEvent = true;
     }
@@ -113,7 +115,8 @@ export class EventEditComponent implements OnInit {
               likes: this.likes, lat: this.lat, lng: this.lng,
               street: this.street, city: this.city, email: this.contactEmail,
               zipcode: this.zipcode, date: recurrDate, contact: this.contactPerson,
-              phone: this.contactNumber, uid: this.data.uid, category: 'humanitarian', expanded: false})
+              phone: this.contactNumber, uid: this.data.uid, category: 'humanitarian',
+              subscribers: {}, expanded: false})
             .catch(onrejected => {
               console.log("Unable to add event, onrejected:", onrejected);
             })
@@ -150,7 +153,7 @@ export class EventEditComponent implements OnInit {
       likes: this.likes, lat: this.lat, lng: this.lng,
       street: this.street, city: this.city, phone: this.contactNumber,
       zipcode: this.zipcode, date: this.date, contact: this.contactPerson,
-      email: this.contactEmail, category: this.category
+      email: this.contactEmail, category: this.category, subscribers: this.subscribers
     })
     .catch(onrejected => {
       console.log("Unable to edit event, onrejected:", onrejected);

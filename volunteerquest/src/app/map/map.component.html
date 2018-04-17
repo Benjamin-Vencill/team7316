@@ -57,7 +57,6 @@
             </mat-card-header>
             <mat-card-content>
               <p>{{event.content}}</p>
-              <p>Category: {{event.category}}</p>
               <p>{{event.street}}, {{event.city}}, GA</p>
               <p>Contact Person: {{event.contact}}</p>
               <p>Contact Email: {{event.email}}</p>
@@ -70,7 +69,10 @@
               <button mat-icon-button>
                 <mat-icon color="primary">mail</mat-icon>
               </button>
-              <button (click)="favoriteEvent(event)" mat-icon-button>
+              <button *ngIf="event.subscribers[user.uid]" (click)="favoriteEvent(event)" mat-icon-button>
+                <mat-icon color="primary">star</mat-icon>
+              </button>
+              <button *ngIf="!event.subscribers[user.uid]" (click)="favoriteEvent(event)" mat-icon-button>
                 <mat-icon color="primary">star_border</mat-icon>
               </button>
             </mat-card-actions>
@@ -122,7 +124,6 @@
           </mat-card-header>
           <mat-card-content>
             <p>{{event.content}}</p>
-            <p>Category: {{event.category}}</p>
             <p>{{event.street}}, {{event.city}}, GA</p>
             <p>Contact Person: {{event.contact}}</p>
             <p>Contact Email: {{event.email}}</p>

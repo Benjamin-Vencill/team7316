@@ -18,37 +18,24 @@ export class ViewFavoritesComponent implements OnInit {
   favoriteEvents: string[];
 
   constructor(private firebaseAuth: AngularFireAuth,
-    private EventManagerService: EventManagerService,
+    private eventManagerService: EventManagerService,
+    public filterDialogRef: MatDialogRef<ViewFavoritesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
     console.log("data:", JSON.stringify(this.data));
-    if (this.data.favoriteEvents) {
-      this.favoriteEvents = this.data.favoriteEvents;
-      console.log("this.favoriteEvents:", JSON.stringify(this.favoriteEvents));
-      // for (let i = 0; i < this.favoriteEvents.length; i++) {
-      //   if (i == 0) {
-      //     this.events$ = this.EventManagerService.getCollection$(ref => ref.where("id", '==', this.favoriteEvents[i]));
-      //   } else {
-      //     this.events$.concat(this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.favoriteEvents[i])));
-      //   }
-      //   console.log("In iteration " + i + ", this.events$:", this.events$);
-      // }
-      this.events$ = this.EventManagerService.getCollection$(ref => ref);
-      console.log("after for loop, this.events$:", this.events$);
-      this.events$.subscribe(result => {
-        if (result) {
-          console.log("events:", JSON.stringify(result));
-        }
-      })
-      // first.concat(second)
-    } else {
-      console.log("no events found")
-    }
-    // this.events$ = this.EventManagerService.getCollection$(ref => ref.where("uid", '==', this.uid));
-    // if (!this.events$) {
-    //   console.log("no events");
-    // }
+    this.events$ = this.eventManagerService.getCollection$(ref => ref.where("subscribers." + this.data.user, "==", true))
   }
 
+  close() {
+    this.filterDialogRef.close();
+  }
+
+  unfavoriteEvent(event) {
+    console.log("in unfavoriteEvent:", JSON.stringify(event));
+    delete event.subscribers[this.data.user];
+    this.eventManagerService.update(event.id, {
+      subscribers: event.subscribers
+    });
+  }
 }

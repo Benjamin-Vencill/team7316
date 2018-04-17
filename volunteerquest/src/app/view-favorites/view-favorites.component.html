@@ -20,24 +20,21 @@
       
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" class="buttons" (click)="editEventDialog(event)">Edit</button>
-    <button mat-raised-button color="warn" class="buttons"
-     (click)="deleteEvent(event.id, event.content, event.title, event.date, event.street)">Delete</button>
+    <button mat-raised-button color="primary" class="buttons" (click)="unfavoriteEvent(event)">Remove</button>
   </mat-card-actions>
 </mat-card>
 
 <mat-card *ngIf="(events$ | async)?.length==0">
   <mat-card-header>
-    <mat-card-title>No Events Found</mat-card-title>
+    <mat-card-title>You have no favorited any events!</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <p>
-      Select "Create" to add a new event!
+      Keep on the lookout!
     </p>
-    
   </mat-card-content>
   <mat-card-actions id="create-container">
     <span id="span-button"></span>
-    <button mat-raised-button color="primary" id="create-button" (click)="openNewEventDialog()">Create</button>
+    <button mat-raised-button color="warn" id="close-button" (click)="close()">Close</button>
   </mat-card-actions>
 </mat-card>
