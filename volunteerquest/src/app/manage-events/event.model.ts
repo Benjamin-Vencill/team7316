@@ -20,4 +20,5 @@ export interface Event {
     phone?: string;
     email?: string;
     expanded: false;
+    subscribers?: any;
   }

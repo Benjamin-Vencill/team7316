@@ -68,6 +68,7 @@ import { ConfirmDeleteEventDialogComponent } from './confirm-delete-event-dialog
 import { NonProfitAccountComponent } from './account/non-profit-account/non-profit-account.component';
 import { ConfirmDeleteAccountDialogComponent } from './account/confirm-delete-account-dialog/confirm-delete-account-dialog.component';
 import { VolunteerAccountComponent } from './account/volunteer-account/volunteer-account.component';
+import { ViewFavoritesComponent } from './view-favorites/view-favorites.component';
 
 @NgModule({
   imports: [
@@ -129,7 +130,8 @@ import { VolunteerAccountComponent } from './account/volunteer-account/volunteer
     ConfirmDeleteEventDialogComponent,
     ConfirmDeleteAccountDialogComponent,
     NonProfitAccountComponent,
-    VolunteerAccountComponent
+    VolunteerAccountComponent,
+    ViewFavoritesComponent
   ],
   entryComponents: [
     AuthDialogComponent,
@@ -137,7 +139,8 @@ import { VolunteerAccountComponent } from './account/volunteer-account/volunteer
     ConfirmDeleteAccountDialogComponent,
     FilterDialogComponent,
     EventEditComponent,
-    ViewEventComponent
+    ViewEventComponent,
+    ViewFavoritesComponent
   ],
   providers: [AuthService, ChatService],
   bootstrap: [AppComponent]
