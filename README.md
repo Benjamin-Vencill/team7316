@@ -89,7 +89,22 @@ Code repository for Team VEx'D.
 * **Favorite Events**
     When there are two events in the favorite events dialog, and a user unfavorites one of the two events, sometimes the dialog states no favorite events found despite one favorite event still remaining.
 
-
-	
-
-
+## Installation
+To set up the development environment for Volunteer Quest on Unix based systems or using bash for Windows 10,
+follow these steps:
+* Install the following dependencies
+```
+node 9.4
+```
+* Clone the repository
+* Run the following commands
+```
+cd volunteerquest/
+npm install
+npm install -g firebase-tools
+npm install -g @angular/cli
+```
+To run a test version of the application from the volunteerquest directory, run:
+```
+ng serve -o
+```
