@@ -3,7 +3,7 @@
 Code repository for Team VEx'D.
 
 ## Volunteer Quest Release Notes 
-#### Alpha Version 0.0.1, released April 11, 2018
+#### Alpha Version 0.0.1, released April 23, 2018
 
 #### 1. New Features 
 
