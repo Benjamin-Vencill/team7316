@@ -80,7 +80,6 @@ export class MailSysComponent implements OnInit {
     this.snackBar.open("Message sent", "", {
       duration: 2500
     });
-    this.mailDialogRef.close();
   }
 
 }

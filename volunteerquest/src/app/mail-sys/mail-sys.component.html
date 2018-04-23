@@ -11,7 +11,7 @@
     <input matInput placeholder="Subject" value="{{mailsubject}}" [(ngModel)]="subject"required>
   </mat-form-field>
   <mat-form-field>
-    <textarea matInput placeholder="Message" [(ngModel)]="message" required></textarea>
+    <textarea matInput placeholder="Message" value="" [(ngModel)]="message" required></textarea>
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="pressedSend()">
     Send 

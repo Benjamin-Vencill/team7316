@@ -116,6 +116,10 @@ export class MapComponent {
       subscribers: event.subscribers
     });
   }
+  flagAction(){
+    this.snackBar.open("This event has been flagged", "", 
+    { duration : 2500 });
+  }
 
   getEvents() {
     this.events$ = this.eventManagerService.getCollection$();
