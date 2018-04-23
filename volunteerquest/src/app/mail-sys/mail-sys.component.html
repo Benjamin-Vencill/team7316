@@ -1,0 +1,20 @@
+<mat-dialog-content>
+  <mat-toolbar color="primary">Contact Event Coordinator</mat-toolbar>
+  <!-- Event Name -->
+  <mat-form-field>
+    <input matInput placeholder="To" value="{{mailTo}}" [(ngModel)]="tofield"required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="From" value="{{mailFrom}}" [(ngModel)]="subject"required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Subject" value="{{mailsubject}}" [(ngModel)]="subject"required>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Message" [(ngModel)]="message" required></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="pressedSend()">
+    Send 
+</button>
+  
+</mat-dialog-content>

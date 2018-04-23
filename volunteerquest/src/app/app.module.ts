@@ -69,6 +69,7 @@ import { NonProfitAccountComponent } from './account/non-profit-account/non-prof
 import { ConfirmDeleteAccountDialogComponent } from './account/confirm-delete-account-dialog/confirm-delete-account-dialog.component';
 import { VolunteerAccountComponent } from './account/volunteer-account/volunteer-account.component';
 import { ViewFavoritesComponent } from './view-favorites/view-favorites.component';
+import { MailSysComponent } from './mail-sys/mail-sys.component';
 
 @NgModule({
   imports: [
@@ -131,7 +132,8 @@ import { ViewFavoritesComponent } from './view-favorites/view-favorites.componen
     ConfirmDeleteAccountDialogComponent,
     NonProfitAccountComponent,
     VolunteerAccountComponent,
-    ViewFavoritesComponent
+    ViewFavoritesComponent,
+    MailSysComponent
   ],
   entryComponents: [
     AuthDialogComponent,
@@ -140,7 +142,8 @@ import { ViewFavoritesComponent } from './view-favorites/view-favorites.componen
     FilterDialogComponent,
     EventEditComponent,
     ViewEventComponent,
-    ViewFavoritesComponent
+    ViewFavoritesComponent,
+    MailSysComponent
   ],
   providers: [AuthService, ChatService],
   bootstrap: [AppComponent]

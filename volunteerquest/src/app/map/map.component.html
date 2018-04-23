@@ -66,7 +66,7 @@
               <button mat-icon-button>
                 <mat-icon color="primary">flag</mat-icon>
               </button>
-              <button mat-icon-button>
+              <button mat-icon-button (click)="openEmailDialog(event)">
                 <mat-icon color="primary">mail</mat-icon>
               </button>
               <button *ngIf="event.subscribers[user.uid]" (click)="favoriteEvent(event)" mat-icon-button>

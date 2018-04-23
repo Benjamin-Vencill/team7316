@@ -35,4 +35,6 @@ export interface User {
     nonProfitWebURL?: string;
     phoneNumber?: string;
     status?:string
+    mailTo?: string;
+    mailsubject?: string;
 }

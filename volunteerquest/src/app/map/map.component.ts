@@ -26,6 +26,7 @@ import { SearchGeospatialPipe } from '../pipes/search-geospatial.pipe';
 import { User } from '../auth/user';
 import { UserManagerService } from '../services/search-engine/user-manager.service';
 import { ViewEventComponent } from '../view-event/view-event.component'
+import { MailSysComponent } from '../mail-sys/mail-sys.component';
 
 interface Marker {
   lat: number;
@@ -155,6 +156,16 @@ export class MapComponent {
         this.userFound = true;
       }
     });
+  }
+
+  openEmailDialog(event) {
+    this.userManagerService.update(this.uid,{
+      mailTo: "<" + event.contact + ">(" + event.email + ")",
+      mailsubject: "[" + event.title + "]"
+    });
+    let filterDialogRef = this.dialog.open(MailSysComponent, {
+      width: '30em',
+        });
   }
 
   openFavoriteEventsDialog(): void {
